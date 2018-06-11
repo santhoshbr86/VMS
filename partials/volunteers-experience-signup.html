@@ -1,0 +1,139 @@
+<style type="text/css">
+.Footer{display:none;}
+</style>
+<div class="volunteerExperiance">
+	<header class="col-md-12">
+	<img src="/images/PreviewMode.png" class="preIndicator">
+		<div class="center-block col-md-7 col-sm-7 dashBoard">
+		</div>
+		<section class="vol-Dashboard center-block col-md-7 col-sm-7">
+				<h1>Volunteer @</h1>
+				<h2>{{volExpData.eventName}} <small>{{volExpData.fairStartDate | date : 'M/d':'UTC'}}&mdash;{{volExpData.fairEndDate | date : 'M/d/yy':'UTC'}}</small>
+				</h2>
+				<span>{{volExpData.schoolName}}</span>
+				<p ng-bind="volExpData.description">
+				</p>
+		</section>
+	</header>
+	<section class="col-md-12 helpBlock">
+		<div class="center-block col-md-7 col-sm-9">
+			<h2>
+				How you can help:
+			</h2>
+			<div class="panel panel-default">
+			<ul class="list-group">
+		 	  <li class="list-group-item" ng-repeat="activityDetails in volExpData.orderedsignupSheetActivities" >
+			  <div class="panel-heading">{{activityDetails.header}}
+			  <span class="pull-right glyphicon glyphicon-menu-down" id="openPanel"></span>
+			  <span class="pull-right glyphicon glyphicon-menu-up hide" id="closePanel"></span>
+			  </div>
+			  <div class="panel-body hide" id="panelBody" show-tasks>
+			    <ul class="list-group">
+				  <li class="list-group-item" ng-repeat="activity in activityDetails.signupSheetActivities" >
+				  	    <h1>{{activity.eventName}}<span ng-if="activity.anyTime===true">Any Time</span>
+				  	    <span ng-if="activity.anyTime==false">{{activity.startTime}} - {{activity.endTime}}</span></h1>
+						<p id="select">
+							<button class="btn btn-primary" data-toggle="popover" ng-hide="(activity.volunteerName!=null || activity.status==='I')">select</button>
+							<a href="javascript:void(0);" ng-show="(activity.volunteerName==null && activity.description!==null && activity.description!=='')" id="showDetails">Show Details</a>
+						</p>
+						<script>
+						$(document).ready(function(){
+						    $('[data-toggle="popover"]').popover({
+						        placement : 'top',
+						        html : true,
+						        content : '<div class="media"><a class="pull-right glyphicon glyphicon-remove-circle close-popup" data-dismiss="alert"></a><div class="media-body"><h4>Disabled during preview.</h4></div></div>'
+						    });
+						    $(document).on("click", ".popover .close-popup" , function(){
+						        $(this).parents(".popover").popover('hide');
+						    });
+						});
+                       </script>
+						<div class="hide" select-bar>
+							<p>
+								<button class="btn btn-success">selected <span class="glyphicon glyphicon-ok"></span>
+								</button>
+								<a href="javascript:void(0);" id="hideSelected" ng-click="removeActivity(activity)">Cancel</a>
+							</p>
+							<div class="input-group">
+								<label class="control-label">
+									You are in preview mode.
+								</label>
+								<!--<textarea class="form-control message" ng-model="activity.comments" name="message" ng-maxlength="500"  maxlength="500">
+								</textarea>
+							  	<div class="remaining">{{500-activity.comments.length}} of 500 characters remaining.</div> -->
+							</div>
+						</div>
+						<div class="details" ng-show="activity.volunteerName!=null">
+							<span>Volunteer: {{activity.volunteerName}}</span>
+							<!--<a href="javascript:void(0);"
+							ng-hide="(volExpData.spsUserReturn.volId!=activity.volunteerId || activity.status==='I')" id="hideDetails">Cancel</a> -->
+						</div>
+						<div class="hide commitment" show-commitments>
+							<h1>Are you sure?</h1>
+							<!-- <p>If you are unable to volunteer at this time click Cancel Commitment.</p> -->
+							<button class="btn btn-primary" id="cancelCommit" ng-click="cancelSignUpActivityForVolunteer(activity,volExpData)">Cancel <br /> Commitment
+							</button>
+							<a class="btn btn-link" id="keepCommit">Keep Commitment
+							</a>
+						</div>
+						<!--<div class="hide commitConfirmation" id="ConfirmPopup">
+								<p>You have successfully cancelled your participating in this event.</p>
+								<button class="btn btn-primary">Ok</button>
+						</div>-->
+						<div class="details actDesc hide" show-details>
+							<p>
+								<button class="btn btn-primary" data-toggle="popover" ng-hide="(activity.volunteerName!=null || activity.status==='I')"
+							>select
+							</button>
+								<a href="javascript:void(0);"  id="hideDetails">hide Details</a>
+							</p>
+							<p>{{activity.description}}</p>
+							
+							<!--  <p>{{activity.whyText}}</p> -->
+							
+							<!--<p><ng-include src="'/vmsassets/'+activity.howFile"></ng-include></p>-->
+							
+						</div>
+				  </li>
+				  <!--  <li class="list-group-item">
+				  	    <h1>Cashier<span> 9:00 AM - 10:00 AM</span></h1>
+						<p>
+							<button class="btn btn-primary">select</button>
+							<a href="#">Show Details</a>
+						</p>
+
+				  </li> -->
+				</ul>
+			  </div>
+			  </li></ul>
+			</div>
+
+		</div>
+	</section>
+	<section class="col-md-12 selectedTask submit-bar-mobile"  id="selectedCount" ng-show="selectedCount>0">
+		<div class="center-block col-md-6">
+			<div class="pull-left col-md-6">
+			<h2>1 Task Selected</h2>
+			</div>
+			<div class="col-md-6">
+			<button class="pull-right btn btn-primary">Submit</button>
+			</div>
+		</div>
+	</section>
+	<footer class="col-md-12 volExperienceFoot">
+		<div class="organisedBy center-block col-md-6">
+			<div class="col-md-6">
+			<h2>Organized<br />by</h2>
+			</div>
+			<div class="address col-md-6">
+			    <!-- VMS-2290  
+				<span class="email" ng-show="volExpData.organizerInfo.showEmail==='Y'"><a ng-href="mailto:{{volExpData.organizerInfo.email}}">{{volExpData.organizerInfo.firstName}} {{volExpData.organizerInfo.lastName}}</a></span>
+				<span class="email" ng-show="volExpData.organizerInfo.showEmail==='N'">{{volExpData.organizerInfo.firstName}} {{volExpData.organizerInfo.lastName}}</span>
+				<span ng-show="volExpData.organizerInfo.phone!=null&&volExpData.organizerInfo.showPhone==='Y'">{{volExpData.organizerInfo.phone | phoneFormat}}</span>
+				-->
+				<span class="email"><a ng-href="mailto:{{volExpData.organizerInfo.email}}">{{volExpData.organizerInfo.firstName}} {{volExpData.organizerInfo.lastName}}</a></span>
+				<span ng-show="volExpData.organizerInfo.phone!=null">{{volExpData.organizerInfo.phone | phoneFormat}}</span>
+			</div>
+		</div>
+    </footer>
+</div>

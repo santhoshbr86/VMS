@@ -1,0 +1,331 @@
+<style type="text/css">
+#cpt_header,.cpt-footerWrap, #cpt_footer-holder, footer.container{display:none;}
+</style>
+<div class="volSchedule taskDetails container">
+	<div class="row">
+		<div class="breadCrumb col-md-12 col-sm-12">
+			<a href="javascript:void(0);" ng-click="gotoVolunteers()">Volunteers > </a>
+			<a href="javascript:void(0);" ng-click="gotoSignupBuilder()"> Sign-up Builder > </a>
+			<a href="javascript:void(0);" ng-click="stepBack()"> Edit Schedule > </a>
+			<a class="disabled"> Task Details</a>
+		</div> 
+
+		<div class="col-md-12 col-sm-12 header" ng-include="include.topText">
+		</div>
+	</div>
+	<!--<div class="col-md-1 col-sm-1 col-xs-1"></div> -->
+		<div class="show_error col-md-10 col-sm-10 col-xs-10 errorBox" ng-show="(taskDetailsFrm.title.$error.required && submitted)
+		|| (taskDetailsFrm.startTime.$error.required&&submitted)
+		||	(taskDetailsFrm.endTime.$error.required&&submitted)
+		|| (taskDetailsFrm.title.$error.maxlength && submitted)
+		|| (taskDetailsFrm.description.$error.maxlength && submitted)
+		|| (taskDetailsFrm.volName.$error.pattern && submitted)
+		|| (taskDetailsFrm.startDate.$error.required && submitted)
+		|| (taskDetailsFrm.startDate.$error.date && submitted)
+		|| (thisIsBefore(task.startDate,task.maxPastDate) && submitted)
+		|| (thisIsAfter(task.startDate,task.maxFutureDate) && submitted)
+		|| (isSameOrAfter(task.start,task.end) && submitted)
+		|| ((task.start !== 'Any Time' && task.end === 'Any Time') && submitted)
+		|| wrongTime
+		|| (isGreaterthan12(task.start,task.end) && submitted)
+		">
+			<span class="glyphicon glyphicon-alert errorIcon"></span>
+			<!--<span class="glyphicon glyphicon-warning-sign col-md-1"></span>-->
+		 					<span class="col-md-11 errorTextBox">
+		 						<p ng-show="taskDetailsFrm.title.$error.required">
+									Title is a required field.
+								</p>
+								<p ng-show="taskDetailsFrm.startTime.$error.required">
+									Start time is a required field.
+								</p>
+								<p ng-show="taskDetailsFrm.endTime.$error.required">
+									End time is a required field.
+								</p>
+			 					<p ng-show="taskDetailsFrm.title.$error.maxlength">
+									Title cannot be more than 30 characters.
+								</p>
+			 					<p ng-show="taskDetailsFrm.description.$error.maxlength">
+									Description cannot be more that 500 characters.
+								</p>
+             				    <p ng-show="taskDetailsFrm.volName.$error.pattern">
+									Volunteer name should be in the format {first_name} {last_name}.
+								</p>
+             				     <p ng-show="taskDetailsFrm.startDate.$error.required">
+									 Date is a required field.
+								 </p>
+             				     <p ng-show="taskDetailsFrm.startDate.$error.date">
+									 Invalid date: valid format "MM/DD/YYYY".
+								 </p>
+             				     <p ng-show="thisIsBefore(task.startDate,task.maxPastDate)">
+									 Please select a date after {{task.maxPastDate | standardDate}}.
+								 </p>
+             				     <p ng-show="thisIsAfter(task.startDate,task.maxFutureDate)">
+									 Please select a date before {{task.maxFutureDate | standardDate}}.
+								 </p>
+             				     <p ng-show="isSameOrAfter(task.start,task.end)">
+									 End time must be after start time.
+								 </p>
+             				     <p ng-show="task.start !== 'Any Time' && task.end === 'Any Time'">
+									 End time must be a specific time after start time, and not 'Any Time'.
+								 </p>
+								<p ng-show="wrongTime">
+									Enter correct time format. Example 00:00 or 0:00.
+								</p>
+								<p ng-show="isGreaterthan12(task.start,task.end)">
+									Duration can not exceed 12 hours.
+								</p>
+			   			   </span>
+		</div>
+		<div class="col-md-5 col-sm-5 col-xs-5"></div>
+	<section class="row basicInfoForm">
+		<form class="form-horizontal" name="taskDetailsFrm" role="form" autocomplete="off" novalidate>
+			<div class="col-md-12 col-sm-7 col-xs-12">
+				<div class="form-group">
+					<label class="col-md-2 col-sm-3 col-xs-12 control-label">
+						Role:
+					</label>
+					<div class="col-md-5 col-sm-5 col-xs-12">
+						<input maxlength="40" class="form-control" type="text" name="title"
+								   ng-model="task.title"
+								   ng-class="{ errorBorder : (taskDetailsFrm.title.$error.required && submitted) || (taskDetailsFrm.title.$error.maxlength && submitted) }"
+								   ng-maxlength="40"
+								   maxlength="40"
+								   required>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-2 col-sm-2 col-xs-12 control-label">
+						Description:
+					</label>
+					<div class="col-md-9 col-sm-10 col-xs-12">
+						<textarea class="form-control ng-pristine ng-valid ng-valid-maxlength ng-touched" name="description" ng-model="task.description"  ng-maxlength="500" maxlength="500"> </textarea>
+						<div class="remainingDesc">{{task.description.length-0}} of 500</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-2 col-sm-2 col-xs-12 control-label">
+						Date:
+					</label>
+					<div class="col-md-3 col-sm-4 col-xs-12 date">
+						<div class="input-group">
+							<input class="form-control" type="text" name="startDate"
+									   uib-datepicker-popup="MM/dd/yyyy"
+									   ng-model="task.startDate"
+									   ng-class="{ errorBorder : (taskDetailsFrm.startDate.$error.required && submitted)
+									   || (taskDetailsFrm.startDate.$error.date && submitted)
+									   || (thisIsBefore(task.startDate,task.maxPastDate) && submitted)
+									   || (thisIsAfter(task.startDate,task.maxFutureDate) && submitted)
+									   }"
+									   is-open="opened"
+									   show-button-bar="false"
+									   required>
+							<span class="input-group-btn">
+					          	<button class="btn btn-default btnCalender" type="button" ng-click="open($event)"> <img src="../images/icon-calendar2.png" height="28"/></button>
+					        </span>
+				        </div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-2 col-sm-2 col-xs-12 control-label">
+							Start Time:
+					</label>
+					<div class="col-md-2 col-sm-1 col-xs-12 timeWrap" id="startTimeWrap">
+							<!-- <select ng-model="task.start"
+									name="startTime"
+									class="form-control"
+								ng-class="{ errorBorder : (taskDetailsFrm.startTime.$error.required && submitted)
+								|| (taskDetailsFrm.startTime.$error.date && submitted)
+								|| (isSameOrAfter(task.start,task.end) && submitted)
+								}">
+								<option ng-repeat="hour in hours">{{hour}}</option>
+							</select> -->
+							<input type="text"
+							ng-model="task.start"
+							name="startTime"
+							class="form-control"
+							ng-class="{ errorBorder : (taskDetailsFrm.startTime.$error.required && submitted)
+								|| (taskDetailsFrm.startTime.$error.date && submitted)
+								|| (isSameOrAfter(task.start,task.end) && submitted)
+								}" required validate-start/>
+							<time-start></time-start>
+					</div>
+					<label class="col-md-1 col-sm-1 col-xs-12 control-label" ng-hide="task.start==='Any Time'">
+							End:
+					</label>
+					<div class="col-md-2 col-sm-1 col-xs-12 timeWrap" id="endTimeWrap" ng-hide="task.start==='Any Time'">
+							<!-- <select ng-model="task.end"
+									name="endTime"
+									class="form-control"
+									ng-class="{ errorBorder : (taskDetailsFrm.startTime.$error.required && submitted)
+								|| (taskDetailsFrm.startTime.$error.date && submitted)
+								|| (isSameOrAfter(task.start,task.end) && submitted)
+								|| ((task.start !== 'Any Time' && task.end === 'Any Time') && submitted)
+								}">
+								<option ng-repeat="endHour in endHours" ng-selected="task.end===endHour">{{endHour}}</option>
+
+							</select> -->
+							<input type="text" ng-model="task.end"
+									name="endTime"
+									class="form-control"
+									ng-class="{ errorBorder : (taskDetailsFrm.startTime.$error.required && submitted)
+								|| (taskDetailsFrm.startTime.$error.date && submitted)
+								|| (isSameOrAfter(task.start,task.end) && submitted)
+								|| ((task.start !== 'Any Time' && task.end === 'Any Time') && submitted)
+								}" required validate-end/>
+							 <time-end></time-end>
+					</div>
+				</div>
+				<section class="volunteerName col-md-12 col-sm-12">
+					<div class="form-group">
+						<label class="col-md-2 col-sm-2 col-xs-12 control-label volunteerLabel">
+							Assign a Volunteer:
+						</label>
+						<div class="col-md-4 col-sm-4 col-xs-12 volunteerField">
+							<input class="form-control" type="text" name="volName"  ng-model="task.volName" ng-change="checkVolunteer()"  autocomplete="off"> <!-- ng-blur -->
+						</div>
+						<div class="col-md-6 col-sm-5 col-xs-12" ng-include="include.volText"></div>
+					</div>
+					<ul class="contactList" ng-show="showlist">
+						<li ng-repeat="contact in contactList | filter: task.volName | orderBy: ['volunteerExt.firstName', 'volunteerExt.lastName']">
+						<a href="javascript:void(0);" ng-click="onSelect(contact)"><span class='name'>{{contact.volunteerExt.firstName}}</span> <span class='name'>| {{contact.volunteerExt.lastName}}</span> <span ng-if="contact.email.length>0">| {{contact.email}}</span> <span ng-if="contact.volunteerExt.phone !==null"> | {{contact.volunteerExt.phone | phoneFormat}}</span></a>
+						</li>
+						<span class="addNew" ng-show="(filteredContact=(contactList | filter: task.volName)).length==0"><a href="javascript:void(0);" ng-click="addNewContact()">Add new Contact</a></span>
+					</ul>
+				</section>
+				<div class="col-md-10 col-sm-10 no_padding col-xs-12 newVolunteer" ng-show="!noVolunteer">
+				    </br>
+				    <div class="show_error errorBox col-md-12" ng-show="(taskDetailsFrm.phone.$error.pattern && submitted) ||
+				    submitted&&(!(taskDetailsFrm.$valid)) || (taskDetailsFrm.volName.$error.maxlength && submitted) ||
+				    (taskDetailsFrm.email.$error.pattern && submitted) || (taskDetailsFrm.volName.$error.pattern && submitted)|| (taskDetailsFrm.firstName.$error.minlength && submitted)  || (taskDetailsFrm.lastName.$error.minlength && submitted)|| (taskDetailsFrm.email.$error.minlength && submitted) || (taskDetailsFrm.lastName.$error.maxlength && submitted)|| (taskDetailsFrm.firstName.$error.maxlength && submitted) || (taskDetailsFrm.phone.$error.length && submitted) || (addContactErrors) || (addContactFirstNameError)|| (addContactLastNameError) || (addContactEmailError) ">
+				        <span class="glyphicon glyphicon-alert errorIcon"></span>
+				        <span class="col-md-11 errorTextBox">
+				            <p ng-show="submitted">
+				            Please enter required contact details below.
+				            </p>
+				            <p ng-show="taskDetailsFrm.volName.$error.maxlength">
+				            Volunteer name cannot be more than 35 characters.
+				            </p>
+				            <p ng-show="taskDetailsFrm.email.$error.pattern || taskDetailsFrm.email.$error.minlength">
+				            Email address is not valid.
+				            </p>
+				            <p ng-show="taskDetailsFrm.volName.$error.pattern">
+				            Volunteer name is not valid.
+				            </p>
+				            <p ng-show="taskDetailsFrm.firstName.$error.minlength">
+				            Volunteer first name should be at least 1 characters.
+				            </p>
+				            <p ng-show="taskDetailsFrm.lastName.$error.minlength">
+				            Volunteer last name should be at least 1 characters.
+				            </p>
+				            <p ng-show="(taskDetailsFrm.phone.$error.maxlength || taskDetailsFrm.phone.$error.length ||taskDetailsFrm.phone.$error.minlength )&&submitted">
+				            Please enter your 10-digit telephone number, including area code, with no spaces or special characters.
+				            </p>
+				            <p ng-show="addContactErrors">
+				            {{addContactErrorsMsg}}.
+				            </p>
+				            <p ng-show="addContactFirstNameError">
+				            First name is a required field.
+				            </p>
+				            <p ng-show="taskDetailsFrm.firstName.$error.maxlength">
+				            First name cannot be more than 30 characters.
+				            </p>
+				            <p ng-show="addContactLastNameError">
+				            Last name is a required field.
+				            </p>
+				            <p ng-show="taskDetailsFrm.lastName.$error.maxlength">
+				            Last name cannot be more than 30 characters.
+				            </p>
+				            <p ng-show="addContactEmailError">
+				            Email is a required field.
+				            </p>
+				        </span>
+			        </div>
+			        <div class="form-group">
+			            <label class="col-md-2 col-sm-2 col-xs-12 control-label">First Name:</label>
+			            <div class="col-md-4 col-sm-7 col-xs-12">
+			            <input type="text"
+			            ng-model="task.firstName"
+			            ng-minlength="1"
+			            ng-maxlength="30"
+			            name="firstName"
+			            class="form-control"
+			            maxlength="30" />
+			            </div>
+			        </div>
+			        <div class="form-group">
+			            <label class="col-md-2 col-sm-2 col-xs-12 control-label">Last Name:</label>
+			            <div class="col-md-4 col-sm-7 col-xs-12">
+			            <input type="text"
+			            ng-model="task.lastName"
+			            ng-minlength="1"
+			            ng-maxlength="30"
+			            name="lastName"
+			            class="form-control"
+			            maxlength="30" />
+			            </div>
+			        </div>
+			        <div class="form-group">
+			            <label class="col-md-2 col-sm-2 col-xs-12 control-label">Email:</label>
+			            <div class="col-md-7 col-sm-7 col-xs-12">
+			            <input type="email" ng-model="task.email" ng-minlength="6" name="email" class="form-control" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{1,}$/">
+			            </div>
+			        </div>
+			        <div class="form-group">
+			            <label class="col-md-2 col-sm-2 col-xs-12 control-label">Phone:</label>
+			            <div class="col-md-4 col-sm-7 col-xs-12">
+			            <input type="tel" ng-model="task.phone" name="phone" class="form-control" maxlength="10" ng-maxlength="10" ng-minlength="10" numbers-only format-phone>
+			            <span class="control-label-area-code">(Please include area code)</span>
+			            </div>
+			            <span class="control-label-optional">(optional)</span>
+			        </div>
+			    </div>
+			    <hr class="volunteerBottom">
+
+                <!-- for duplicate-->
+			    <div ng-repeat="duplicate in duplicates track by $index">
+			        <task-duplicate></task-duplicate>
+                </div>
+				<div class="col-md-6 col-sm-5 pull-right duplicateTasks row">
+					<div ng-include="include.volDuplicate"></div>
+					<button class="btn btn-custom pull-right dup-btn" ng-click="duplicate()">DUPLICATE</button>
+				</div>
+			</div>
+			<footer class="calenderFooter col-md-12 col-sm-12 col-xs-12 footer_taskdetails buttons_footer">
+			<hr>
+				<!--<button class="btn btn-custom" ng-click="close()">CANCEL</button>
+				<button class="btn btn-primary" ng-click="saveTask()" ng-disabled="noMatch ||showlist || runingSaveTask">SAVE</button>-->
+				<button class="btn btn-custom" ng-click="stepBack()">CANCEL</button>
+				<button class="btn btn-primary" ng-click="saveTask()" ng-disabled="noMatch ||showlist || runingSaveTask">SAVE</button>
+
+				<button class="btn btn-custom btn-delete pull-right del-task" ng-click="checkvolunteername()">DELETE</button>
+				<div ng-style="resizerStyle" class="clearfix resizerElement" ng-show="showlist"></div>
+			</footer>
+
+
+		</form>
+
+	</section>
+	
+<div ng-if="overLay" class="popupOverlay"></div>
+<div ng-if="deletetasktetails" class="popUp">
+    <h4>Delete Time Slot</h4>
+    <p>A volunteer has signed up for this time slot, are you sure you want to delete it? If so, please notify the volunteer of this change.</p>
+    <footer>
+        <button class="btn btn-custom" ng-click="closePopUp()">Cancel</button>
+        <button class="btn btn-primary" ng-click="deleteContact(task)">Delete</button>
+    </footer>
+</div>	
+
+<div class="taskConfirmPopUp" ng-if="taskConfirmPopUp"> 
+<h4>Adjust Time Slot</h4>
+	<p>Do you want this volunteer to remain assigned to this time slot?<br /><br />
+	Please notify the volunteer of any changes.</p>
+	<br />
+	<footer>
+		<button class="btn btn-custom" ng-click="cancelTaskDetailPopUp()">CANCEL</button>
+		<button class="btn btn-primary" ng-click="keepChanges()">YES, KEEP</button>
+		<button class="btn btn-primary pull-right" ng-click="noRemoveChanges()">NO, REMOVE</button>
+	</footer>
+</div>
+	<div class="bg-popup" ng-if="PopupBg" ng-click="closeCalender()"></div>
+</div>

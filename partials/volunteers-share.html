@@ -1,0 +1,55 @@
+<div class="container addContact">
+	<header class="pageHeader">
+		<h4><a href="javascript:void(0);" ng-click="gotoVolunteers()">Volunteer</a></h4>
+	</header>
+
+	<section class="row">
+		<div class="page-header">
+			<h1>Share on Social Media</h1>
+			<p>Post these images on Facebook or Twitter to share your Book Fair activity with friends!</p>
+		</div>
+	</section>
+
+    <section class="col-md-6">
+    	<div class="row sendMessage">
+			<div class="col-md-9 input-group">
+				<label class="control-label">Share Your Sign-Up Sheet</label>
+				<img src="../images/BFC_Badge_Facebook.png" class="shareImg">
+				<ul class="socialShare">
+					<li class="list">
+						<a ng-click="openFBStatic(maskedSignUpStr)"><img src="images/icon_fb.jpg" /></a>
+					</li>
+					<li class="list">
+						<a ng-click="openTwitter(maskedSignUpStr)"><img src="images/icon_twitter.jpg"/></a>
+					</li>
+				</ul>
+			</div>
+		</div>
+    </section>
+
+	<section class="col-md-6">
+		<div class="row sendMessage">
+			<div class="col-md-6 input-group">
+				<label class="control-label">Thank Your Volunteers</label>
+					<img src="../images/thankyou_share.png" class="shareImg">
+				<ul class="socialShare">
+					<li class="list">
+						<a ng-click="fbBookfairs()"><img src="images/icon_fb.jpg" /></a>
+					</li>
+					<li class="list">
+						<a ng-click="twBookfairs()""><img src="images/icon_twitter.jpg" /></a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</section>
+
+	<div class="popupOverlay" id="overLay" ng-click="closePopUp()" ng-if="showOverlay"></div>
+	<section class="popUp fbError" ng-show="showFBError">
+	<h4>Error</h4>
+	<p>{{fbError}}</p>
+	<footer>
+		<button class="btn btn-primary" ng-click="closePopUp()">Ok</button>
+	</footer>
+</section>
+</div>

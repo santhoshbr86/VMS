@@ -1,0 +1,144 @@
+<div class="volunteerSchedule" ng-controller="calenderSchedulerCtrl">
+	<div class="calendarTopSave">  
+	 	<button class="btn btn-custom" ng-click="stepBack()">CANCEL</button>
+		<button class="btn btn-primary" ng-click="saveFair(fair)">SAVE</button>
+	</div>
+	<section class="taskTime">
+		<div ng-include="include.Vol430_pallet"></div>
+		<div class="calenderWrap" >
+		<section class="taskDetails">
+			<section class="row roles">
+			<ul  class="col-md-12 rolesLine">
+				<li draggable="true" ng-repeat="adminrole in adminroles.rolesStatus | orderBy:'title'">
+						<span>{{adminrole.title}}</span>
+						<span class="hide">{{adminrole.id}},{{adminrole.description}}</span>
+						
+				</li>
+			</ul>
+			</section>
+			<section class="row roles custom">
+			<ul class="col-md-12">
+				<li draggable="true">
+					<span>Create Your Own</span>
+					<span class="hide">-1,custom role</span>
+				</li>
+				<li draggable="true" ng-repeat="customRole in customRoles.signupSheetCustomRolesMessagesList | orderBy:'title'">
+						<span>{{customRole.title}}</span>
+						<span class="hide">0,{{customRole.description}}</span>
+						<a ng-click="deleteCustomTaskConfirm(customRole, $event)"></a>
+				</li>
+			</ul>
+			</section>
+		</section>
+		</div>
+	</section>
+	<section class="schedulerWrap">
+		<aside class="weekdaysCol">
+				<div class="prevTopWrap" ng-class="{'disable':beginWith==0}">
+						<a ng-disabled="beginWith==0" class="prevTop" ng-click="prevDates()"></a>
+				</div>
+				<div class="outerWrapVertical">
+					<div class="innerWrapVertical">
+					<!-- | dateScroller: currentWeek * weekSize | limitTo:weekSize -->
+						<dl>
+							<dd  ng-repeat="d in weekDays | limitTo:weekSize:beginWith" ng-class="{'heightFairDate':DateRangeCheck(d)}">
+							{{d.day}}<br /><span>{{d.dat}}</span>
+							<br />
+							<div class="calButton">
+								<a ng-click="toggleDupOverlay(d)"><span class="linkText">DUPLICATE</span></a>
+							</div>
+							</dd>
+
+						</dl>
+					</div>
+				</div>
+				<div class="nextBottomWrap" ng-class="{'disable':disableNext==true}">
+						<a href="javascript:void(0);" ng-disabled="disableNext==true" class="nextBottom" ng-click="nextDates()"></a>
+				</div>
+		</aside>
+		<div class="middleTables">
+			<section class="hoursWrap">
+					<div class="preWrap" scroll-horizontal ng-class="{'invisible':disablePrevTime==true}">
+							<a href="javascript:void(0);" class="previous" ></a>
+					</div>
+			        <div class="outerWrap">
+			        	<div class="innerWrap">
+			        		<dl>
+								<dd ng-repeat="hour in hours track by $index">{{hour}}</dd>
+							</dl>
+						</div>
+					</div>
+					<div class="nextWrap" scroll-horizontal ng-class="{'hidden':disableNextTime==true}">
+							<a href="javascript:void(0);" class="next" ></a>
+					</div>
+			</section>
+			<div class="taskSection">
+			<!--| dateScroller: currentWeek * weekSize |limitTo:weekSize -->
+				<div class="innerTaskSection">
+				<dl class="DaysRow" ng-repeat="d in weekDays | limitTo:weekSize:beginWith">
+					<dd class="preIndicatorWrap">
+						<span class="taskBefore hide"></span>
+					</dd>
+					<dd class="outerWrap">
+				        	<div class="innerWrap">
+				        	<div class="dataBox" ng-repeat="hour in hours track by $index" droppable="true">
+				        	<span id='hiddenDate' class="hide">
+						 		{{d.dateYear}},{{hour}},{{hours[$index+1]}}
+						 	</span>	
+				        	<ul>
+								<li ng-class="{'overlap':overlapSpacer(t, hour, d)}"ng-repeat="t in tasks.signupSheetActivities | orderBy: '-millisecondDuration'" ng-if="overlapSpacer(t, hour, d)"><span class="hide">{{t.activityId}}</span></li>
+							</ul>
+							<ul class="taskContainer">
+								<li apply-width draggable="true" class="bg-success" ng-repeat="t in tasks.signupSheetActivities | orderBy: '-millisecondDuration'" ng-if="isInTimeBlock(t, hour, d)" ng-class="{ spanBlock: isInTimeBlock(t, hour, d), 'notAssinged':t.volunteerName==null||t.volunteerName==''}" ng-click="loadTaskDetails(t)">
+								    <span class="hide">{{t.uid}}</span>
+									
+									<div id="{{t.activityId}}" class="taskEventGlyphicon pull-right" ng-show="t.volunteerName!=null&&t.volunteerName!=''"><span class="glyphicon glyphicon-ok"></span></div>
+									<div class="taskEventContainer pull-left">
+										<div class="taskEventName pull-left">{{t.eventName}}</div>
+										<div class="taskEventVolunteerName" ng-show="t.volunteerName!=null&&t.volunteerName!=''">: {{t.volunteerName}}</div>
+									</div>
+								</li>
+							</ul>
+				        		</div>
+						    </div>
+					</dd>
+					<dd class="nextIndicatorWrap">
+						<span class="taskBefore hide"></span>	</dd>
+				</dl>
+				</div>	
+			</div>
+			<section class="hoursWrap">
+					<div class="preWrap" scroll-horizontal ng-class="{'invisible':disablePrevTime==true}">
+							<a href="javascript:void(0);" class="previous" ng-disabled="disablePrevTime"></a>
+					</div>
+			        <div class="outerWrap">
+			        	<div class="innerWrap">
+			        		<dl>
+								<dd ng-repeat="hour in hours track by $index">{{hour}}</dd>
+							</dl>
+						</div>
+					</div>
+					<div class="nextWrap" scroll-horizontal ng-class="{'invisible':disableNextTime==true}">
+							<a href="javascript:void(0);" class="next"></a>
+					</div>
+			</section>
+		</div>	
+		<!-- Relative to parent Element -->
+		<duplicate-overlay class="duplicateOverlayWrap" ng-if="showDupOverlay"></duplicate-overlay>		
+</section>
+<div class="deleteOverlay" ng-show="showDelOverlay"></div>
+<div class="deletectaskpopUp" ng-show="showTaskPopUp">
+	<p class="title">Confirm Delete</p>
+	<p>Are you sure you want to permanently delete this volunteer role from your library?</p>
+	<footer>
+		<button class="btn btn-custom" ng-click="closeCustomTaskDeletePopup()">Cancel</button>
+		<button class="btn btn-primary" ng-click="deleteRole()">Delete</button>
+	</footer>
+</div>
+<footer class="calenderFooter col-md-12 col-sm-12 col-xs-12">
+ <button class="btn btn-custom" ng-click="stepBack()">CANCEL</button>
+  <button class="btn btn-primary" ng-click="saveFair(fair)">SAVE</button>
+ </footer>
+ <list-popup ng-show="showListPopup && smallDevice"></list-popup>
+ <scheduler-carousel class="volunteerSchedule" ng-hide="smallDevice"></scheduler-carousel>
+</div>

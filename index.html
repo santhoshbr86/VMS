@@ -1,0 +1,118 @@
+﻿<!DOCTYPE html>
+<html lang="en" ng-app="adminTool" ng-strict-di>
+<head>
+<!--  Added for analytics - LTM header tag -->
+<script>
+        (function(){
+                var channel = "bookcpt";
+                document.write("<scr" + "ipt id='schheadtag' src='//ltm.scholastic.com/ltm/headtag/" + document.location.hostname + "/" + channel + "'></scr" + "ipt>");              
+        }());
+</script>
+<!-- end of analytics -->
+<title>Volunteer</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<meta property="og:title" content="Volunteers make a difference."/>
+<meta property="og:type" content="article"/>
+<meta property="og:image" content="https://volunteer.scholastic.com/images/BFC_Badge_Facebook.png" />
+<meta property="og:image:width" content="2500" />
+<meta property="og:image:height" content="1308" />
+<meta property="og:url" content="https://volunteer.scholastic.com/#/experience/login" />
+<meta property="og:site_name" content=" " />
+<meta property="og:description" content="We need help to pull off our best Book Fair ever! Even an hour of your time would help. Sign up now!" />
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@`">
+<meta name="twitter:title" content="Volunteers make a difference.">
+<meta name="twitter:description" content="We need your help to pull off our best Book Fair ever! Even an hour of your time would help. Sign up now!">
+<meta name="twitter:url" content="https://volunteer.scholastic.com">
+<meta name="twitter:image" content="https://volunteer.scholastic.com/images/BFC_Badge_Facebook.png">
+
+<meta property="fb:app_id" content="271129443274617" />
+
+<link rel="stylesheet" type="text/css" href="style/resetPassword.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Muli:300,400,300italic"  />
+<link rel="stylesheet" type="text/css" href="libs/select2.min.css" />
+<link rel="stylesheet" type="text/css" href="style/style.min.css" />
+<link rel="stylesheet" type="text/css" href="style/mainLogin.min.css" />
+<link rel="stylesheet" type="text/css" href="style/login_styles.min.css">
+<link rel="stylesheet" type="text/css" href="style/login_myaccount.min.css">
+<link rel="stylesheet" type="text/css" href="style/myscholastic-int-core.min.css">
+<base href="/">
+</head>
+<body id="content">
+<div class="container" id="cpt_header-holder" ng-controller="headerController">
+<header id="cpt_header" class="col-sm-9">
+    <div class="col-md-4 col-sm-4 col-xs-12">
+       <a class="logo-padding" href="http://www.scholastic.com/">
+       <img src="images/logo_scholastic_small.jpg" alt="Scholastic - Open a world of possible"></a>
+       <span></span>
+    </div>
+    <div class="col-md-4 col-sm-7 col-xs-7 hidden-xs pull-right notlogged" ng-show="!loggedIn">
+        <ul>
+            <li><a href="http://www.scholastic.com/" target="_blank">Scholastic Inc.</a></li>
+            <li><a href=" https://scholastic-bookfairs.custhelp.com/app/answers/list/p/1218" target="_blank">Help</a></li>
+            <li><a href="http://www.scholastic.com/aboutscholastic/" target="_blank">About Us</a></li>
+         </ul>
+    </div>
+     <div class="col-md-8 col-sm-8 col-xs-12 pull-right loggedUser align-position left-position-device" ng-show="loggedIn">
+      <ul class="no-wrap">
+          <li><span>Welcome back <strong>{{user.firstName}} {{user.lastName}}</strong></span></li>
+          <li class="signout"><a href="javascript:void(0);" ng-click="signOut()">Sign Out</a> <a href="javascript:void(0);" ng-click="callMyAccount()" class="hide-image">| My Scholastic</a></li>
+      </ul>
+     </div>
+ </header>
+</div>
+<div class="container">
+     <div ng-view autoscroll="true"></div>
+</div>
+<footer>
+   <div id="cpt_footer-holder">
+      <div class="cpt-footerWrap">
+          <div id="cpt_footer">
+          <ul>
+          <li class="first-padding-footer"><a href="http://www.scholastic.com/privacy.htm" target="_blank">Privacy Policy</a></li><span class="glyphicon glyphicon-one-fine-full-dot hide-image" style="padding-top: 0px; border-bottom-width: 0px; margin-bottom: 0px; padding-bottom: 0px; height: 10px; top: -1px;"></span>
+          <li class="second-padding-footer"><a href="http://www.scholastic.com/terms.htm" target="_blank">Terms of Use</a></li><span class="glyphicon glyphicon-one-fine-full-dot hide-image" style="padding-top: 0px; border-bottom-width: 0px; margin-bottom: 0px; padding-bottom: 0px; height: 10px; top: -1px;"></span>
+          <li class="line-breaker">TM ® &amp; © <script type="text/javascript">document.write(new Date().getFullYear());</script> Scholastic Inc. All Rights Reserved.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+</footer>
+<script>
+window.fbAsyncInit = function() {FB.init({
+appId      : '271129443274617',
+xfbml      : true,
+version    : 'v2.7'});};
+(function(d, s, id){
+var js, fjs = d.getElementsByTagName(s)[0];
+if (d.getElementById(id)) {return;}
+js = d.createElement(s); js.id = id;
+js.src = "//connect.facebook.net/en_US/sdk.js";
+fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+</script>
+<!-- https://www.srihash.org/ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha384-rY/jv8mMhqDabXSo+UCggqKtdmBfd3qC2/KvyTDNQ6PcUJXaxK1tMepoQda4g5vB" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular.min.js" integrity="sha384-r1y8TJcloKTvouxnYsi4PJAx+nHNr90ibsEn3zznzDzWBN9X3o3kbHLSgcIPtzAp" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular-route.min.js" integrity="sha384-fQQcs0/yvL0uyyzpXoTKfcQl5e9GYh7GKIft35qSjfKXSILYNI6YZOM0Ju94DY+/" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.0.3/ui-bootstrap-tpls.min.js" integrity="sha384-Kep+26NKR3F6UcMKYfiV7a+kwAyqp3Z9xK76/P3biXeM/qJVrJgLJlUFT+2Yh13Q" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.0/moment.min.js" integrity="sha384-i7jiWeRVvJOmjgipKoheFNbbt6AXocX+BuVYuHScgQQWItQRZ66GzcGyJlQHYZK7" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.2/lodash.min.js" integrity="sha384-wGdfmHRGSbzLZMDJzTsi2aq6Qwa6OzK7F58PLm8Bu+4S52WkLa1vU5o6ZQKXu9ny" crossorigin="anonymous"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/3.4.8/select2.min.js" integrity="sha384-6ASZeegl5ovRsuIT5TtLjtzDv2pvB/NwIabu0MBA5W0Fl6wZmU6Fl3WMPSSTCrFq" crossorigin="anonymous"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/3.5.5/iframeResizer.contentWindow.min.js" integrity="sha384-MnKLLV0q7HAo+niyek0Pd8ftPzEkBV250ZljiYrfPHDYTSD3ScWx9OWccMKaPTCx" crossorigin="anonymous"></script>
+<script src="libs/select2.min.js"></script>
+<script src="libs/angular-select2.min.js"></script>
+<script src="libs/sps/applyEnv.min.js"></script>
+<script src="libs/env2.min.js"></script>
+<script src="libs/myaccount.min.js"></script>
+<script src="libs/angular-uuid4.min.js"></script>
+<script src="scripts/script.min.js"></script>
+<!-- Added for analytics - LTM footer tag --> 
+<script type="text/javascript" src="//ltm.scholastic.com/ltm/resources/tag/footer.js"></script>
+</body>
+</html>

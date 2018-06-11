@@ -1,0 +1,208 @@
+BODY { font-size: 12px; font-family: arial, sans-serif; margin: 0; padding: 0;}
+A {color:#216d96}
+#SPS-MyAccount{}
+#SPS-MyAccount .frame-wrapper{ width: 1024px; height: 595px; }
+   #SPS-MyAccount .frame-content-wrapper { width: 980px; height: 490px;  overflow: hidden;  }
+   #SPS-MyAccount .frame-content-wrapper .content { width: 950px;  height: 475px; }
+#SPS-MyAccount .frame-content-wrapper .content .scrollable-content{ width: 100%; height: 415px; overflow-y: auto; overflow-x: hidden; position: relative;}
+#SPS-MyAccount .frame-content-wrapper .content .scrollable-content p strong {font-weight:normal}
+
+
+#SPS-MyAccount .errorMsg{ color: #cc0000; margin-left:10px;}
+#SPS-MyAccount .frame-wrapper { background-color: #CC0000; padding-bottom: 10px; -moz-border-radius:5px; border-radius:5px; -moz-box-shadow: 0 0 5px 5px #888; -webkit-box-shadow: 0 0 5px 5px#888; box-shadow: 0 0 5px 5px #888; }
+   #SPS-MyAccount .frame-content-wrapper { margin: auto; padding: 20px 0 0 0; background-color: #FFF; -moz-border-radius:5px; border-radius:5px;}
+   #SPS-MyAccount .frame-content-wrapper .content { margin: 0 auto 20px auto;  border: 1px solid #000; -moz-border-radius:5px; border-radius:5px;}
+   H1 { margin-left: 25px; padding-top: 10px; font-size: 20px; font-family: arial, sans-serif; color: #FFF;  }
+   H2 { width: 99%; margin: 0; padding: 15px 0 15px 10px; border-bottom: 1px solid #000; font-size: 18px; }
+   H3 { width: 100%; margin: 0; padding: 0; border-bottom: 1px solid #E8DFC6; font-size: 14px; 
+   	background: linear-gradient(to bottom, #E8DFC6 0%, #FCF6DB 63%, #FDF8DF 100%) repeat scroll 0 0 transparent;
+	height: 25px; line-height: 25px; vertical-align: middle; position: relative;
+   }
+   H3 span{ margin: 0 10px 0 10px; }
+   H4{ width: 100%; margin: 0; padding: 0; font-size: 14px; text-align: left; }
+   P { margin-left: 15px; }
+    .input-error{ border: 1px solid #ff0000;}
+	.button-type-1{background-color: #c52506; color: #fff; font-weight: normal; -moz-border-radius: 5px; border-radius: 5px; border:0; margin: 0; padding: 2px 10px 2px 10px; cursor: pointer;}
+  .button-type-1:hover{background: #a41300; /* Old browsers */
+background: -moz-linear-gradient(top,  #a41300 0%, #8f0222 44%, #6d0019 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#a41300), color-stop(44%,#8f0222), color-stop(100%,#6d0019)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #a41300 0%,#8f0222 44%,#6d0019 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #a41300 0%,#8f0222 44%,#6d0019 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #a41300 0%,#8f0222 44%,#6d0019 100%); /* IE10+ */
+background: linear-gradient(to bottom,  #a41300 0%,#8f0222 44%,#6d0019 100%); /* W3C */
+color: #fff; font-weight: normal; -moz-border-radius: 5px; border-radius: 5px; border:0; margin: 0; padding: 2px 10px 2px 10px; cursor: pointer;}
+  .bottom-content .button-type-1 {-moz-border-radius: 0; border-radius: 0;}
+	.button-type-2{background-color: #6B6B6B; color: #fff; border:0; font-size:12px; margin: 0; padding: 2px 10px 2px 10px; cursor: pointer;} 
+
+	#child-reg-wrapper .children-list-container > ul.children-list{ display: block; list-style: none;  margin: 0 0 10px 15px; padding:0;}
+	#child-reg-wrapper .children-list-container > ul.children-list > li{ display: block; margin: 0; padding: 0; 
+		border-top: none; border-left: 1px solid #E8DFC6; border-right: 1px solid #E8DFC6; border-bottom: 1px solid #E8DFC6;
+	}
+  #child-reg-wrapper .children-list-container > ul.children-list > li h3 {font-size:16px}
+	#child-reg-wrapper .children-list-container > ul.children-list > li:first-child{ border-top: 1px solid #E8DFC6; }
+   #child-reg-wrapper .children-list-container,
+   #child-reg-wrapper .children-list-container > ul.children-list
+   #child-reg-wrapper .form-container{ width: 600px; margin: 0;}
+   #child-reg-wrapper .required-asterisk{ color: #cc0000;}
+   .content .info {position: relative; padding-bottom: 10px; }
+   .content .info .child-name-info{ background: url("../images/tiedElements.gif") no-repeat scroll 0 0 transparent; color:#888; position: absolute; right: 0; top: 12px; font-size: 11px; width: 220px; padding-left: 15px; height: 45px;}
+   .content #add-child-form FIELDSET { border: 0; }
+   .content #add-child-form legend { display: none; }
+   .content OL { display: block; width: 100%; list-style-type: none; }
+   .content LI { padding-top:5px}
+   .content #add-child-form LI {padding-top:10px}
+   .content LABEL { display: inline-block; width: 130px; text-align: right; padding-right: 10px; }
+   .content #add-child-form LABEL:hover{ cursor: pointer;}
+   .content #add-child-form LABEL.radio-option-label{ display: inline; width: auto; text-align: left;}
+   #LinkClassroomAjaxContainer{ padding-bottom: 10px; color:#666}
+   #LinkClassroomAjaxContainer .activation-code-input-container 
+   { width: 540px; padding: 10px 0 10px 0;background: none repeat scroll 0 0 #FCFBF9;border: 1px solid #E4DAC3; margin:10px auto;}
+   #LinkClassroomAjaxContainer .no-activation-code{  width: 100%; text-align: center;}
+   .module-bottom-button-container,
+   .content .save { width: 110%; text-align: center; padding: 0 0 20px 0;margin-top:10px;}
+   #child-reg-wrapper .bottom-content-container{ clear: both; position: relative; margin-top: 10px; width: 100%; height: 20px; }
+   #child-reg-wrapper .bottom-content-container .required-copy{ position: absolute; top: 0; left: 15px;}
+   #child-reg-wrapper .bottom-content-container .privacy-copy{ position: absolute; top: 0; right: 15px;}
+ 	.toggle-content-icon{ background-image: url(../images/sprite-toggle-icons.png); background-repeat: no-repeat; 
+	width: 16px; height: 16px; display: block; overflow: hidden;
+	position: absolute; right: 0; top: 4px; cursor: pointer;
+	}
+	.toggle-icon-minus{ background-position: 0 0; }
+	.toggle-icon-plus{ background-position: 0 -16px; }
+   
+#SelectSchoolTeacherContainer{ display: none; border: 1px solid #E4DAC3; color:#666; padding: 20px; margin: 10px auto; width: 520px; background :none repeat scroll 0 0 #FCFBF9; }   
+	#SelectSchoolTeacherContainer .header-container{ position: relative; padding: 0 0 20px 0}
+  #SelectSchoolTeacherContainer .header-container h4 {display:inline; padding-right:10px; font-size:12px}
+	#SelectSchoolTeacherContainer .bottom-content{ text-align: center; padding: 10px 0 0 0;}	
+	#SelectSchoolTeacherContainer .not-listed-school-link,
+	#SelectSchoolTeacherContainer .cant-find-teacher-link{text-decoration:none}
+	#SelectSchoolTeacherContainer  ol.select-school-fields{ margin: 0; padding: 0 0 10px 0;}
+	#SelectSchoolTeacherContainer  ol.select-school-fields li{ display: block; margin: 0; padding: 0 0 10px 0; clear:both; height:20px}
+  #SelectSchoolTeacherContainer .close-me-link {background: url(/com.scholastic.registration.Registration/images/login_close.gif) no-repeat; display:block; width:16px;height:16px; text-indent:-99999px; float:right}
+  #SelectSchoolTeacherContainer #cant-find-teacher-container .close-me-link {margin-top:10px; margin-right:10px}
+  #SelectSchoolTeacherContainer #schoolNotListedMsg strong {font-weight:bold}
+
+    	#SelectSchoolTeacherContainer ol.select-school-fields li LABEL { display: block; float:left; width: 100px; text-align: left !important; color:#666}
+	#SelectSchoolTeacherContainer ol.select-school-fields li SELECT {float:left; width:160px}
+  #SelectSchoolTeacherContainer ol.select-school-fields li SELECT#select-school {*width:400px}
+	#SelectSchoolTeacherContainer ol.select-school-fields li select optgroup,
+	#SelectSchoolTeacherContainer ol.select-school-fields li select optgroup option{ display: block; margin: 0 2px 0 2px; padding: 0; }
+	#select-school{ display: block; width: 320px;}
+	#SelectTeacherTable{ margin: 0; padding: 0; border: 1px solid #E6DCC7; width: 540px; color:#666}
+	#SelectTeacherTable th, #SelectTeacherTable td{ text-align: left;}	
+	#SelectTeacherTable th{ padding: 5px 0 5px 0; }
+	#SelectTeacherTable th span{ display:block; margin: 5px; }
+	#SelectTeacherTable td span{ display:block; margin: 5px; }
+	#SelectTeacherTable .teacher-column{ width: 230px;}
+	#SelectTeacherTable th.teacher-column a {display:block; margin:5px; text-decoration:none}
+  #SelectTeacherTable th.teacher-column a:hover {text-decoration:underline}
+  #SelectTeacherTable th.teacher-column {padding: 6px 0 6px 17px;}
+  #SelectTeacherTable td.teacher-column {padding: 5px 0 5px 15px}
+	#SelectTeacherTable .grades-column{ width: auto; border-left:0}
+	#SelectTeacherTable .grades-column span{ width: 190px;}
+  #SelectTeacherTable tr:nth-child(odd) {background-color: #F5F1E8;}
+  #SelectTeacherTable tr th {background-color: #fcfbf9;}
+  
+	
+	#SelectTeacherTable td.teacher-column input.select-teacher-radio{ float:left; margin-top:1px; padding-top:0}
+	#SelectTeacherTable td.teacher-column label.teacher-label{ float:left; display:block; width:200px; padding-right:0; padding-bottom:3px; text-align:left}
+
+	
+#ActiveClassroom{ margin: 0 auto 0 auto;}
+#ActiveClassroom .teacher-info-container{ background-color: #F5F1E8; padding: 15px; margin-bottom: 10px;}
+#ActiveClassroom .teacher-info-container table{ border: 0; padding: 0; margin: 0; }
+#ActiveClassroom .teacher-info-container table tr td{ margin: 0; padding: 0; }
+#ActiveClassroom .teacher-info-container table tr td.classroom-column{ width: 370px; border-right: 1px solid #A4A4A4; }
+#ActiveClassroom .teacher-info-container table tr td.change-teacher-column{ width: auto; padding: 0 0 0 10px; }
+#ActiveClassroom .teacher-info-container ul.classroom-data{ list-style: none; display: block; width: 310px; margin: 0 auto 0 auto; padding: 0;  }
+#ActiveClassroom .teacher-info-container ul.classroom-data li{ display: block; margin: 0; padding: .5em 0 0 0; list-style: none; }
+#ActiveClassroom .teacher-info-container ul.classroom-data li:first-child{ padding-top: 0; }
+#ActiveClassroom .teacher-info-container ul.classroom-data li:after{ content: "."; display: block; height: 0; clear: both; visibility: hidden;}
+#ActiveClassroom .teacher-info-container ul.classroom-data li .info-label{ display: block; float: left; width: 115px; font-weight:bold; text-align:right}
+#ActiveClassroom .teacher-info-container ul.classroom-data li .info-data{ display: block; float: left; width: 185px; text-align: left; padding-left: 10px;  }
+
+
+#NoChildrenView{}
+#NoChildrenView #AddChildButtonContainer{ display: none; }
+
+#HasChildrenView{}
+#HasChildrenView ul.children-list > li#AddChildItem{ border: none;}
+#HasChildrenView ul.children-list > li#AddChildItem.active{ border-top: none; border-left: 1px solid #000; border-right: 1px solid #000; border-bottom: 1px solid #000; }
+#HasChildrenView #AddChildButtonContainer{ display: block;  margin: 10px;}
+#HasChildrenView #AddChildButtonContainer #AddAnotherChildButton{ 
+cursor: pointer;
+display: block; width: 154px; height: 27px; 
+background: url(../images/but-AddAnotherChild.gif) no-repeat;}
+#HasChildrenView ul.children-list li#AddChildItem .form-container{ display: none;}
+#HasChildrenView ul.children-list li.child-info-item{ }
+#HasChildrenView ol.teacher-info{ margin-top: 10px; }
+#HasChildrenView ol.teacher-info > li{ padding: 0; margin: 0;}
+
+#HasChildrenView ul.children-list li.child-info-item .module-bottom-button-container{ margin-top: 10px;}
+
+#HasChildrenView .view-button-container{ width: 480px; margin: 10px 0 0 15px; text-align: right;}
+#cant-find-teacher-container{ border: 1px solid #E4DAC3;margin: 10px auto;padding: 10px;width:auto}
+#teachers-ajax-container-error {border: 1px solid #E4DAC3; padding:10px; margin:0 auto 20px auto}
+#not-listed-school-container{border : 1px solid #E4DAC3;margin: 0 auto 20px auto;padding: 10px;width:auto}
+#cant-find-alternate-teacher-container{border : 1px solid #E4DAC3;margin: 10px auto;padding: 10px;width:auto}
+#addChildFormData{display:block;}
+.toggleViewButton {float: right;cursor: pointer;display:block}
+.viewChildBlock{display:none}
+.teacherInfoRequiredError{color:#CC0000;}
+.serverErrorBlock{margin-left:15px;color:#CC0000;}
+.addchildbuttoncontainer{position: relative; margin-top: 10px; width: 100%; height: 20px;margin-left:15px}
+.hideAddChildButton{float: right;cursor: pointer;display:block}
+.childhdrBox {margin-top: 5px;margin-left: 10px;font-size: 14px;font-weight: bold;}
+.childBodyBox {margin-left: 50px;margin-top: 5px;margin-bottom: 10px;}
+.tchrHdrBox{margin-top: 5px;margin-left: 10px;font-size: 14px;font-weight: bold;}
+.teacherBdyBox{margin-left: 50px;margin-top: 5px;margin-bottom: 10px;}
+.modifyPanel{width: 200px;margin-left: 150px;margin-bottom: 10px;}
+.deleteLinkBox {padding-left: 20px;}
+.labelTextBox{padding-left:15px;}
+.dotted-seperator {border-top: 1px dashed #999999;margin: 20px 0;}
+.addChildHdr {font-weight: bold;margin-left: 10px;}
+.cacFatContainerHdr {color:#363636; font-weight: bold;margin-bottom: 10px;margin-top: 10px;color:#363636}
+.classCodeFindTeacherLinkContainer{margin-bottom:15px;}
+.addChildHdr .required-info{margin-left:320px; color:#666; font-weight:normal; font-size:11px}
+.completeButton{margin-left: 450px;margin-top:15px;}
+.warningLogo {margin-top: 30px;margin-left: 450px;margin-bottom: 30px;}
+.warningText {margin-left: 200px;width: 900px;margin-bottom: 20px;font-size: 14px;font-weight: bold;}
+.warningButtonLink {margin-left: 250px;width: 450px;margin-bottom: 50px;}
+.teacherContHdr{font-size: 14px;font-weight: bold;margin-bottom: 10px;margin-left: 10px;margin-top: 10px; color:#363636}
+#cgradeBox { word-wrap: break-word;}
+#add-child-promo #childInfoUsedSubStmtPromoClubs {width:250px; padding:10px; margin-bottom:20px; margin-left:50px; border:1px solid #cececc; -webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px;}
+#NoChildrenView > div {float: left;margin-left: 10px;}
+.cacBoxContainer {margin-left: 10px;margin-top: 10px;margin-bottom:10px;}
+.cacInfoText {margin-bottom: 10px;margin-top: 10px;}
+.buttonWrapper {margin-left: 10px;}
+.cac-link-box{width:200px;color: #2A6D96;font-size: 13px; font-weight:bold; cursor: pointer;padding-right:10px}
+.or-box{width:30px;}
+.cacMsgText{color:#A4A4A4;font-size: 11px;margin-top: 5px;}
+.fat-link-box {width: 220px;color: #2A6D96;font-size:13px; font-weight:bold; cursor:pointer;}
+.clear-info-link {color: #2A6D96;}
+.change-teacher-link {color: #2A6D96;font-weight: bold; text-decoration:none}
+.change-teacher-link:hover {text-decoration:underline}
+.cancel-link{color: #2A6D96;}
+/*clubs promo start*/
+ .clubs-promo { margin-left: 20px; }
+ .clubs-promo-container { width: 247px; margin-top: -3px; margin-left: 21px; padding: 18px; border: 1px solid #cececc; border-top: 0; border-bottom:0; font-family: arial; font-size: 12px; color:#666666; }
+ .clubs-promo-hdr{ margin-top: 0; margin-bottom: 5px;  font-size: 12px; font-weight:bold; } 
+ .clubs-promo-container UL { margin-left: 0; padding-left: 15px;}
+ .clubs-promo-container LI { margin-bottom: 5px; }
+ .clubs-promo-container-bottom { position: relative; width: 247px; *margin-top: -4px; margin-left: 21px; padding: 18px; border: 1px solid #cececc;  -webkit-border-bottom-right-radius: 10px;
+-webkit-border-bottom-left-radius: 10px;
+-moz-border-radius-bottomright: 10px;
+-moz-border-radius-bottomleft: 10px;
+border-bottom-right-radius: 10px;
+border-bottom-left-radius: 10px;  font-family: arial; font-size: 12px; color:#666666;}
+ .clubs-promo-container-bottom img {display:none}
+ .clubs-promo-container-bottom .tooltip-arrow { position: absolute; top: 35%; left: -21px; } 
+ .clubs-promo-bottom-hdr{   margin-top: 0; margin-bottom: 5px;  font-size: 12px;  font-weight:bold}
+ .clubs-promo-container-bottom UL { margin-left: 0; padding-left: 15px; border-bottom: 1px solid #cececc; padding-bottom: 15px; }
+ .clubs-promo-container-bottom LI { margin-bottom: 5px; }
+/*clubs promo end*/
+#loadingContainer {padding-left:200px}
+.teacherNotFoundMsgHdr {font-weight: bold;width: 400px;}
+.teacherNotFoundMsg {margin-top: 10px;}
+.clossButton {padding-left: 70px;padding-bottom: 10px;}
+

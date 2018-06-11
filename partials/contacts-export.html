@@ -1,0 +1,20 @@
+<style type="text/css">
+    #cpt_header,
+    .cpt-footerWrap,
+    footer.container {
+        display: none;
+    }
+</style>
+<div class="exportContacts">
+    <header class="col-md-8">
+        <div class="page-header">
+            <small><a class="goToContacts" ng-click="goToContacts()">Contacts</a></small>
+        </div>
+        <h1>Export Contacts</h1>
+        <div ng-include="include.top"></div>
+    </header>
+    <section class="col-md-12">
+        <button class="btn-custom" ng-click="goToContacts()">Cancel</button>
+        <button class="btn btn-primary" ng-click="export()">Generate File</button>
+    </section>
+</div>

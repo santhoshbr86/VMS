@@ -1,0 +1,230 @@
+<style type="text/css">
+#cpt_header,.cpt-footerWrap,footer.container{display:none;}
+</style>
+
+<div class="container volunteerSignup">
+        <div  ng-include="include.deleteSignUpMsg"></div>
+	<header class="row pageHeader">
+		<div class="col-md-9 col-sm-9 col-xs-12">
+			<h2>Volunteers</h2>
+		</div>
+		<div class="col-md-3 col-sm-3 col-xs-12">
+			<a href="" ng-click="goToContacts()" class="ContactCount"><span class="glyphicon glyphicon-list-alt"></span> Contacts ({{signupSheets.volunteerCount}}) </a>
+		</div>
+		<div class="col-md-12" ng-include="include.top"></div>
+	</header>
+	<section class="col-md-12 newcreateFairSectionWrap" ng-if="signupSheets.active[0].status ==='NEW' || signupSheets.active[0].status ==='DELETED'">
+			<div class="col-md-12 newcreateFairSection">
+				<!-- <h2 class="createSheetTitle text-center" ng-include="include.createSheetTitle"></h2> -->
+				<div class="col-md-5">
+				<div ng-include="include.blankSheetbuttonTagline"></div>
+					<button class="btn btn-primary" ng-click="createSheetRedirect(orgId, signupSheets.active[0].fairId)">Blank sign-up sheet</button>
+
+				</div>
+				<div class="col-md-2 orPoleWrap" >
+					<span class="orPole">OR</span>
+				</div>
+				<div class="col-md-5 pastfairsWrap">
+					<div  ng-include="include.pastsheetbuttonTagline"></div>
+
+					<div  ng-show="signupSheets.past.length>0" class="input-group">
+						<select class="form-control" ng-model="selectedPastFair">
+						<option value="">Select Past Sign-up Sheet</option>
+							<option value="{{fair.signUpSheetId}}" ng-repeat="fair in signupSheets.past  track by fair.fairId">{{fair.fairName}} |  {{fair.startDate | date: 'MM/dd':'UTC'}}- {{fair.endDate |date: 'MM/dd/yyyy':'UTC'}} </option>
+
+						</select>
+					</div>
+					<div class="pastsignupBtnpopover arrow_box" ng-show="nofairPopover">
+					<span>Please select a past sign-up sheet <br /> to continue.</span>
+					<!-- <a class="pull-right glyphicon glyphicon-remove-circle close-popup" data-dismiss="alert" ng-click="hidePopover()"></a> -->
+					</div>
+					<button ng-if="signupSheets.past.length>0" class="btn btn-primary" ng-click="loadPastSheetRedirect(signupSheets.active[0],selectedPastFair)" ng-mouseout="hidePopover()">Use Past sign-up sheet</button>
+				</div>
+			</div>
+
+	</section>
+	<section class="row pageContent">
+		<section ng-if="showWarning5xx" role="alert" class="row alert alert-danger">
+			<span ng-show="showWarning5xx"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> There was a technical issue loading data, please try again. If this problem persists, please contact <a href="https://scholastic-bookfairs.custhelp.com/">customer service</a>.</span>
+		</section>
+
+
+		<div class="currentFair col-md-12 col-sm-12 col-xs-12" ng-show="signupSheets.fairAvailable">
+				<div class="panel panel-default" ng-repeat="fair in signupSheets.active track by $index" ng-if="fair.status!=='NEW' && fair.status!=='DELETED'">
+				<div class="panel-body">
+				<div class="head col-md-12 col-sm-12 col-xs-12">
+						<div class="pull-left" ng-class="toggleClass(fair.status)">
+							<h4>{{fair.fairName}} | <small>{{fair.startDate | date : 'M/d':'UTC'}}  <span class="hyphen"></span>  {{fair.endDate | date : 'M/d/yyyy':'UTC'}}</small></h4>
+							<div>
+								{{fair.schoolName}}
+							</div>
+							<button ng-click="goToMessages(fair)" class="email btn-custom" ng-show="fair.status!=='NEW' && fair.status!=='UNPUBLISHED' && fair.status !=='MOVED'">
+								<span class="glyphicon glyphicon-envelope"></span> send Email
+							</button>
+
+							<div>
+							<button class="share btn-custom" ng-click="socialShare(fair.maskedSignUpStr)" ng-show="fair.status!=='NEW' && fair.status!=='UNPUBLISHED' && fair.status !=='MOVED'">
+								<img src="images/icon_fb.jpg"> <img src="images/icon_twitter.jpg">
+								<label>share</label>
+							</button>
+							</div>
+						</div>
+						<div class="ng-hide publishBox col-md-4 col-sm-4" ng-show="fair.status==='PUBLISHED_W_UNPUBLISHED_ACT'">
+						<p>You have unpublished changes. Please publish before sharing your sign-up sheet.</p>
+						<button class="btn btn-publishNow" ng-click="publishNow(fair.signUpSheetId)">Publish Now</button>
+					   </div>
+						<div class="col-md-3 col-sm-3 pull-right">
+								<!-- <div ng-show="fair.status==='NEW'">
+									<!--  Send schoolId, fairId
+									<button class="btn btn-success" ng-click="createSheetRedirect(orgId, fair.fairId)">Create a Sign-up <span class="glyphicon glyphicon-menu-right"></span>
+									</button>
+								</div> -->
+								<div class="continueWrap" ng-show="fair.status==='UNPUBLISHED'||fair.status==='MOVED'">
+									<button class="btn btn-primary" ng-click="loadSheetRedirect(orgId, fair.fairId,fair.signUpSheetId)">Continue setup <span class="glyphicon glyphicon-menu-right"></span>
+									</button>
+									<button class="btn-deleteSignup" ng-click="openDeletePopUp(fair.signUpSheetId)">
+										Delete Sign-up Sheet
+									</button>
+								</div>
+
+								<div class="rightTitleElement" ng-show="fair.status!=='NEW' && fair.status!=='UNPUBLISHED' && fair.status !=='MOVED'">
+								<button class="btn btn-primary" ng-click="loadSheetRedirect(orgId, fair.fairId,fair.signUpSheetId)">Edit sign-up Sheet
+								</button>
+								<div class="signUpandprintable" ng-show="fair.status==='PUBLISHED_W_UNPUBLISHED_ACT'||fair.status==='PUBLISHED'">
+								<button class="btn btn-custom" ng-show="fair.signUpSheetId!=null" ng-click="viewSignUpSheet(fair)">VIEW SIGN-UP SHEET</button>
+								<div>
+								<button class="btn-deleteSignup" ng-click="openDeletePopUp(fair.signUpSheetId)" ng-show="fair.signUpSheetId!=null">
+										Delete Sign-up Sheet
+								</button>
+								</div>
+								<a href="javascript:void(0)" class="print" ng-click="printSignupSheet(fair.signUpSheetId)">Print Volunteer Schedule</a>
+								</div>
+								</div>
+						</div>
+
+					<div class="headerFoot col-md-12 col-sm-12 col-xs-12" ng-show="fair.status!=='NEW' && fair.status!=='UNPUBLISHED' && fair.status !=='MOVED'">
+						<div class="socialIcon col-md-12 col-sm-12" ng-show="fair.status==='PUBLISHED_W_UNPUBLISHED_ACT'||fair.status==='PUBLISHED'">
+							<span>Sign-up sheet address:</span>
+								<ul>
+									<li class="textBox col-md-12 col-sm-12">
+										<input id="fairaddress" class="form-control" type="text" readonly="" ng-model="fair.address">
+										<a href="" ng-click="copyUrl()" class="changeUrl">Copy Link</a>
+									</li>
+							</ul>
+						</div>
+					</div>
+
+				</div>
+				<div ng-show="fair.status==='PUBLISHED_W_UNPUBLISHED_ACT'||fair.status==='PUBLISHED'" class="middle col-md-12 col-sm-12">
+					<ul>
+						<li>
+							<button class="btn btn-custom" id="show">Show Schedule <span class="glyphicon glyphicon-menu-down"></span></button>
+							<button class="btn btn-custom" id="hide">Hide Schedule <span class="glyphicon glyphicon-menu-up"></span></button>
+						</li>
+						<li>
+							<span class="score">{{fair.taskCount}} of {{fair.taskCountTotal}}</span>
+							<span>slots filled</span>
+							<span class="progressbarWrap">
+								<div class="progress">
+									<div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="{{fair.taskCountPercent}}" aria-valuemin="0" aria-valuemax="100" ng-style="{width:{{fair.taskCountPercent}}+'%'}">
+										<span class="sr-only">{{fair.taskCountPercent}}% Complete (success)</span>
+									</div>
+								</div>
+							</span>
+							<span class="score">{{fair.taskCountPercent}}%</span>
+							</li>
+						<li>
+							{{fair.volunteerCount}} Volunteers
+						</li>
+						<li>
+							{{fair.volunteerHours | number:2}} Volunteers Hours
+						</li>
+					</ul>
+				</div>
+				<div class="foot col-md-12 col-sm-12" show-scheduler>
+					<div ng-include="include.calendarView">
+					</div>
+				</div> <!--foot end -->
+			</div>
+			</div>
+		</div>
+
+		<div class="content col-md-12 col-sm-12 col-xs-12" ng-hide="signupSheets.fairAvailable">
+			<article class="col-md-12" ng-include="include.middle"></article>
+		</div>
+
+		<!-- <div ng-show="signupSheets.activeFairStatus==='NEW'||signupSheets.activeFairStatus==='UNPUBLISHED'||signupSheets.activeFairStatus==='MOVED'">
+			<div ng-include="include.video"></div>
+		</div> -->
+
+		<div class="pastBookfair col-md-12 col-sm-12 col-xs-12" ng-show="signupSheets.pastFairAvailable">
+			    <h4 ng-show="signupSheets.past.length>0">Past Sign-Up Sheets</h4>
+				<div class="panel panel-default" ng-repeat="fair in signupSheets.past track by fair.fairId">
+				  <div class="panel-body">
+
+						<div class="head col-md-12 col-sm-12 col-xs-12">
+							<div class="pull-left">
+								<h4>{{fair.fairName}} | <small>{{fair.startDate | date : 'M/d':'UTC'}} <span class="hyphen"></span> {{fair.endDate | date : 'M/d/yyyy':'UTC'}}</small></h4>
+								<span>
+									{{fair.schoolName}}
+								</span>
+							</div>
+							<div class="pull-right">
+								<div class="col-md-3 col-sm-3 col-xs-12">
+									<button class="btn btn-custom" ng-show="fair.signUpSheetId!=null" ng-click="viewSignUpSheet(fair)">VIEW SIGN-UP SHEET</button>
+								</div>
+							</div>
+						</div>
+
+						<div class="middle col-md-12 col-sm-12" ng-show="fair.taskCountTotal>0">
+							<ul>
+								<li>
+									<button class="btn btn-custom" id="show">Show Schedule <span class="glyphicon glyphicon-menu-down"></span></button>
+									<button class="btn btn-custom" id="hide">Hide Schedule <span class="glyphicon glyphicon-menu-up"></span></button>
+								</li>
+								<li>
+								<span class="score">{{fair.taskCount}} of {{fair.taskCountTotal}}</span>
+								<span>slots filled</span>
+								<span class="progressbarWrap">
+									<div class="progress">
+										<div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="{{fair.taskCountPercent}}" aria-valuemin="0" aria-valuemax="100" ng-style="{width:{{fair.taskCountPercent}}+'%'}">
+											<span class="sr-only">{{fair.taskCountPercent}}% Complete (success)</span>
+										</div>
+									</div>
+								</span>
+								<span class="score">{{fair.taskCountPercent}}%</span>
+								</li>
+								<li>
+									{{fair.volunteerCount}} Volunteers
+								</li>
+								<li>
+									{{fair.volunteerHours}} Volunteers Hours
+								</li>
+							</ul>
+						</div>
+
+						<!--  TestingPast Fairs -->
+					<div class="foot col-md-12 col-sm-12" show-scheduler>
+						<div ng-include="include.calendarView">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="row pageContent">
+	<!-- ng-if="signupSheets.pastFairAvailable&&!signupSheets.fairAvailable" -->
+		<div  ng-include="include.video"></div>
+	</section>
+<div class="popupOverlay" id="overLay" ng-click="closePopUp()" ng-if="showOverlay"></div>
+
+<section class="popUp messageNotify" id="messageSent" ng-if="showMessageSent">
+	<p>Your email has been sent.</p>
+	<footer>
+		<button class="btn btn-primary" ng-click="closePopUp()">Ok</button>
+	</footer>
+</section>
+
+<div ng-include="include.shareOverlay" ng-show="showPublishNow"></div>
+</div>
+<signupsheet-help class="signupsheetHelp"></signupsheet-help>

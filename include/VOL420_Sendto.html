@@ -1,0 +1,8 @@
+﻿<!-- NOTE: Please keep the ng-show stuff, it's really important. -->
+<p ng-show="(contactInfo.firstName.$error.required && submitted )|| (contactInfo.lastName.$error.required && submitted)">
+  First and last name are required.
+</p>
+<p ng-show="contactInfo.emailAdd.$error.pattern && submitted">
+  Please enter a valid email address.
+</p>
+

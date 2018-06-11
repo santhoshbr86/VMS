@@ -1,0 +1,43 @@
+<style>
+    #cpt_header-holder,
+    .cpt-footerWrap,
+    footer.container,
+    #cpt_header {
+        display: none;
+    }
+</style>
+<div class="admin-login">
+    <div ng-include="include.top"></div>
+    <div class="col-md-6 col-sm-8 col-xs-12 login">
+        <form name="loginForm" novalidate ng-submit="login()" class="form-horizontal">
+            <div class="form-group">
+                <label class="col-md-3 control-label">User Name:</label>
+                <span class="col-md-9"> 
+	   			<input type="text" class="form-control" name="username" ng-model="loginData.username" required maxlength="75">
+		   		<span ng-show="loginForm.username.$error.required && submitted" class="error">
+		        	Username can't be blank.
+		   		</span>
+                </span>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label">Password:</label>
+                <span class="col-md-9"> 
+	   			<input type="password" class="form-control" name="password" ng-model="loginData.password" required maxlength="30"> 
+		   		<span ng-show="loginForm.password.$error.required && submitted" class="error">
+		   			Password can't be blank.
+		   		</span>
+                </span>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-3 col-sm-9">
+                    <button type="submit" class="btn btn-primary">Sign In</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="errorPopUp" ng-show="showError">
+        <a class="close pull-right" ng-click="closePopUp()">×</a>
+        <p class="text-danger">{{error}}</p>
+        <button class="btn btn-primary pull-right" ng-click="closePopUp()">Okay</button>
+    </div>
+</div>

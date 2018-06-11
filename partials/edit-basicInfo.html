@@ -1,0 +1,95 @@
+<style type="text/css">
+#cpt_header,.cpt-footerWrap, #cpt_footer-holder, footer.container{display:none;}
+</style>
+<div class="editBasicinfo">
+	<div class="row">
+		<div class="breadCrumb col-md-12 col-sm-12"> 
+			<a href="javascript:void(0);" ng-click="gotoVolunteers()">Volunteers > </a>
+			<a href="javascript:void(0);" ng-click="stepBack()"> Sign-up Builder > </a>	
+			<a class="disabled"> Edit Basic Information</a>
+		</div>
+	
+		<div class="col-md-12 col-sm-12">
+			<h2 class="title">Edit Basic Information</h2>
+		</div>
+	 
+	
+		<div class="col-md-12 col-sm-12 heading">
+			<div ng-include="include.VOL410_top"></div>
+		</div>
+	</div>
+	<div class="show_error col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-show="(basicInfo.$invalid && submitted)">
+			<span class="glyphicon glyphicon-alert warning"></span>
+				 <span class="error_message col-md-11 no-padding">
+					<p ng-show="basicInfo.eventName.$error.required && submitted">
+						Event Name is required.
+					 </p>
+					 
+					 <p ng-show="basicInfo.schoolName.$error.required && submitted">
+						 School Name is required.
+					 </p>
+					 
+				  </span>
+	</div>
+	<section class="row basicInfoForm">
+		<form class="form-horizontal" name="basicInfo" novalidate>
+			<div class="col-md-10 col-sm-7 col-xs-12">
+				<div class="form-group">
+					<label class="col-md-3 col-sm-3 col-xs-12 control-label">
+						Event Name:
+					</label>
+					<div class="col-md-5 col-sm-5 col-xs-12">
+						<input maxlength="50" class="form-control" type="text" ng-model="fair.eventName" name="eventName" required>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 col-sm-3 col-xs-12 control-label">
+						School:
+					</label>
+					<div class="col-md-5 col-sm-5 col-xs-12">
+						<input maxlength="50" class="form-control" type="text" ng-model="fair.schoolName" name="schoolName" required>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 col-sm-3 col-xs-12 control-label">
+						Event Dates:
+					</label>
+					<div class="col-md-3 col-sm-4 col-xs-12 date">
+						<div class="input-group">
+							<input class="form-control" type="text" ng-model="fair.fairStartDate" name="startDate" required uib-datepicker-popup="MM/dd/yyyy" is-open="openedStartDate">
+							<span class="input-group-btn">
+					          	<button class="btn btn-default btnCalender" type="button" ng-click="startDatePopup($event)"> <img src="../images/icon-calendar2.png" height="28"/></button>
+					        </span>
+				        </div>
+					</div>
+					<span class="to">to</span>
+					<div class="col-md-3 col-sm-4 col-xs-12 date">
+						<div class="input-group">
+						<input class="form-control" type="text" ng-model="fair.fairEndDate" name="endDate" required uib-datepicker-popup="MM/dd/yyyy" is-open="openedEndDate">
+						<span class="input-group-btn">
+					      	<button class="btn btn-default btnCalender" type="button" ng-click="endDatePopup($event)"> <img src="../images/icon-calendar2.png" height="28"/></button>
+					    </span>
+						</div>
+					</div>
+				</div>
+					<div class="form-group">
+					<label class="col-md-3 col-sm-3 col-xs-12 control-label">
+						Sign-Up Sheet Message:
+					</label>
+					<div class="col-md-9 col-sm-10 col-xs-12">
+						<textarea class="form-control ng-pristine ng-valid ng-valid-maxlength ng-touched" ng-model="fair.description" ng-maxlength="2000" maxlength="2000"> </textarea>
+						<div class="remainingDesc">{{fair.description.length}} of 2000</div>
+					</div>
+				</div>
+				<div class="form-group offset-md-1">
+					<button class="btn btn-custom" ng-click="stepBack()">cancel</button>
+					<button class="btn btn-primary" ng-click="editFormSubmit()">Save</button>
+				</div>
+			</div>
+		
+
+		</form>
+
+	</section>
+	<div class="bg-popup" ng-if="PopupBg" ng-click="closeCalender()"></div>
+</div>

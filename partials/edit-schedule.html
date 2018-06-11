@@ -1,0 +1,27 @@
+<style type="text/css">
+	#cpt_header-holder,.cpt-footerWrap,footer.container{display:none;}
+</style>
+<div class="volSchedule container">
+<header class="row pageHeader">
+		<div class="breadCrumb col-md-12 col-sm-12"> 
+			<a href="javascript:void(0);" ng-click="gotoVolunteers()">Volunteers > </a>
+			<a href="javascript:void(0);" ng-click="stepBack()"> Sign-up Builder > </a>	
+			<a class="disabled"> Edit Schedule</a>
+		</div>
+		<div class="col-md-12 col-sm-12 col-xs-12">
+			<div ng-include="include.Vol430_top"></div>
+	    </div>
+</header>
+<section class="row">
+	<div >
+		<uib-tabset active="active" class="col-md-12 col-sm-12 col-xs-12">
+		    <uib-tab ng-repeat="tab in tabs" index="$index" heading="{{tab.title}}">
+				<div class="col-md-12 col-sm-12 col-xs-12">
+					<div ng-include="include.Vol430_pallet"></div>
+				</div>
+		        <div ng-include="tab.templateUrl"></div>
+		    </uib-tab>
+		</uib-tabset>	
+	</div>
+</section>
+</div>

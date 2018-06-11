@@ -1,0 +1,29 @@
+<section class="popUp publishNow">
+	<h4>Your sign-up sheet is published <br>and can be accessed from your <br>Book Fair Homepage.</h4>
+	<div class="popUp_content">
+	<p>Share it with your school community:</p>
+	<div class="bg-danger" ng-show="showFBErrorPublishNow" >
+		<span class="glyphicon glyphicon-warning-sign"> </span>
+		<span class="bg-danger"> {{fbError}} </span> 
+	</div>
+	<div class="socialIcon">
+		
+		<ul>
+			<!-- social media -->
+			<li>
+				<a ng-click="openFBPublishNow(signupSheets.active[0].maskedSignUpStr)"><img src="images/icon_fb.jpg" /></a>
+			</li>
+			<li>
+				<a ng-click="openTwitter(signupSheets.active[0].maskedSignUpStr)"><img src="images/icon_twitter.jpg" /></a>
+			</li>
+			<li class="send_email"><a href="" ng-click="goToMessages(signupSheets.active[0])" class="email btn-custom">
+				<span class="glyphicon glyphicon-envelope"></span> Send Email
+				</a>
+			</li>
+        </ul>
+	</div>
+	</div>
+	<footer>
+		<button class="btn btn-primary" ng-click="closePopUp()">Close</button>
+	</footer>
+</section>

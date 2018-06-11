@@ -1,0 +1,11 @@
+<!--Not used any where, Moved from Volunteer Dashboard if required we can use.-->
+<div class="deletepopUp" ng-if="showDeleteTask">
+	<p ng-show="assignTaskDetails.volName==null" class="title">Delete Time slot</p>
+	<p ng-show="assignTaskDetails.volName!=null"class="title">Delete Time slot</p>
+	<p ng-show="assignTaskDetails.volName==null">Are you sure you want to delete this time slot?</p>
+	<p ng-show="assignTaskDetails.volName!=null">A volunteer has signed up for this time slot,<br /> are you sure you want to delete it? If so, <br /> please notify the volunteer of this change.</p>
+	<footer>
+		<button class="btn btn-custom" ng-click="closePopUp()">Cancel</button>
+		<button class="btn btn-primary" ng-click="deleteTask(assignTaskDetails)">Delete</button>
+	</footer>
+</div>

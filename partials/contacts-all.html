@@ -1,0 +1,326 @@
+<style type="text/css">
+    #cpt_header-holder,
+    .cpt-footerWrap,
+    footer.container,
+    #cpt_header {
+        display: none;
+    }
+</style>
+<div class="container myContacts">
+    <section class="row section-contacts">
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <h1 class="title"><img class="contactsIcon" src="../images/icon_contacts_2x.jpg" /><span class="contactsTitle">Contacts</span></h1>
+        </div>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <div class="header-Button">
+                <a class="btn btn-success" ng-click="performAction('', 'sendmsg')">Send an Email</a>
+                <a class="btn btn-primary" ng-click="performAction('', 'addContacts')">Add A Contact</a>
+            </div>
+        </div>
+        <div class="row col-xs-12 top_contact" ng-include="include.top_contact"></div>
+    </section>
+
+    <section ng-if="showWarning4xx || showWarning5xx" role="alert" class="row alert alert-danger">
+        <span ng-show="showWarning4xx && !showWarning5xx"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> School/fair ID not found, try again later. If this problem persists, please contact <a href="https://scholastic-bookfairs.custhelp.com/">customer service</a>.</span>
+        <span ng-show="showWarning5xx"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> There was a technical issue loading data, please try again. If this problem persists, please contact <a href="https://scholastic-bookfairs.custhelp.com/">customer service</a>.</span>
+    </section>
+
+    <section class="row">
+        <aside class="col-md-3" style="margin-bottom: 160px">
+            <div class="ContactBox">
+                <div ng-controller="contactGroupController">
+                    <div class='contactBoxTop'>
+                        <ul class="contactList">
+                            <li ng-repeat="grp in defaultGroupList track by grp.id">
+                                <a ng-click="updateDefaultContactList(grp)" ng-class="{selected: grp.id === selectedGroup}">{{grp.name}}</a>
+                                <span class="groupCount">({{grp.count}})</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="contactBoxBottom">
+                        <ul class="contactList">
+                            <li ng-repeat="grp in groupList| orderBy: 'name' track by grp.id" ng-hide="grp.id===10||hideThis">
+                                <a ng-show="!showfilds" ng-click="updateContactList(grp)" ng-class="{selected: grp.id === selectedGroup}">{{grp.name}}</a>
+                                <span ng-show="!showfilds" class="groupCount">({{grp.count}})</span>
+                                <span class="inputWrap" ng-show="showfilds">
+							    	<input type="text" class="form-control" ng-model="grp.name" ng-blur="action(grp, 'EDIT')" maxlength="20">
+							    	<span ng-click="hideThis=true;action(grp, 'DELETE')" class="glyphicon glyphicon-remove-sign"></span>
+                                </span>
+                            </li>
+                        </ul>
+                        <span ng-show="showfilds" class="input-group">
+                            <input type="text" class="form-control" ng-model="newGroup" placeholder="New Group Name" maxlength="20" />
+				        </span>
+                    </div>
+                    <button class="btn btn-default" ng-click="grpList()" ng-show="showfilds">Cancel</button>
+                    <button class="btn btn-primary pull-right" ng-click="showfilds=false;saveGrps()" ng-show="showfilds">Save</button>
+                    <button class="btn btn-custom" ng-click="showfilds=true" ng-show="!showfilds">Manage Groups</button>
+                </div>
+            </div>
+            <div class="exportandImport col-md-12 col-sm-12">
+                <a href="javascript:void(0);" ng-click="goToImport()" class="btn-importandexport">
+                    <span class="glyphicon"><img src="images/import.png" alt=""/></span> Import contacts</a>
+                <a href="javascript:void(0);" ng-click="goToExport()" class="btn-importandexport">
+                    <span class="glyphicon"><img src="images/export.png" alt=""/></span> Export contacts</a>
+            </div>
+        </aside>
+
+        <div class="col-md-9 allContactsColumn">
+            <div class="tableHeader">
+                <ul>
+                    <li>
+                        <span>
+			 		        <div class="squaredOne">
+                                <input type="checkbox" value="None" id="squaredOneHead" ng-model="checkAll" class="openPanel" id="checkAll" ng-click="selectAll()" ng-disabled="contactList.length===0" />
+                                <label for="squaredOneHead" ng-model="checkAll"></label>
+                            </div>
+		 			    </span>
+
+                        <span class="shade">
+                            <!--DJ VMS-937-->
+                            <img src="images/group.png" alt=""/>
+                            <span class="spanTableHeader">{{tableHeader}}</span>
+                        </span>
+
+                        <span> &nbsp; &nbsp; </span>
+                        <span class="shade">
+			 			    <div class="input-group">
+                                <div class="control-label">Sort by:</div>
+			 				    <span class="selectWrap">
+				 				    <select class="form-control" ng-model='contactSort' ng-change="fixSort()">
+                                        <option value="first">First Name</option>
+                                        <option value="last">Last Name</option>
+                                    </select>
+				 			    </span>
+            </div>
+            </span>
+
+            <section class='actionPanel' ng-show="checkAll" action-panel>
+                <ul>
+                    <li><a ng-click="goToSendMessage()">Send Email</a></li>
+                    <li><a ng-click="performAction('', 'allContacts')">Add <strong>{{contactList.length}}</strong> to Group</a></li>
+                    <li ng-show="showRemoveGrp"><a ng-click="performAction(contact, 'removefromGroup')">Remove <strong>{{contactList.length}}</strong> from Group</a></li>
+                    <!--<li><a ng-disabled="showDeleteAll()" ng-class="{disabled:!showDeleteAll()}" ng-click="performAction(' ', 'DeleteAll')">Delete All</a></li> -->
+                    <li><a ng-click="performAction(' ', 'DeleteAll')">Delete All</a></li>
+                </ul>
+            </section>
+            </li>
+            </ul>
+        </div>
+        <div class="tableBody">
+            <ul>
+                <li ng-repeat="contact in contactList | orderBy:sortOrder track by contact.volunteerExt.transId" check-all>
+                    <span>
+		 			    <div class="squaredOne">
+                            <input type="checkbox"
+                                   value="None"
+                                   id="squaredOne{{$index}}"
+                                   name="check"
+                                   class="openPanel"
+                                   checkbox-group
+                                   ng-model="contact.checked"/>
+                            <label for="squaredOne{{$index}}"></label>
+                        </div>
+                    </span>
+                    <span><a ng-click="viewVolunteerHistory(contact)" class="slideDown"><span ng-if="contact.volunteerExt.firstName===''&&contact.volunteerExt.lastName===''">No Name</span>{{contact.volunteerExt.firstName}} {{contact.volunteerExt.lastName}}</a>
+                    </span>
+                    <span class="shade"><div>{{contact.email}}</div></span>
+                    <span class="shade">{{contact.volunteerExt.phone | phoneFormat }}</span>
+                    <div class="contactDetails clearfix" slide-tog>
+                        <div class="pull-left contactInfoAndButtons">
+                            <div class="pull-left col-xs-8 col-sm-8 col-md-7 col-lg-7">
+                                <!-- DJ VMS-1295 -->
+                                <div class="emailDetail ">{{contact.email}}</div>
+                                <!-- <address> TODO: DJ VMS-1206 is there an address directive somewhere? I can't find one. -->
+                                <div class="addressDetail">
+                                    <br>
+                                    <span class="addressLine1" ng-if="contact.volunteerExt.address1">{{contact.volunteerExt.address1}}</span>
+                                    <span class="addressLine2" ng-if="contact.volunteerExt.address2">{{contact.volunteerExt.address2}}</span>
+                                    <span class="addressCityStateZip" ng-if="showCityState(contact)"><span class="addressCity" ng-if="contact.volunteerExt.city">{{contact.volunteerExt.city}}</span><span class="addressComma" ng-show="contact.volunteerExt.city && contact.volunteerExt.state">,</span>
+                                    <span class="addressState" ng-if="contact.volunteerExt.state"> {{contact.volunteerExt.state}}</span><span class="addressPostalCode" ng-show="contact.volunteerExt.zip">&nbsp;{{contact.volunteerExt.zip}}</span>
+
+                                    </span>
+                                    <!-- DJ VMS-1295 -->
+                                </div>
+                                <!--</address>-->
+                                <p/>
+                                <p class="toolkit" ng-if="contact.toolKitAccess === 'Y'">
+                                    <img src="images/toolkitKey.png" alt="" /> <strong>Toolkit User Access</strong>
+                                </p>
+                                <div class="addressNotes">
+                                    <br/>
+                                    <span ng-if="contact.volunteerExt.notes"><b>Notes:</b> {{contact.volunteerExt.notes}}</span>
+                                </div>
+                            </div>
+                            <div class="pull-right btn-div">
+                                <button class="btn btn-success pull-right" ng-click="performAction(contact, 'indSendmsg')">Send an Email</button>
+                                <button class="btn btn-custom pull-right" ng-click="performAction(contact, 'addGroup')">Add To Group</button>
+                                <button class="btn btn-custom pull-right" ng-click="performAction(contact, 'edit')">Edit Contact</button>
+
+
+                                <div id="wrapper">
+                                    <button class="btn btn-custom pull-right" ng-click="performAction(contact, 'deleteOne')" ng-disabled="!contact.showDelete">
+                                    	<div><span class="glyphicon glyphicon-remove-sign"></span></div>
+                                    	<div class="deleteContactText" ng-position>Delete Contact</div>
+                                	</button>
+                                    <!-- Wrapper needed for FireFox specific bug: https://bugzilla.mozilla.org/show_bug.cgi?id=843003 . If you see the bug is fixed please get rid of this fake button-->
+                                    <button class="btn btn-custom pull-right" ng-click="performAction(contact, 'deleteOne')" style="position:relative;top:-35px;opacity:0" popover-trigger="mouseenter focus" popover-append-to-body='true' uib-popover-html="!contact.showDelete ? cannotDeletePopup : ''"
+                                        popover-popup-close-delay='1500'>
+                                        <div><span class="glyphicon glyphicon-remove-sign"></span></div>
+                                        <div class="deleteContactText" ng-position>Delete Contact</div>
+                                        </button>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="pull-left fairActivities" ng-if="contact.volunteerHistory.eventHistory.currentFair.activities.length || contact.volunteerHistory.eventHistory.pastFairs.length">
+                            <div ng-if="contact.volunteerHistory.eventHistory.currentFair.activities.length> 1">
+                                <strong class="fairName" style="color: #007FC4">{{ contact.volunteerHistory.eventHistory.currentFair.eventName }}</strong> | {{contact.volunteerHistory.eventHistory.currentFair.start | date : 'M/d/yy':'UTC' }} &mdash; {{contact.volunteerHistory.eventHistory.currentFair.end
+                                | date : 'M/d/yy':'UTC' }}
+                            </div>
+                            <div class="schoolName">{{ contact.volunteerHistory.eventHistory.schoolName }}</div>
+                            <div ng-repeat="activity in contact.volunteerHistory.eventHistory.currentFair.activities | orderBy:'date'">
+                                <p>
+                                    <div class="row" style="margin: 0px;">
+                                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 activitiesFont">{{activity.date | date : 'M/d/yy':'UTC' }}</div>
+                                        <div class="col-lg-6 col-md-3 col-sm-3 col-xs-3 activitiesFont no-padding">{{activity.name}}</div>
+                                        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6 padder">
+                                            <ul>
+                                                <li class="activitiesTimes" ng-repeat="time in activity.times | orderBy:sortTimeAscending">
+                                                    <p ng-if="activity.anyTime===true">Any Time</p>
+                                                    <p ng-if="activity.anyTime===false">
+                                                        {{time[0] | date : 'h:mm a'}} &mdash; {{time[1] | date : 'h:mm a'}}</p>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </p>
+                                <br ng-if="contact.volunteerHistory.eventHistory.currentFair.activities.length > 1">
+                            </div>
+                            <hr ng-if="contact.volunteerHistory.eventHistory.pastFairs.length > 0" />
+                            <div ng-repeat="fair in contact.volunteerHistory.eventHistory.pastFairs">
+                                <strong class="fairName">{{ fair.eventName }}</strong> | {{ fair.start | date : 'M/d/yyyy':'UTC' }} &mdash; {{fair.end | date : 'M/d/yy':'UTC' }}
+                                <br>
+                                <div class="schoolName">{{ contact.volunteerHistory.eventHistory.schoolName }}</div>
+                                <p>
+                                    <div class="activitiesFont col-lg-12 col-sm-12 col-md-12 col-xs-12" ng-repeat="activity in fair.activities">
+                                        {{activity.name}}
+                                        <br>
+                                    </div>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <section class='actionPanel' action-panel>
+                        <ul>
+                            <li ng-hide="deleteList.length>1"><a ng-click="performAction(contact, 'edit')">Edit Contact</a></li>
+                            <li><a ng-click="performAction(contact, 'sendmsg')">Send Email</a></li>
+                            <li><a ng-click="performAction(null, 'addGroup')" ng-position>Add <strong ng-show="deleteList.length>1">{{deleteList.length}}</strong> to Group</a></li>
+                            <li ng-show="showRemoveGrp">
+                                <a ng-click="performAction(contact, 'removefromGroup')">Remove <strong ng-show="deleteList.length>1">{{deleteList.length}}</strong> from Group</a>
+                            </li>
+                            <li><a ng-click="performAction('', 'delete')" ng-position>Delete Selected</a></li>
+                        </ul>
+                    </section>
+                </li>
+            </ul>
+        </div>
+</div>
+<div ng-show="true" class="lowestElementIframeResizer clearfix">
+    <!-- VMS-1482 -->
+</div>
+</section>
+<div ng-show="overLay" class="popupOverlay"></div>
+
+<div ng-show="sendNoEmail" class="popUp">
+    <!-- <h4>No Email!</h4>  -->
+    <p ng-if='validContacts>1 && !emptyContact'>Your email will be sent to {{validContacts}} contacts.</p>
+    <p ng-if='validContacts==1 && !emptyContact'>Your email will be sent to {{validContacts}} contact.</p>
+    <p ng-if='emptyContacts==1 && !emptyContact'>{{emptyContacts}} contact did not contain email address and will not be deliverable.</p>
+    <p ng-if='emptyContacts>1'>{{emptyContacts}} contacts did not contain email addresses and will not be deliverable.</p>
+    <p ng-if='emptyContact'>Your contact did not contain email address and will not be deliverable.</p>
+    <footer>
+        <button class="btn btn-custom" ng-click="closePopUp()">
+            <strong>CANCEL</strong>
+        </button>
+        <button ng-show="validContacts>0" class="btn btn-primary" ng-click="sendMessage()"> 
+        CONTINUE
+        </button>
+    </footer>
+</div>
+
+<div ng-show="addGroupNoEmail" class="popUp">
+    <!-- <h4>No Email!</h4>  -->
+    <p ng-if="selectedContacts.length==1 ||
+    selectedContacts.length==0">Email address is required when creating a group. Please remove any contact without an email address and try again.</p>
+    <p ng-if="selectedContacts.length>1">Email address is required when creating a group. Please remove any contacts without an email address and try again.</p>
+    <footer>
+        <button class="btn btn-custom" ng-click="closePopUp()">OK</button>
+    </footer>
+</div>
+
+<div ng-show="showDeleteAlla" class="popUp delContact" ng-include="include.delete_contact">
+</div>
+<div id="eleSelected" ng-show="eleSelected" class="popUp delContact" ng-include="include.delete_contact">
+</div>
+<div ng-show="eledeleteOne" class="popUp">
+    <h4>Confirm Delete</h4>
+    <p>Permanently delete this contact from your address book?</p>
+    <footer>
+        <button class="btn btn-custom" ng-click="closePopUp()">Cancel</button>
+        <button class="btn btn-primary" ng-click="deleteContact()">Delete</button>
+    </footer>
+</div>
+
+<section ng-show="addGroup" class="addGroup">
+    <h3><img src="images/group.png" alt="" /> Add to Group</h3>
+    <ul>
+        <li ng-repeat="group in groupList | orderBy: 'name' track by group.id" ng-hide="group.id===10||removeGro===group.id">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" add-group ng-model="group.checked" maxlength="20" /> {{group.name}}
+                </label>
+            </div>
+        </li>
+    </ul>
+    <div class="addNew">
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" ng-model="newGroupBox" />
+                <input type="text" class="form-control" ng-model="newGrp" placeholder="New Group Name" ng-disabled="!newGroupBox" maxlength="20" />
+            </label>
+        </div>
+    </div>
+    <footer>
+        <button class="btn btn-custom" ng-click="closeGroupPopup()">Cancel</button>
+        <button class="btn btn-primary" ng-click="addToGroup()" ng-disabled="disableAddToGroupSave()">Save</button>
+    </footer>
+
+</section>
+<div ng-show="importElement" class="popUp">
+    <div id="loading" ng-show="importing">
+        <div class="loaderWrap">
+            <div class="loader"></div>
+            <span>Importing Contacts...</span>
+        </div>
+    </div>
+    <div class="loadComplete" ng-show="!importing">
+        <p>Import complete.</p>
+        <button class="btn btn-primary" ng-click="reload()">CLOSE</button>
+    </div>
+</div>
+<div ng-show="exportElement" class="popUp">
+    <div id="loading" ng-show="importing">
+        <div class="loaderWrap">
+            <div class="loader"></div>
+            <span>Exporting Contacts...</span>
+        </div>
+    </div>
+    <div class="loadComplete" ng-show="!importing">
+        <p>Export complete. Your file will
+            <br/> automatically download.</p>
+        <button class="btn btn-primary" ng-click="closePopUp()">CLOSE</button>
+    </div>
+</div>
+</div>
+<contact-carousel></contact-carousel>

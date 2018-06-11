@@ -1,0 +1,112 @@
+@import 'variable';
+@import 'mixins';
+.volunteerSchedule {
+    color: @text-color; //width: @cptkWidth;
+    //font-family: @volFont;
+    margin: 20px 0;
+    float: left;
+    .row {
+        margin: 0;
+    }
+    .pageHeader {
+        position: relative;
+        small {
+            color: #4BC8F1;
+            font-size: 14px;
+        }
+        h2 {
+            font-size: 26px;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        div div {
+            padding-left: 0;
+        }
+    }
+    .pageHeader1 {
+        position: absolute;
+        top: -20px;
+        right: 0;
+        background: #fff9bf;
+        padding: 7px 7px 7px;
+        p {
+            font-size: 14px;
+        }
+        h2 {
+            font-size: 26px;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        div div {
+            padding-left: 0;
+        }
+        &::after,
+        &::before {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            width: 0;
+            height: 0;
+            border-top: 15px solid #fff9bf;
+        }
+        &::after {
+            left: 0;
+            border-left: 0 solid transparent;
+            border-right: 180px solid transparent;
+        }
+        &::before {
+            right: 0;
+            border-left: 180px solid transparent;
+            border-right: 0 solid transparent;
+        }
+    }
+    .calenderFooter,
+    .basicInfo {
+        margin-top: 30px;
+        .btn {
+            font-family: Verdana, sans-serif;
+            padding: 3px 17px;
+            border-radius: 0;
+            text-transform: uppercase;
+            margin-right: 20px;
+        }
+        .btn-custom {
+            border: 1px solid #007EC1;
+            color: #2C81B7;
+            background: #fff;
+            padding: 2px 10px;
+            text-decoration: none;
+        }
+        .btn-default {
+            border: 1px solid #0082BA;
+            color: #4F8FB3;
+        }
+        .btn-primary {
+            background: #007FC4;
+        }
+    }
+    .publishNow {
+        height: 250px;
+        top: 70%;
+        left: 50%;
+        margin-left: -165px;
+        margin-top: -105px;
+    }
+    .calendarTopSave {
+        margin-top: -55px !important;
+        padding-right: 0px !important;
+        float: right;
+        text-align: right;
+        .btn-custom {
+            border: 1px solid #007EC1;
+            color: #2C81B7;
+            background: #fff;
+            padding: 2px 10px;
+            text-decoration: none;
+            margin-right: 20px;
+        }
+        .btn-primary {
+            background: #007FC4;
+        }
+    }
+}

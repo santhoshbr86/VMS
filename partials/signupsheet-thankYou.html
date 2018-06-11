@@ -1,0 +1,188 @@
+<style type="text/css">
+@media (min-width: 1200px)
+{
+	.container
+	{
+		width:1170px;
+	}
+}
+</style>
+<link rel="stylesheet" type="text/css" href="style/addevent.min.css" />
+
+<div class="signUpThankyou">
+<header class="col-md-12 col-sm-12 col-xs-12">
+	<div class="center-block col-md-6 dashBoard">
+		<a href="javascript:void(0);" ng-click="viewDashboard(volSignUpActData.signupSheetActivities[0].volunteerId,volSignUpActData.maskedSignUpStr)" class="pull-right">Volunteer Dashboard
+			<span class="glyphicon glyphicon-triangle-right"></span>
+		</a>
+	</div>
+	<section class="thankingBlock center-block col-md-6 col-sm-9 col-xs-12">
+		<h1>Thank you for helping.</h1>
+		<div ng-include="include.top"></div>
+		<!--<section style="display:none" ng-show="showWarning5xx" role="alert" class="row alert alert-danger">
+			<span ng-show="showWarning5xx"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Unable to process your request at this time. If this problem persists, please contact Customer Service. </span>
+		</section>-->
+		<!-- Text Reminder Error message End. Phone number Update starts -->
+        <div ng-show="textRemiderError" class="ng-cloak col-md-12 col-sm-12 col-xs-12 show_error"> 
+            <span class="glyphicon glyphicon-warning-sign col-md-1 col-sm-1 col-xs-1"></span>
+            <span ng-include="include.VOL250_TextRemError">
+            </span>
+        </div>
+        <div class="ng-cloak col-md-12 col-sm-12 col-xs-12 show_error ng-cloak" ng-show="textReminder.$invalid && reminderSubmit">
+				<span class="glyphicon glyphicon-warning-sign col-md-1 col-sm-1 col-xs-1"></span>
+				<div class="col-md-11 col-sm-11 col-xs-11">
+					<div ng-show="textReminder.phoneNumber.$error.required && reminderSubmit">
+						Phone number is required to receive text reminders.
+					</div>
+					<div ng-show="(textReminder.phoneNumber.$error.maxlength || textReminder.phoneNumber.$error.length ||textReminder.phoneNumber.$error.minlength  ) && reminderSubmit">
+						Please enter a valid mobile number.
+					</div>
+				</div>
+        </div>
+
+		<div ng-show="volSignUpActData.signupSheetActivities[0].volunteerPhone==null || volSignUpActData.signupSheetActivities[0].volunteerPhone.length!=10">
+			<div class="ng-cloak col-md-12 show_error" ng-show="updatePhone.$invalid && submitted">
+				<span class="glyphicon glyphicon-warning-sign col-md-1"></span>
+				<div class="col-md-11" ng-show="updatePhone.phone.$error.required && submitted">
+					Phone number is required.
+				</div>
+				<div class="col-md-11" ng-show="(updatePhone.phone.$error.maxlength || updatePhone.phone.$error.length) && submitted">
+					Please enter a valid mobile number.
+				</div>
+			</div>
+			<div class="phone topWrap col-md-12 col-sm-12 col-xs-12 ng-cloak" ng-show="isincludeLoaded">
+				 <form class="form-inline" name="updatePhone" novalidate>
+				    <div class="reminderTitle" ng-include="include.textReminder1"></div>
+				    <div class="form-group">
+						<span class="squaredOne ">
+                            <input type="checkbox" value="None" id="squaredOneHead" ng-model="topCheckbox" class="openPanel"  ng-checked="topCheckbox==true" ng-change="resetError()"/>
+                            <label for="squaredOneHead" ng-model="topCheckbox"></label>
+                        </span>
+                        <span class="reminderCheckBox" ng-include="include.checkbox1"></span>
+                     </div>
+					<div class="form-group col-md-12 col-sm-12 col-xs-12" id="topInputWrapper" ng-if="topCheckbox">
+						<div class="rowPhone col-md-12 col-sm-12 col-xs-12">
+						    <label class="col-md-2 col-sm-2 col-xs-12 control-label">Phone: </label>
+							<div class="col-md-10 col-sm-10 col-xs-12">
+								<input type="tel" class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required ng-valid-maxlength" name="phone" ng-model="phone" ng-minlength="10" maxlength="10" ng-maxlength="10" required="" ng-class="{'error':updatePhone.$invalid &amp;&amp; submitted}" numbers-only format-phone>
+								<!--<span class="control-label-area-code">(Please include area code)</span>-->
+							</div>
+						</div>
+						<div class="group-button col-md-12">
+						<button ng-click="savePhoneDetails(volSignUpActData.signupSheetActivities[0].volunteerId,volSignUpActData.schoolId)" class="btn btn-custom">Save</button>
+					    </div>
+					</div>
+				</form>
+			</div>
+		</div>
+
+<!-- Phone number Update End, Text Reminders starts -->
+<div class="phone bottomWrap col-md-12 col-sm-12 col-xs-12 ng-cloak" ng-show="isincludeLoaded && textRemiderView">
+		<div class="reminderTitle" ng-include="include.textReminder2"></div>
+		<form class="form-inline" name="textReminder" novalidate>
+			<div class="form-group">
+				<span class="squaredOne ">
+		            <input type="checkbox" value="None" id="squaredBotHead" ng-model="bottomCheckbox" class="openPanel"  ng-checked="bottomCheckbox==true" ng-change="resetError()" />
+		            <label for="squaredBotHead" ng-model="bottomCheckbox"></label>
+	            </span>
+	            <span class="reminderCheckBox" ng-include="include.checkbox2" onload="finishLoading()"></span>
+	        </div>
+			<div class="form-group termTextPadding" id="topInputWrapper" ng-if="bottomCheckbox">
+				<div class="topText">
+						<p ng-include="include.VOL250_Alerts"></p>
+					<div class="input-group">
+					  	<span class="roundOne">
+						    <input type="radio"  id="noTextTerm" ng-model="bottom.Useroption" ng-value="0" ng-checked="Useroption"/>
+						    <label for="noTextTerm" ng-model="Useroption"></label>
+						</span>
+						<span ng-include="include.VOL250_NoText"> </span>
+					</div>
+					<div class="input-group">
+					   	<span class="roundOne">
+					    <input type="radio" id="yesTextTerm" ng-model="bottom.Useroption" ng-value="1" ng-checked="Useroption" />
+					    <label for="yesTextTerm" ng-model="Useroption"></label>
+					    </span>
+						<span ng-include="include.VOL250_YesText"></span>
+					</div>
+				</div>
+				<div class="rowPhone col-md-12 col-sm-12 col-xs-12 input-group">
+					<div class="form-group col-md-12 col-sm-12 col-xs-12">
+					<label class="control-label col-md-4 col-sm-4 col-xs-12">Mobile Phone:</label>
+					<span class="col-md-8 col-sm-8 col-xs-12 inputWrap">
+						<input type="tel" class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required ng-valid-maxlength" name="phoneNumber" ng-model="phoneNumber" ng-minlength="10" maxlength="10" ng-maxlength="10" required="" ng-class="{'error':textReminder.$invalid &amp;&amp; reminderSubmit}"  numbers-only format-phone >
+					</span>
+					</div>
+				</div>
+					<div class="textTerm" ng-include="include.VOL250_TextTerms">
+					</div>
+					<div class="group-button col-md-12">
+						<button ng-click="saveTextreminder(volSignUpActData.signupSheetActivities[0].volExtId)" class="btn btn-custom">Save</button>
+					</div>
+			</div>	
+		</form>
+</div>	
+<!-- Text Reminders Ends -->
+
+	</section>
+</header>
+<div class="ng-cloak col-md-12 col-xs-12">
+	<div class="panelBody center-block col-md-6 col-sm-9 col-xs-12">
+		<div class="row HeaderWrap">
+		<div class="panelHeader col-md-9 col-sm-9 col-xs-9">
+			<h2>{{volSignUpActData.eventName}}</h2>
+			<span>{{volSignUpActData.schoolName}}</span>
+			<p>Let your friends know you are volunteering.</p>
+			<ul class="socialMedia">
+				<li><a ng-click="openFaceBookThankYou()"><img src="images/icon_fb.jpg" /></a></li>
+				<li><a ng-click="openTwitterThankYou()"><img src="images/icon_twitter.jpg" /></a></li>
+			</ul>
+		</div>
+			<div class="addtoCalenderWrap col-md-3 col-sm-3 col-xs-3">
+			<button class="btn-print pull-right" ng-click="printSignUpData()">print</button>
+			</div>
+		</div>
+		<ul class="list-group">
+			<li class="list-group-item" ng-repeat="activityDetails in volSignUpActData.orderedsignupSheetActivities" >
+				<h2>{{activityDetails.header}}</h2>
+				<ul>
+					<li ng-repeat="activity in activityDetails.signupSheetActivities" >
+						<p class="nameTimer">{{activity.eventName}} | <span ng-if="activity.anyTime===true">Any Time</span>
+						<span ng-if="activity.anyTime===false">{{activity.startTime}} &ndash; {{activity.endTime}}</span></p>
+						<!-- <p class="discription">{{activity.description}}</p> -->
+						<!--  <p class="discription"> <a href="{{activity.howLink}}" target="_blank"><img src="{{activity.howImg}}"></img></a> {{activity.howText}} </p> -->
+						<!--  <p class="discription"><ng-include src="'/vmsassets/'+activity.howFile"></ng-include></p> -->
+						<!--  <p class="discription">{{activity.howFile}}</p> -->
+						<p class="discription"><div class="howFile" ng-bind-html="activity.howFile|howToHtml"></div></p>
+							<div title="Add to Calendar" class="addeventatc">
+								<!-- TODO: Most of these have to change -->
+								<!--  dates look like: MM/DD/YYYY HH:MM AM/PM -->
+								<img src="images/add_to_calendar_button.jpg" />
+								<span class="start">{{activity.rawActivityDate}} {{activity.startTime}}</span>
+								<span class="end">{{activity.rawActivityDate}} {{activity.endTime}}</span>
+								<span class="title">Book Fair Volunteer</span>
+								<span class="description">{{volSignUpActData.dashBoardURL}}</span>
+								<span class="location">{{volSignUpActData.schoolAddress}}</span>
+								<span class="organizer">{{volSignUpActData.organizerInfo.firstName}} {{volSignUpActData.organizerInfo.lastName}}</span>
+								<span class="organizer_email">{{volSignUpActData.organizerInfo.email}}</span>
+								<span class="date_format">{{dateFormat}}</span>
+								<span class="all_day_event">{{activity.allDay}}</span>
+							</div>
+					</li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+</div>
+<div style="display:none" ng-show="showOverLay" class="popupOverlay" ng-click="closePopUp()"></div>
+<section style="display:none" ng-show="showOverLay" class="popUp" >
+	<h4>Error</h4>
+	<p>{{fbError}}</p>
+	<footer>
+		<button class="btn btn-primary" ng-click="closePopUp()">Ok</button>
+	</footer>
+</section>
+</div>
+
+
+
+<script type="text/javascript" src="libs/addevent.min.js"></script>

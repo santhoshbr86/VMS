@@ -1,0 +1,16 @@
+<!--Not used any where, Moved from Volunteer Dashboard if required we can use.-->
+<section class="popUp viewAssigned" id="viewAssigned" ng-if="showViewAssigned">
+	<h4>{{assignTaskDetails.title}}</h4>
+	<p>{{assignTaskDetails.description}}</p>
+	<p>{{assignTaskDetails.startDate}} | {{assignTaskDetails.start}} <span class="hyphen"></span> {{assignTaskDetails.end}}</p>
+	<h4 ng-show="assignTaskDetails.volName!=null">{{assignTaskDetails.volName}}</h4>
+	<h5 ng-show="assignTaskDetails.volName==null">Unassigned</h5>
+	<p ng-show="assignTaskDetails.volunteerName!=null">{{assignTaskDetails.dupsCount}}</p>
+	<p ng-show="assignTaskDetails.comments!=null">{{assignTaskDetails.comments}}</p>
+	<p ng-show="assignTaskDetails.volName!=null">{{assignTaskDetails.volunteerEmail}}<br/>{{assignTaskDetails.volunteerPhone | phoneFormat}}</p>
+	<footer class="col-md-12">
+		<button class="btn btn-custom" ng-click="editTask()">EDIT</button>
+		<button class="btn btn-primary" ng-click="closePopUp()">CLOSE</button>
+		<button class="btn btn-custom pull-right" ng-click="deleteTaskConfirm()">DELETE</button>
+	</footer>
+</section>

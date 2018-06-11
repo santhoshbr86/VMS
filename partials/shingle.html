@@ -1,0 +1,66 @@
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script type="text/javascript">
+        function postHeightMessage() {
+            var actual_height = document.getElementById('content').scrollHeight;
+            parent.postMessage(actual_height + 50, "*");
+        }
+
+        function adjust_iframe_height() {
+            // Reset iframe height (for Chrome and Safari)
+            var isChrome = /Chrome/.test(navigator.userAgent);
+            var isSafari = /Safari/.test(navigator.userAgent);
+            if (isChrome || isSafari) {
+                //parent.postMessage(200, "*");
+            }
+            // Send actual iframe height
+            //setTimeout(postHeightMessage, 100);
+        }
+    </script>
+</head>
+
+<body class="content" style="font:normal 12px arial, sans-serif;
+    background: #D3ECFB;
+    background: -webkit-linear-gradient(#85C0E4, #D3ECFB);
+    background: -o-linear-gradient(#85C0E4, #D3ECFB);
+    background: -moz-linear-gradient(#85C0E4, #D3ECFB);
+    background: linear-gradient(#85C0E4, #D3ECFB);
+    display:block;margin:8px;">
+    <div class="container shingle" style="background-color: #fff;padding:0 30px 30px 30px">
+        <div class="row">
+            <header class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-centered">
+                <a style="padding-top: 10px;" class="pull-left" href="//www.scholastic.com/"><img src="http://www.scholastic.com/global_resources/universal/layout/images/scholastic-logo.png" alt="Scholastic"></a>
+                <ul class="pull-right" style="margin-top: 20px;">
+                    <li><a style="color:#006699;" href="#" onclick="sa_onClickHELPHome('https://bookfairs.scholastic.com/bookfairs/cptoolkit/help/index_signin.htm');return false;">Help</a></li>
+                </ul>
+            </header>
+        </div>
+        <div class="row">
+            <section class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-centered" style="margin-top: 30px; margin-bottom: 30px;">
+                <p><b>We're Sorry.</b></p>
+                <p>
+                    We are experiencing technical difficulties. Our website is not available at this time, but service will be restored as soon as possible. Please check back.
+                </p>
+                <p>In the meantime, please visit our <a style="color:#006699;" href="//www.scholastic.com/bookfairs/">Book Fairs web site</a> for more information about Scholastic Book Fairs.</p>
+                <p>Thank you for your patience.</p>
+            </section>
+        </div>
+        <div class="row">
+            <footer class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-centered">
+                <div id="schlFooter"> <a style="color:#006699;" href="//www.scholastic.com/privacy.htm" target="_blank">Privacy Policy</a>
+                    <a style="color:#006699;" href="//www.scholastic.com/terms.htm" target="_blank">Terms of Use</a> TM &reg; &amp; &copy; 2016-1996 Scholastic Inc. All Rights Reserved.
+                </div>
+            </footer>
+        </div>
+        <script language="JavaScript1.1">
+            function sa_onClickHELPHome(PopupURL) {
+                window.open(PopupURL, 'help', 'width=620,height=390');
+            }
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/3.5.5/iframeResizer.contentWindow.min.js" integrity="sha384-MnKLLV0q7HAo+niyek0Pd8ftPzEkBV250ZljiYrfPHDYTSD3ScWx9OWccMKaPTCx" crossorigin="anonymous"></script>
+    </div>
+</body>
+
+</html>

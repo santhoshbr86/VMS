@@ -1,0 +1,626 @@
+@import 'variable';
+.taskDetails {
+    color: @text-color;
+    .errorBox {
+        margin-left: 13px;
+        margin-top: 0px;
+        margin-bottom: 20px;
+    }
+    .errorIcon {
+        margin-top: 0px;
+        width: 3%;
+        float: left;
+        margin-left: 10px;
+    }
+    .errorTextBox {
+        margin-top: 0px;
+        p {
+            margin-top: 0px;
+            margin-bottom: 0px;
+            margin-bottom: 0px;
+        }
+    }
+    hr {
+        margin-bottom: 30px;
+        margin-top: 10px;
+        border: 0;
+        border-top: 2px solid #CDF2AF;
+        width: 100%;
+    }
+    .volunteerBottom {
+        margin-bottom: 0px;
+    }
+    .row {
+        margin: 0;
+    }
+    .pageHeader {
+        padding-bottom: 30px;
+        h1 {
+            color: #666;
+            font: 24px verdana, Arial, sans-sarif;
+            padding: 10px 0;
+        }
+    }
+    .deleteDup {
+        width: 215px;
+        background: rgba(0, 0, 0, 0) url(../images/rolesClose.png) no-repeat 10% center;
+        padding-right: 0px;
+        color: #368DD0;
+        border-radius: 0;
+        border: 1px solid #368DD0;
+        margin-right: 10px;
+    }
+    .roles {
+        h2 {
+            color: #64B630;
+            font-size: 28px;
+        }
+        ul {
+            padding: 0;
+            margin: 0;
+            list-style-type: none;
+            li {
+                padding-right: 10px;
+                padding-left: 10px;
+                margin-bottom: 10px;
+                height: 60px;
+                .input-group {
+                    border: 1px solid #007FC4;
+                    height: 56px;
+                    .input-group-addon {
+                        background-color: #fff;
+                        border: none;
+                        vertical-align: top;
+                        padding-top: 10px;
+                    }
+                    .title {
+                        display: block;
+                        word-wrap: break-word;
+                        overflow-wrap: break-word;
+                        text-overflow: ellipsis;
+                        padding: 6px;
+                        font-size: 16px;
+                        font-weight: 400;
+                        float: left;
+                        width: 156px;
+                        height: 50px;
+                        overflow: hidden;
+                        line-height: 1;
+                        @media (min-width: 992px) {
+                            width: 150px;
+                            float: left;
+                        }
+                    }
+                    #task {}
+                }
+                .default-task {
+                    background-color: #F5F5F5;
+                    height: 100px;
+                    .input-group;
+                    .input-group-addon {
+                        background-color: #F5F5F5;
+                        border: none;
+                    }
+                }
+            }
+        }
+        .customTask {
+            border-top: 1px dashed #ddd;
+            padding-top: 10px;
+            .glyphicon {
+                float: right;
+                padding: 8px 8px 8px 0;
+                color: #EA5E45;
+                font-size: 16px;
+            }
+            li {
+                height: 60px;
+                .input-group {
+                    height: 60px;
+                    .title {
+                        height: 56px;
+                    }
+                    .customFont {
+                        //font-size: 13px
+                    }
+                }
+            }
+        }
+    }
+    .basicInfo {
+        border-top: 1px solid #5C9E22;
+        margin-top: 30px;
+        padding-top: 30px;
+        overflow-y: hidden;
+        .error_message {
+            margin: 8px 0 0 0;
+        }
+        .form-horizontal {
+            .form-group {
+                .control-label {
+                    font-size: 18px;
+                    text-transform: capitalize;
+                    padding-right: 0;
+                    padding-top: 2px;
+                    font-weight: 400;
+                    color: #666666;
+                }
+                div,
+                input {
+                    padding-left: 10px;
+                }
+                .control-label-area-code {
+                    font-size: 12px;
+                    padding-right: 0;
+                    padding-top: 2px;
+                    font-weight: 400;
+                    color: #656565;
+                }
+                .control-label-optional {
+                    font-size: 15px;
+                    text-transform: capitalize;
+                    padding-right: 0;
+                    padding-top: 2px;
+                    font-weight: 400;
+                    color: #656565;
+                }
+                .form-control {
+                    border-radius: 0;
+                    height: 30px;
+                }
+                textarea.form-control {
+                    height: 100px;
+                    font-size: 14px;
+                    font-family: Verdana, sans-serif;
+                }
+                select.form-control {
+                    padding: 2px;
+                }
+                .input-group {
+                    padding: 0;
+                    .btnCalender {
+                        padding: 0;
+                        border-radius: 0;
+                        background: #0084C8;
+                        color: #fff;
+                        .glyphicon {
+                            font-size: 16px;
+                        }
+                    }
+                    .dropdown-menu {
+                        z-index: 99;
+                        border-radius: 0;
+                        margin-top: 0;
+                        padding: 0;
+                        outline: none;
+                        table {
+                            outline: none;
+                            width: 350px;
+                            height: 300px;
+                            thead {
+                                tr:nth-child(2) {
+                                    th {
+                                        padding-top: 10px;
+                                        font-size: 14px;
+                                        font-weight: 400;
+                                        color: #62676D;
+                                    }
+                                    th:nth-child(1) {
+                                        display: none;
+                                    }
+                                }
+                                tr:nth-child(1) {
+                                    th {
+                                        background: #D2ECF9;
+                                        button {
+                                            border: none;
+                                            background: #D2ECF9;
+                                            color: #62676D;
+                                            padding: 12px 15px;
+                                            outline: none;
+                                            box-shadow: none;
+                                            strong {
+                                                font-size: 16px;
+                                                font-weight: 400;
+                                            }
+                                            .glyphicon {
+                                                color: #3090CD;
+                                                font-size: 16px;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            tbody {
+                                tr {
+                                    td {
+                                        button {
+                                            border: 1px solid #fff;
+                                            padding: 6px 15px;
+                                            font-size: 15px;
+                                            border-radius: 0;
+                                            &:hover {
+                                                background: #fff;
+                                                border: 1px solid #269abc;
+                                            }
+                                        }
+                                        .btn.active {
+                                            background: #fff;
+                                            box-shadow: none;
+                                            border: 1px solid #269abc;
+                                            color: #333;
+                                        }
+                                    }
+                                    td:nth-child(1) {
+                                        display: none;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            .remainingDesc {
+                font-size: 13px;
+                color: #666666;
+            }
+        }
+        .addtionalInfo {
+            h3 {
+                color: #606060;
+                font-size: 26px;
+                padding-bottom: 20px; //margin-top:;
+            }
+        }
+        .newVolunteer {
+            .alert-danger {
+                color: #fff;
+                background: #EB5147;
+                border-radius: 0;
+                border: none;
+                padding: 6px 17px;
+                .glyphicon-alert {
+                    font-size: 16px;
+                }
+            }
+        }
+    }
+    .volunteerName {
+        padding: 20px 0;
+        background: #CDF2AF;
+        position: relative;
+        .form-group {
+            margin-bottom: 0;
+        }
+        .contactList {
+            position: absolute;
+            top: 70px;
+            left: 17.20%;
+            background: #fff;
+            border: 1px solid #ccc;
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            z-index: 4;
+            min-width: 31.1%;
+            li {
+                a {
+                    .name {
+                        text-transform: capitalize;
+                    }
+                    padding: 4px 12px;
+                    display: block;
+                    color: #000;
+                    &:hover,
+                    &:focus,
+                    &:active {
+                        background: #007FC4;
+                        color: #fff;
+                        text-decoration: none;
+                    }
+                }
+            }
+            .addNew {
+                padding: 4px 12px;
+            }
+        }
+    }
+    .calenderFooter {
+        margin-top: 30px;
+        margin-bottom: 30px;
+        .btn-delete {
+            margin-right: 0 !important;
+        }
+        .btn {
+            font-family: Verdana, sans-serif;
+            background: #007FC4;
+            padding: 2px 10px;
+            border-radius: 0;
+            text-transform: uppercase;
+            margin-right: 20px;
+            outline: none;
+            .duplicate {
+                select {
+                    background: #47A3D4;
+                    border: none;
+                    margin: 0;
+                    margin-top: -1px;
+                    padding-right: 0;
+                    outline: none;
+                }
+            }
+        }
+        .btn-primary-wrap {
+            padding: 4px 10px;
+        }
+        .btn-primary {
+            border: none;
+        }
+        .btn:nth-child(3) {
+            padding: 0 2px 0 10px;
+        }
+        .btn-custom {
+            border: 1px solid #007FC4;
+            color: #007FC4;
+            background: #fff;
+            padding: 1px 10px;
+            text-decoration: none;
+        }
+        .resizerElement {
+            //DEV-GONOGO I made .calenderFooter lowest element bottom dynamic by changing this element
+        }
+    }
+    .header {
+        padding-bottom: 15px;
+        p {
+            padding-left: 0px;
+            margin-top: 0px;
+        }
+    }
+    .volunteerName {
+        padding: 20px 0;
+        background: #CDF2AF;
+        position: relative;
+        div:first-child {
+            margin-bottom: 0;
+        }
+        .vol-text {
+            margin-top: 0px;
+        }
+        .volunteerField {
+            margin-top: 25px;
+        }
+        .volunteerLabel {
+            text-align: left;
+            padding-left: 60px;
+            text-transform: none;
+        }
+    }
+    .duplicateTasks {
+        margin-top: 30px;
+        padding-right: 0px;
+        padding-left: 70px;
+        p {
+            float: left;
+            padding-top: 2px;
+            margin-top: 0px;
+        }
+        .dup-btn {
+            margin-right: 0px;
+            padding-left: 15px;
+            width: 100px;
+        }
+    }
+    .del-task {
+        margin-right: 0px;
+    }
+    .show_error {
+        p {
+            color: #fff;
+            margin-top: 0px;
+        }
+        .error_message {
+            margin: 8px 0 0 0;
+        }
+    }
+}
+
+.calenderBg {
+    background: #fff;
+    opacity: 0.5;
+    display: none;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 9;
+}
+
+.deleteOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    opacity: 0.8;
+    z-index: 99;
+}
+
+.deletepopUp {
+    position: fixed;
+    width: 350px;
+    height: 200px;
+    padding: 20px 15px;
+    box-shadow: 0 0 2px 2px #D5D5D5;
+    z-index: 99;
+    top: 30%;
+    left: 50%;
+    margin-left: -175px;
+    margin-top: -100px;
+    background: #fff;
+    font-size: 16px;
+    .title,
+    p {
+        color: #636363;
+        font-size: 14px;
+    }
+    .title {
+        text-transform: capitalize;
+        font-size: 17px;
+        font-weight: 400;
+        padding-bottom: 15px;
+    }
+    footer {
+        position: absolute;
+        bottom: 20px;
+        left: 15px;
+        font-size: 14px;
+        font-family: Verdana, sans-serif;
+        .btn {
+            text-transform: uppercase;
+            margin-right: 20px;
+        }
+        .btn-custom {
+            border-radius: 0;
+            padding-right: 10px;
+            background: #FFFFFF;
+            color: #2B8FC1;
+            border: 1px solid #007EC1;
+        }
+        .btn-primary {
+            border-radius: 0;
+            padding-right: 10px;
+            background: #007FC4;
+            color: #fff;
+            border: 1px solid #007FC4;
+        }
+    }
+}
+
+.deletectaskpopUp {
+    position: fixed;
+    width: 350px;
+    height: 200px;
+    padding: 20px 15px;
+    box-shadow: 0 0 2px 2px #D5D5D5;
+    z-index: 99;
+    top: 30%;
+    left: 50%;
+    margin-left: -175px;
+    margin-top: -100px;
+    background: #fff;
+    font-size: 16px;
+    .title,
+    p {
+        color: #636363;
+        font-size: 14px;
+    }
+    .title {
+        text-transform: capitalize;
+        font-size: 17px;
+        font-weight: 400;
+        padding-bottom: 15px;
+    }
+    footer {
+        position: absolute;
+        bottom: 20px;
+        left: 15px;
+        .btn {
+            text-transform: uppercase;
+            padding: 2px 10px;
+            margin-right: 10px;
+        }
+        .btn-custom {
+            border-radius: 0;
+            background: #FFFFFF;
+            color: #2B8FC1;
+            border: 1px solid #007EC1;
+        }
+        .btn-primary {
+            border-radius: 0;
+            background: #007FC4;
+            color: #fff;
+            border: 1px solid #007FC4;
+        }
+    }
+}
+
+.timeWrap {
+    position: relative;
+    .hoursDropdown {
+        position: absolute;
+        top: 29px;
+        left: 10px;
+        border: 1px solid #ddd;
+        width: 81%;
+        height: 145px;
+        overflow-y: auto;
+        z-index: 99;
+        background: #fff;
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        a {
+            font-size: 14px;
+            padding: 3px 10px;
+            float: left;
+            width: 100%;
+            text-decoration: none;
+            &:hover {
+                background: #337ab7;
+                color: #fff;
+                text-decoration: none;
+            }
+        }
+    }
+}
+
+.taskConfirmPopUp {
+    position: fixed;
+    width: 390px;
+    height: 200px;
+    padding: 20px 15px;
+    box-shadow: 0 0 2px 2px #D5D5D5;
+    z-index: 99;
+    top: 59%;
+    left: 50%;
+    margin-left: -175px;
+    margin-top: -100px;
+    background: #fff;
+    font-size: 16px;
+    .title,
+    p {
+        color: #636363;
+        font-size: 14px;
+    }
+    .title {
+        text-transform: capitalize;
+        font-size: 17px;
+        font-weight: 400;
+        padding-bottom: 15px;
+    }
+    footer {
+        position: absolute;
+        bottom: 20px;
+        left: 15px;
+        .btn {
+            text-transform: uppercase;
+            padding: 2px 10px;
+            margin-right: 10px;
+        }
+        .btn-custom {
+            border-radius: 0;
+            background: #FFFFFF;
+            color: #2B8FC1;
+            border: 1px solid #007EC1;
+        }
+        .btn-primary {
+            border-radius: 0;
+            background: #007FC4;
+            color: #fff;
+            border: 1px solid #007FC4;
+        }
+    }
+}

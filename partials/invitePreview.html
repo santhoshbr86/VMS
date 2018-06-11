@@ -1,0 +1,66 @@
+<div class="container invitePreview">
+	<header class="col-md-12 pageHeader">
+		<h3><a href="javascript:void(0);" ng-click="gotoVolunteers()">Volunteer</a> > <a href="javascript:void(0);" ng-click="goBack();">{{templateView}}</a></h3>
+		
+		<div ng-include="include.title"></div>
+	</header>
+	<section class="previewContent col-md-8">
+		<header class="col-md-12">
+			<a href="#" class="pull-left">
+				<img src="/images/invitePreview-logo.jpg">
+			</a>
+			<a href="#" class="pull-right">View in your Browser</a>
+		</header>
+
+		<!-- for signUp -->
+		<div class="col-md-12 " ng-show="selectedTemplate==='signUp'">
+			<h2 class="tagline">We need Volunteers... We need YOU!</h2>
+		</div>
+		<div class="content col-md-12" ng-show="selectedTemplate==='signUp'">
+			<article class="col-md-6 descBox">
+				<div ng-bind-html="emailData.emailBody|textToHtml"></div>
+				<p>{{chairPerson.chairPersonName}}<br />
+				 <a href="mailto:{{chairPerson.chairPersonEmail}}" target="_blank">{{chairPerson.chairPersonEmail}}</a>
+				</p>
+
+			</article>
+			<article class="col-md-6 infoBox">
+				<h3>{{fairDetails.publishedInfo.schoolName}}</h3>
+				<h2>{{fairDetails.publishedInfo.fairName}}</h2>
+				<span class="date">{{fairDetails.publishedInfo.startDate | date : 'MMM. d, yyyy':'UTC'}}  <span class="hyphen"></span>  {{fairDetails.publishedInfo.endDate | date : 'MMM. d, yyyy':'UTC'}}
+				</span>
+				<button class="btn btn-primary" ng-click="popover=!popover">Volunteer</button>
+				<h1 align="center">You will be asked to sign in to your Scholastic account or register.</h1>
+				<div class="arrow_box" ng-show="popover"><span>Submit Disabled While editing.</span> <a class="pull-right glyphicon glyphicon-remove-circle close-popup" data-dismiss="alert" ng-click="popover=false"></a></div>
+			</article>
+		</div>
+		<div class="videoSection col-md-12" ng-show="selectedTemplate==='signUp'">
+			<h2>Volunteers Makes a Difference</h2>
+			<p>Watch this short video to hear Scholastic Book Fair Volunteers across the country as they share the reasons why they choose to volunteer as the Book Fair</p>
+		</div>
+		<article class="videoSectionImg col-md-12 text-center" ng-show="selectedTemplate==='signUp'">
+			 <a href="https://players.brightcove.net/1543299976/default_default/index.html?videoId=4706904835001" target="_blank"><img src="/images/preview-video.png" ></a> 
+			
+		</article>
+
+		<!-- for thankyou -->
+		<article class="templateView col-md-12 text-center" ng-show="selectedTemplate==='thankYou'">
+			 <img src="../images/thankyou.png" >	
+		</article>
+
+       <div class="templateView content col-md-12" ng-show="selectedTemplate==='thankYou' || selectedTemplate==='blank'">
+			<article class="col-md-12 descBox">
+				<div ng-bind-html="emailData.emailBody|textToHtml"></div>
+				<p>{{chairPerson.chairPersonName}}<br />
+				 <a href="mailto:{{chairPerson.chairPersonEmail}}" target="_blank">{{chairPerson.chairPersonEmail}}</a>
+				</p>
+
+			</article>
+	   </div>
+
+	</section>
+	<div class="belowBottom col-md-12">
+	    <button class="btn btn-default" ng-click="goBack()">Edit</button>
+		<button class="btn btn-primary" ng-click="send()">send</button>
+	</div>
+</div>

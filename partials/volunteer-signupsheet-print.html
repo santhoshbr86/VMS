@@ -1,0 +1,19 @@
+<div class="singupsheetPrint">
+<h1>{{volSignUpActData.eventName}}</h1>
+<h2>{{volSignUpActData.schoolName}}</h2>
+
+<div class="orderactivity" ng-repeat="orderactivity in volSignUpActData.orderedsignupSheetActivities">
+	<h3>{{orderactivity.header}}</h3>
+	<div ng-repeat="signupSheetActivity in orderactivity.signupSheetActivities">
+		<p class="dateandTime">
+			<span >{{signupSheetActivity.eventName}}</span> | <span id="time" ng-if="signupSheetActivity.anyTime===true">Any Time</span><span id="time" ng-if="signupSheetActivity.anyTime===false">{{signupSheetActivity.startTime}} - {{signupSheetActivity.endTime}}</span>
+		</p>
+	 	<p class="description">{{signupSheetActivity.description}}</p>
+	</div>
+</div>
+</div>
+<script>
+window.setTimeout(function() {
+	   window.print();
+}, 1000)   
+</script>

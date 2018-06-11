@@ -1,0 +1,7 @@
+{
+	"accountId" : "AC7ff5a60107a93b6c7baeeee2aac81905",
+	"tokenId" : "aa87f4e061e1dd9c3e64d601a543054f",
+	"allowedTypes" :["mobile","voip"],
+	"requestTwilio" : "carrier",
+	"responseTwilio" : "type"
+}

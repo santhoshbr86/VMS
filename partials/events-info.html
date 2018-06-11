@@ -1,0 +1,259 @@
+<style type="text/css">
+#cpt_header-holder,.cpt-footerWrap,footer.container
+{
+display: none;
+}
+</style>
+<div class="container volunteerSignup">
+	<header class="row pageHeader"> 
+		<div class="col-md-9 col-sm-9 col-xs-12">
+			<h2>Volunteers</h2>	
+		</div>
+		<div class="col-md-3 col-sm-3 col-xs-12">
+			<a href="#/contacts" class="ContactCount"><span class="glyphicon glyphicon-list-alt"></span> My Contacts ({{signupSheets.volunteerCount}}) </a>	
+		</div>
+		
+		<div class="col-md-12" ng-include="include.top"></div>
+		
+	</header>
+	<section class="row pageContent">
+		<div class="pastBookfair col-md-12 col-sm-12 col-xs-12">
+			<div class="panel panel-default" ng-repeat="fair in signupSheets.active">
+				<div class="panel-body">
+				<div class="head col-md-12 col-sm-12 col-xs-12">
+				  		<div class="pull-left">	
+							  <h4>{{fair.fairName}} | <small>{{fair.startDate | date : 'M/d'}} &ndash; {{fair.endDate | date : 'M/d'}}</small></h4>
+							  <span>
+							  	{{fair.schoolName}}
+							  </span>
+						</div>
+						<div class="pull-right">
+							   <div ng-show="fair.status==='NEW'">
+									<!--  Send schoolId, fairId -->
+									<button class="btn btn-success" ng-click="createSheetRedirect(1000, fair.fairId)">Create a Sign-up <span class="glyphicon glyphicon-menu-right"></span>
+									</button>
+								</div>
+								<div ng-show="fair.status==='UNPUBLISHED'">
+									<button class="btn btn-success" ng-click="loadSheetRedirect(1000, fair.fairId,fair.signUpSheetId)">Continue Creation<span class="glyphicon glyphicon-menu-right"></span>
+									</button>
+								</div>
+								<div class="socialIcon" ng-show="fair.status!=='NEW' && fair.status!=='UNPUBLISHED'">
+									<span>Share this sign-up sheet:</span>
+									<ul>
+									<li>
+									<a href="#"><img src="images/icon_fb.jpg" /></a></li>
+	                                <li><a href="#"><img src="images/icon_gplus.jpg" /></a></li>
+	                                <li><a href="#"><img src="images/icon_twitter.jpg" /></a></li>
+	                                <li>
+	                                 <a href="" ng-click="goToMessages()" class="email btn-custom">
+								    <span class="glyphicon glyphicon-envelope"></span>   Email Invite
+								    </a>
+	                                </li>
+                        		    </ul>
+									
+								   
+								</div>
+						</div>
+					
+				  	<div class="headerFoot col-md-12 col-sm-12 col-xs-12">
+					  		<div class="editSchedule col-md-4" ng-show="fair.status==='PUBLISHED_W_UNPUBLISHED_ACT'||fair.status==='PUBLISHED'">
+									<button class="btn btn-primary" ng-click="loadSheetRedirect(1000, fair.fairId,fair.signUpSheetId)">Edit Schedule
+									</button>
+							</div>
+				  			<div class="publishBox col-md-4" ng-show="fair.status==='PUBLISHED_W_UNPUBLISHED_ACT' && showPublish">
+							 	<p>You have unpublished changes to your <br />volunteer schedule.</p>
+							 	<button href="javascript:void(0)" class="btn btn-publishNow" ng-click="publishNow(fair.fairId)">Publish Now</button>
+							 	<a href="javascript:void(0)" class="btn btn-publishLater" ng-click="publishLater()">Publish Later</a>
+							</div>
+						 	<div class="signUpandprintable col-md-4 col-sm-3 col-xs-12" ng-show="fair.status==='PUBLISHED_W_UNPUBLISHED_ACT'||fair.status==='PUBLISHED'">
+								<a href="javascript:void(0)" class="print" ng-click="printSignupSheet(fair.signUpSheetId)">Printable Checklist</a>
+								<button class="btn btn-custom" ng-show="fair.signUpSheetId!=null" ng-click="viewSignUpSheet(fair.signUpSheetId)">View Sign-up Sheet</button>
+							</div>
+							<!-- TODO: Social media spam buttons -->	
+					</div>
+				</div>
+				<div ng-show="fair.status==='PUBLISHED_W_UNPUBLISHED_ACT'||fair.status==='PUBLISHED'" class="middle col-md-12 col-sm-12">
+					<ul>
+						<li>
+							<button class="btn btn-custom" id="show">Show Schedule <span class="glyphicon glyphicon-menu-down"></span></button>
+							<button class="btn btn-custom" id="hide">Hide Schedule <span class="glyphicon glyphicon-menu-up"></span></button>
+						</li>
+						<li>
+							<span class="score">{{fair.taskCount}} of {{fair.taskCountTotal}}</span>
+							<span>slots filled</span>
+							<span class="progressbarWrap">
+								<div class="progress">
+								    <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="{{fair.taskCountPercent}}" aria-valuemin="0" aria-valuemax="100" style="width:{{fair.taskCountPercent}}%">
+								    <span class="sr-only">{{fair.taskCountPercent}}% Complete (success)</span>
+								    </div>
+								</div>
+							</span>
+							<span class="score">{{fair.taskCountPercent}}%</span>
+							</li>
+						<li>
+							{{fair.volunteerCount}} Volunteers
+						</li>
+						<li>
+							{{fair.volunteerHours}} Volunteers Hours
+						</li>
+					</ul>
+				</div>
+				<div class="foot col-md-12 col-sm-12" show-scheduler>
+					<div class="calenderWrap"  ng-controller="calenderTaskScheduler">
+					<table class="table-bordered weekdaysCol col-md-1">
+						<tbody>
+							<tr>
+								<td class="prevTopWrap">
+									<div class="prevTop" ng-click="prevDates()"></div>
+								</td>
+							</tr>
+							
+							<tr ng-repeat="d in weekDays | dateScroller: currentWeek * weekSize | limitTo:weekSize">
+									<td>{{d.day}}<br />{{d.dat}}</td>
+							</tr>
+							<tr>
+								<td class="nextBottomWrap">
+									<div class="nextBottom" ng-click="nextDates()"></div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				<div class="middleTables col-md-10">
+					<table class="table-bordered hours col-md-9">
+						<tbody>
+							<tr>
+								<td class="preWrap">
+									<div class="previous" ng-click="previousHours()" ng-disabled="curPage==-2"></div>
+								</td>
+								<td ng-repeat="hour in hours | pagination: curPage * pageSize | limitTo:pageSize track by $index">{{hour}}</td>
+								<td class="nextWrap">
+									<div class="next" ng-click="nextHours()" ng-disabled="curPage==2"></div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<table class="table-bordered weekDaysAdd col-md-9">
+						<tbody>
+							<tr ng-repeat="d in weekDays | dateScroller: currentWeek * weekSize |limitTo:weekSize">
+								<td  class="preWrap"> </td>
+								<td ng-repeat="hour in hours | pagination: curPage * pageSize | limitTo:pageSize track by $index">
+								
+								
+									<!-- TODO: Santosh will style this. -->
+									<span ng-repeat="t in tasks.signupSheetActivities">
+										<span apply-width class="bg-success" ng-show="isInTimeBlock(t, hour, d)">
+										{{t.eventName}} -- <small>{{t.volunteerName}}</small>
+										<em class="pull-right glyphicon glyphicon-ok"></em>
+										</span>
+									</span>
+								
+								
+								</td>
+								<td class="nextWrap"> </td>
+							</tr>
+						</tbody>
+					</table>
+					<table class="hours col-md-9">
+						<tbody>
+						<tr>
+							<td class="preWrap">
+								<div class="previous" ng-click="previousHours()" ng-disabled="curPage==-2"></div>
+							</td>
+							<td ng-repeat="hour in hours | pagination: curPage * pageSize | limitTo:pageSize track by $index">{{hour}}</td>
+							<td class="nextWrap">
+								<div class="next" ng-click="nextHours()" ng-disabled="curPage==2"></div>
+							</td>
+						</tr>
+						</tbody>
+						</table>	
+				</div>	
+				<table class="table-bordered anyTime col-md-1">
+						<tbody>
+							<tr>
+								<td class="prevTopWrap">
+									<span>Any Time</span>
+								</td>
+							</tr>
+							
+							<tr ng-repeat="d in weekDays | dateScroller: currentWeek * weekSize | limitTo:weekSize">
+									<td>
+										<!-- <span>
+										<button class="btn btn-primary" show-btn ng-click="addSchedule(hour,d)">+ ADD</button></span>
+										<span>
+											<button class="btn btn-primary" show-btn ng-click="addSchedule(hour,d)">+ ADD</button>
+										</span>
+										<span>
+											<button class="btn btn-primary" show-btn ng-click="addSchedule(hour,d)">+ ADD</button>
+										</span> -->
+										<span></span>
+									</td>
+							</tr>
+							<tr>
+								<td class="nextBottomWrap">
+									<span>Any Time</span>
+								</td>
+							</tr>
+						</tbody>
+					</table>	
+				</div>	
+				</div> <!--foot end -->
+			</div>		
+			</div>
+		</div>
+		<div class="content col-md-12 col-sm-12 col-xs-12">
+			<article class="col-md-12" ng-include="include.middle"></article>
+		</div>
+		<div class="pastBookfair col-md-12 col-sm-12 col-xs-12">
+				<h4>Past Book Fairs</h4> 
+				<div class="panel panel-default" ng-repeat="fair in signupSheets.past">
+				  <div class="panel-body">
+				  
+				  		<div class="head col-md-12 col-sm-12 col-xs-12">
+					  		<div class="pull-left">
+							  <h4>{{fair.fairName}} | <small>{{fair.startDate | date : 'M/d'}} &ndash; {{fair.endDate | date : 'M/d'}}</small></h4>
+							  <span>
+							  	{{fair.schoolName}}
+							  </span>
+							</div>
+							<div class="pull-right">
+								<div class="col-md-3 col-sm-3 col-xs-12">
+						    		<button class="btn btn-custom" ng-show="fair.signUpSheetId!=null" ng-click="viewSignUpSheet(fair.signUpSheetId)">View Sign-up Sheet</button>
+								</div>
+							</div>
+						</div>
+						
+						<div class="middle col-md-12 col-sm-12">
+							<ul>
+								<li>
+									<button class="btn btn-custom" id="show">Show Schedule <span class="glyphicon glyphicon-menu-down"></span></button>
+									<button class="btn btn-custom" id="hide">Hide Schedule <span class="glyphicon glyphicon-menu-up"></span></button>
+								</li>
+								<li>
+								<span class="score">{{fair.taskCount}} of {{fair.taskCountTotal}}</span>
+								<span>slots filled</span>
+								<span class="progressbarWrap">
+									<div class="progress">
+									  <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="{{fair.taskCountPercent}}" aria-valuemin="0" aria-valuemax="100" style="width:{{fair.taskCountPercent}}%">
+									    <span class="sr-only">{{fair.taskCountPercent}}% Complete (success)</span>
+									  </div>
+									</div>
+								</span>
+								<span class="score">{{fair.taskCountPercent}}%</span>
+								</li>
+								<li>
+									{{fair.volunteerCount}} Volunteers
+								</li>
+								<li>
+									{{fair.volunteerHours}} Volunteers Hours
+								</li>
+							</ul>
+						</div>
+						<div class="foot col-md-12 col-sm-12" show-scheduler>
+							
+						</div>
+					
+				  </div>
+				</div>
+		</div>
+	</section>
+</div>

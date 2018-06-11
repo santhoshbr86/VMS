@@ -1,0 +1,119 @@
+<style type="text/css">
+@media (min-width:768px) {
+/*.container{width: 1015px;}*/body{	background:#fff url(images/cpt_background.jpg) 0 56px repeat-x;}
+#cpt_login-form100, #cpt_login-form200{margin-top: 26px !important;}
+.Footer{visibility: hidden;}
+
+}
+@media screen and (max-width: 480px){
+/*html , body{background: none;!important}*/
+html , body{overflow-x:hidden;!important}
+}
+</style>
+<!-- <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet"> -->
+<div class="sps-login">
+    <div class="cpt_main-holder">
+       
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <h1 class="vm_logo col-md-12 col-sm-12 col-xs-12"><img src="images/volunteer_header_site.png"  /></h1>
+                       <!-- <div class="col-md-12 col-sm-12 col-xs-5"
+                ng-include="include.top"></div> -->
+                </div>
+            </div>
+            <div class="row">
+                                <div class="col-md-12 col-sm-12 col-xs-12 signupErrors">
+                                  <section ng-show="showWarning5xx" role="alert" class="row alert alert-danger">
+                                    <span ng-show="showWarning5xx"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Unable to login at this time. If this problem persists, please contact Customer Service. </span>
+                                  </section>
+                                  <div class="show_error col-md-12 col-sm-12 col-xs-10" ng-show="(signup_form.email.$error.required && submitted) || (signup_form.email.$error.email && submitted) || (signup_form.password.$error.required && submitted) || (errorMessage!=null)">
+                                    <span class="glyphicon glyphicon-warning-sign col-md-1 col-xs-2"></span>
+                                      <span class="col-md-11 col-xs-10">
+                                        <p ng-show="errorMessage!=null && errorMessage==='Invalid credentials.'" >The email or password you entered is incorrect. Please try again. Need Help? Please contact <a style="display:inline; font-size:14px;" href="https://scholastic-bookfairs.custhelp.com/app/answers/list/p/1218" target="_blank">customer service</a>.</p>
+                                        <p ng-show="errorMessage!=null && errorMessage!=='Invalid credentials.'">{{errorMessage}}</p>
+                                        <p ng-show="signup.email!==''&&signup_form.email.$error.required && submitted">Your email is required.</p>
+                                        <p ng-show="signup.email!==''&&!looksLikeKidsUsername(signup_form.email.$viewValue)&&signup_form.email.$error.email&&submitted">That is not a valid email. Please input a valid email.</p>
+                                        <p ng-show="signup.email!==''&&looksLikeKidsUsername(signup_form.email.$viewValue)&&signup_form.email.$error.email&&submitted">To proceed, you must log-in with a valid email address. Screen names and passwords from Scholastic Kids registration are not valid.</p>
+                                        <p ng-show="signup_form.password.$error.required && submitted" >Password is required.</p>
+                                      </span>
+                                  </div>
+            </div>
+            </div>
+            <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12 loginWraper">
+                     <div class="col-md-8 col-sm-12 col-xs-12 socialLogin">
+                            
+                                <h3 class="cpt_login-key">
+                                <img src="../images/volunteerTitle.png" />
+                                Volunteer Sign In</h3>
+                                <p><strong>Volunteer sign-up sheets are private.</strong> Please sign in with your preferred social media account or a Scholastic.com login. You will then be taken directly to your school's sign-up sheet.
+                                </p>
+                         
+                           
+                                <div class="col-md-6 col-sm-6 col-xs-12 sign_in_options">
+                                
+                                <ul>
+                                    <li><a ng-click="getFacebookJanRain()" class="facebook"></a></li>
+                                    <li><a ng-click="getGooglePlusJanRain()" class="googlePlus"></a></li>
+                                    <li><a ng-click="getTwitterJanRain()" class="twitter"></a></li>
+                                    <li><a ng-click="getLinkedInJanRain()" class="linkedIn"></a></li>
+                                </ul>
+                               
+                                </div>
+                                <div class="col-md-6 col-sm-6 col-xs-12 insideText hidden-xs">
+                                    <h3>
+                                        What's inside: </h3>
+                                        <ul>
+                                            <li>Your school's Book fair volunteer sign-up sheet</li>
+                                            <li>
+                                                Volunteer Dashboard to manage your commitments and track your volunteer history
+                                            </li>
+                                            <li>Tips and training materials to help you hit the ground running</li>
+                                        </ul>
+                                   
+                                </div>
+                                
+                       
+                    </div>
+                    <div class="signupFormWrap col-md-4 col-sm-12 col-xs-12">
+                        <div class="signupForm">
+                            <p class="title">Sign-in with your <br /> <strong>
+                                Scholastic.com
+                            </strong> login</p>
+                            <form  name="signup_form" novalidate ng-submit="login()">
+                                <div class="form-group">
+                                    <label>E-mail Address:</label>
+                                    <input class="form-control" type="email"  placeholder="" name="email" ng-model="signup.email" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Scholastic&nbsp;Password:</label>
+                                    <input type="password" class="form-control" placeholder="" name="password" ng-model="signup.password" required>
+                                                    
+                                </div>
+                                <div class="form-group">
+                                <input type="submit" ng-click="submitted=true" value="Submit" id="submitter" name="button" class="col-md-5 col-sm-5 col-xs-3 no-padding">
+                                </div>
+                                <div class="clearfix">
+                                    
+                                        <a href="" ng-click="redirectToForgot()">Forgot your account information?</a>
+                                       
+                                </div>
+                            </form>
+                        </div>
+                        <div class="regBox">
+                            <h3>First time here?</h3>
+                            <button ng-click="redirectToRegister()">Get a Scholastic.com Login</button>          
+                        </div>
+                    </div>
+            </div>
+            </div>
+            </div>
+            <div class="clearfix">
+            <p class="customer_care col-xs-12">For assistance, please contact <span ng-include="include.custCare"></span></p>
+            </div>
+            
+           <div ng-include="include.bottom"></div>
+           
+        
+    </div>
+</div>

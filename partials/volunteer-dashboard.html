@@ -1,0 +1,237 @@
+<style type="text/css">
+.Footer{display:none;} #cpt_footer-holder{border-top:none;}
+</style>
+<div ng-if="getDashResponse">
+<div class="volunteerDashboard">
+	<header class="col-md-12 col-xs-12">
+		<section class="dashboard center-block col-md-8 col-xs-8">
+			<div class="col-md-12">
+				<h1>Volunteer @ Scholastic</h1>
+			</div>
+			 <div ng-include="include.top"></div>
+		</section>
+		<div class="center-block col-md-7 col-sm-7">
+		<section ng-show="volDashBoardData.spsUserReturn.email===null || volDashBoardData.spsUserReturn.email===''" role="alert" class="row show_error">
+			<span class="glyphicon glyphicon-warning-sign col-md-1 col-xs-2" aria-hidden="true"></span>
+			<span class="col-md-11 col-xs-10">To proceed, you must <a href="javascript:void(0);" ng-click="redirectTologin()">log-in</a> with a valid email address.  Screen names and passwords from Scholastic Kids registration are not valid.</span>
+		</section>
+		</div>
+	</header>
+	<div ng-if="volDashBoardData.spsUserReturn.email!=null && 
+    	volDashBoardData.spsUserReturn.email!=''">
+	 <section ng-show="showWarning5xx" role="alert" class="row alert alert-danger">
+        <span ng-show="showWarning5xx"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Unable to process your request at this time. If this problem persists, please contact Customer Service. </span>
+    </section>
+   <section class="col-md-12 col-xs-12 schoolGroupList" ng-show="volDashBoardData.currentSignupSheetMessageList.length>0">
+			<div class="panelBox col-xs-12" ng-repeat="fairDetails in volDashBoardData.currentSignupSheetMessageList"> <!-- use ng-repeat for this -->
+					<div class="heading center-block col-md-8 col-xs-12 padding_schoolname">
+						<h3 class="schoolName">{{fairDetails.schoolName}}</h3>
+						<h2 class="fairName">{{fairDetails.eventName}} | <small>{{fairDetails.fairStartDate | date : 'M/d':'UTC'}}  &mdash; {{fairDetails.fairEndDate | date : 'M/d/yy':'UTC'}}</small></h2>
+						<div class="col-xs-10 padding_button">
+							<a style="cursor: pointer" ng-hide="(fairDetails.status==='I')" ng-click="viewSignUp(fairDetails.maskedSignUpStr)" class="btn btn-primary pull-left margin-media">View Sign-up <br />sheet</a>
+							<button class="btn btn-custom pull-right" ng-show="fairDetails.signupSheetActivities.length>0" id="openPanel">{{fairDetails.signupSheetActivities.length}} <span ng-if="fairDetails.signupSheetActivities.length==1">Commitment
+							</span><span ng-if="fairDetails.signupSheetActivities.length>1">Commitments
+							</span>
+							<span class="glyphicon glyphicon-triangle-bottom"></span>
+							</button>
+						</div>
+					</div>
+					<div class="panel-body col-xs-12 hide" toggle-panel>
+						   <ul class="list-group center-block col-md-8">
+							  <li class="list-group-item" ng-repeat="activityDetails in fairDetails.orderedsignupSheetActivities">
+							  		<h1>{{activityDetails.header}}</h1>
+							  		<ul >
+				  					<li ng-repeat="activity in activityDetails.signupSheetActivities" >
+							  		<p class="time">{{activity.eventName}} | <span ng-if="activity.anyTime===true">Any Time</span>
+				  	    <span ng-if="activity.anyTime==false">{{activity.startTime}} - {{activity.endTime}}</span>
+				  	    </p>
+							  		<div class="description">
+								  		<!--  <p>
+								  		Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+								  		</p>-->
+								  		<!--  <p class="howFile"><ng-include src="'/vmsassets/'+activity.howFile"></ng-include></p> -->
+								  		<!--  <p class="howFile">{{activity.howFile}}</p> -->
+								  		<p class="howFile"><div class="howFile" ng-bind-html="activity.howFile|howToHtml"></div></p>
+								  		<button id="hideDetails" ng-hide="(activity.status==='I')" class="btn btn-default">CANCEL</button>
+							  		</div>
+					 <div class="hide commitment" show-commitments>
+										<h5>Are you sure?</h5>
+										<!-- <p>If you are unable to volunteer at this time click Cancel Commitment.</p> -->
+										<button class="btn btn-primary" id="cancelCommit" ng-click="cancelSignUpActivity(activity,fairDetails);updateActivityList(activity, $index, $parent.$index, $parent.$parent.$index)">Cancel <br /> Commitment
+										</button>
+										<a class="btn btn-link" id="keepCommit">Keep Commitment
+										</a>
+								</div>
+                                <!--<div class="hide commitConfirmation" id="ConfirmPopup">
+											<p>You have successfully cancelled your participating in this event.</p>
+												<button class="btn btn-primary" ng-click="updateActivityList(activity, $index, $parent.$index, $parent.$parent.$index)">Ok</button>
+								</div>-->
+							  	</li></ul>
+							  </li>
+							  <!--  <li class="list-group-item">
+							  		<h1>Monday | June 24th</h1>
+							  		<p class="time">Cashier | 9:00 AM - 10:00 PM</p>
+							  		<div class="description">
+								  		<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+								  		</p>
+								  		<button class="btn btn-default">Cancel</button>
+							  		</div>
+							  </li> -->
+						  </ul>
+						 <div class="organisedBy center-block col-md-12 col-sm-12 col-xs-12">
+							<div class="col-md-4 col-sm-6 col-xs-2">
+							<h2>Organized<br />by</h2>
+							</div>
+							<div class="address col-md-8 col-sm-6 col-xs-12">
+								<span class="email"><a ng-href="mailto:{{fairDetails.organizerInfo.email}}">{{fairDetails.organizerInfo.firstName}} {{fairDetails.organizerInfo.lastName}}</a></span>
+								<span ng-show="fairDetails.organizerInfo.phone!=null">{{fairDetails.organizerInfo.phone | phoneFormat}}</span>
+							</div>
+					</div>
+			</div><!--panel Box end-->
+			</section>
+		    <section class="col-md-12 schoolGroupList" ng-show="volDashBoardData.signupSheetMessageList.length>0">
+			<div class="panelBox col-xs-12" ng-repeat="fairDetails in volDashBoardData.signupSheetMessageList"> <!-- use ng-repeat for this -->
+					<div class="heading center-block col-md-8 col-xs-12 padding_schoolname">
+						<h3 class="schoolName">{{fairDetails.schoolName}}</h3>
+						<h2 class="fairName">{{fairDetails.eventName}} | <small>{{fairDetails.fairStartDate | date : 'M/d':'UTC'}}  &mdash; {{fairDetails.fairEndDate | date : 'M/d/yy':'UTC'}}</small></h2>
+						<div class="col-xs-10 padding_button">
+							<a style="cursor: pointer" ng-hide="(fairDetails.status==='I')" ng-click="viewSignUp(fairDetails.maskedSignUpStr)" class="btn btn-primary pull-left margin-media">View Sign-up <br />sheet</a>
+							<button class="btn btn-custom pull-right" ng-show="fairDetails.signupSheetActivities.length>0" id="openPanel">{{fairDetails.signupSheetActivities.length}} <span ng-if="fairDetails.signupSheetActivities.length==1">Commitment
+							</span><span ng-if="fairDetails.signupSheetActivities.length>1">Commitments
+							</span>
+							<span class="glyphicon glyphicon-triangle-bottom"></span>
+
+							</button>
+						</div>
+					</div>
+					<div class="panel-body hide col-xs-12" toggle-panel>
+						   <ul class="list-group center-block col-md-8">
+							  <li class="list-group-item" ng-repeat="activityDetails in fairDetails.orderedsignupSheetActivities">
+							  		<h1>{{activityDetails.header}}</h1>
+							  		<ul >
+				  					<li ng-repeat="activity in activityDetails.signupSheetActivities" >
+							  		<p class="time">{{activity.eventName}} | <span ng-if="activity.anyTime===true">Any Time</span>
+				  	    <span ng-if="activity.anyTime==false">{{activity.startTime}} - {{activity.endTime}}</span></p>
+							  		<div class="description">
+								  		<!-- <p>
+								  		Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+								  		</p> -->
+								  		<!-- <p class="howFile"><ng-include src="'/vmsassets/'+activity.howFile"></ng-include></p> -->
+								  		<p class="howFile"><div class="howFile" ng-bind-html="activity.howFile|howToHtml"></div></p>
+								  		<button id="hideDetails" ng-hide="(activity.status==='I')" class="btn btn-default">CANCEL</button>
+							  		</div>
+					 <div class="hide commitment" show-commitments>
+										<h5>Are you sure?</h5>
+										<!-- <p>If you are unable to volunteer at this time click Cancel Commitment.</p> -->
+										<button class="btn btn-primary" id="cancelCommit" ng-click="cancelSignUpActivity(activity,fairDetails);updateOtherFairsActivityList(activity, $index, $parent.$index, $parent.$parent.$index)">Cancel <br /> Commitment
+										</button>
+										<a class="btn btn-link" id="keepCommit">Keep Commitment
+										</a>
+								</div>
+								<!--<div class="hide commitConfirmation" id="ConfirmPopup">
+											<p>You have successfully cancelled your participating in this event.</p>
+												<button class="btn btn-primary" ng-click="updateOtherFairsActivityList(activity, $index, $parent.$index, $parent.$parent.$index)">Ok</button>
+										</div>-->
+							  		</li></ul>
+							  </li>
+							  <!--  <li class="list-group-item">
+							  		<h1>Monday | June 24th</h1>
+							  		<p class="time">Cashier | 9:00 AM - 10:00 PM</p>
+							  		<div class="description">
+								  		<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+								  		</p>
+								  		<button class="btn btn-default">Cancel</button>
+							  		</div>
+							  </li> -->
+						  </ul>
+						 <div class="organisedBy center-block col-md-12 col-sm-12 col-xs-12">
+							<div class="col-md-4 col-sm-6 col-xs-2">
+							<h2>Organized<br />by</h2>
+							</div>
+							<div class="address col-md-8 col-sm-6 col-xs-12">
+								<span class="email"><a ng-href="mailto:{{fairDetails.organizerInfo.email}}">{{fairDetails.organizerInfo.firstName}} {{fairDetails.organizerInfo.lastName}}</a></span>
+								<span ng-show="fairDetails.organizerInfo.phone!=null">{{fairDetails.organizerInfo.phone | phoneFormat}}</span>
+							</div>
+					</div>
+			</div>
+	</section>
+
+	 <section class="col-md-12 allUpcoming" ng-show="volDashBoardData.signupListWithAllActivitiesSigned.length>0">
+		<div class="panelBox col-xs-12" ng-repeat="fairDetails in volDashBoardData.signupListWithAllActivitiesSigned">
+			<div class="s">
+					<h3 class="schoolName">{{fairDetails.schoolName}}</h3>
+					<h2 class="fairName">{{fairDetails.eventName}} | <small>{{fairDetails.fairStartDate | date : 'M/d':'UTC'}}  &mdash; {{fairDetails.fairEndDate | date : 'M/d/yy':'UTC'}}</small></h2>
+					<div class="eventsDescription">
+						<p>All the upcoming opportunities have been taken. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+						<div class="organisedBy col-md-12 col-sm-12 col-xs-12">
+							<div class="col-md-4 col-sm-6 col-xs-2">
+							<h2>Organized<br />by</h2>
+							</div>
+							<div class="address col-md-8 col-sm-6 col-xs-12">
+								<span class="email"><a ng-href="mailto:{{fairDetails.organizerInfo.email}}">{{fairDetails.organizerInfo.firstName}} {{fairDetails.organizerInfo.lastName}}</a></span>
+								<span ng-show="fairDetails.organizerInfo.phone!=null">{{fairDetails.organizerInfo.phone | phoneFormat}}</span>
+							</div>
+						</div>
+					</div>
+					<div>
+						<a style="cursor: pointer" ng-hide="(fairDetails.status==='I')" ng-click="viewSignUp(fairDetails.maskedSignUpStr)" class="btn btn-primary pull-left">View Sign-up <br />sheet</a>
+						<a class="btn btn-custom pull-right" href="mailto:{{fairDetails.organizerInfo.email}}?subject=Volunteer%20Inquiry">Contact <br /> ChairPerson</a>
+					</div>
+			</div>
+		</div>
+	</section>
+	 <section class="col-md-12 allUpcoming" ng-show="volDashBoardData.signupListWithActivitiesAvailable.length>0">
+		<div class="panelBox col-xs-12" ng-repeat="fairDetails in volDashBoardData.signupListWithActivitiesAvailable">
+			<div class="heading center-block col-md-8 col-xs-12">
+					<h3 class="schoolName">{{fairDetails.schoolName}}</h3>
+					<h2 class="fairName">{{fairDetails.eventName}} | <small>{{fairDetails.fairStartEndRange}}</small></h2>
+					<div class="eventsDescription">
+						<p>All the upcoming opportunities have been taken. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+						<div class="organisedBy col-md-12 col-sm-12 col-xs-12">
+							<div class="col-md-4 col-sm-6 col-xs-2">
+							<h2>Organized<br />by</h2>
+							</div>
+							<div class="address col-md-8 col-sm-6 col-xs-12">
+								<span class="email"><a ng-href="mailto:{{fairDetails.organizerInfo.email}}">{{fairDetails.organizerInfo.firstName}} {{fairDetails.organizerInfo.lastName}}</a></span>
+								<span ng-show="fairDetails.organizerInfo.phone!=null">{{fairDetails.organizerInfo.phone | phoneFormat}}</span>
+							</div>
+						</div>
+					</div>
+					<div>
+						<a style="cursor: pointer" ng-hide="(fairDetails.status==='I')" ng-click="viewSignUp(fairDetails.maskedSignUpStr)" class="btn btn-primary pull-left">View Sign-up <br />sheet</a>
+					</div>
+			</div>
+		</div>
+	</section>
+	 <section class="col-md-12 allUpcoming" ng-show="volDashBoardData.unPublishedSignUpList.length>0">
+		<div class="panelBox col-xs-12" ng-repeat="fairDetails in volDashBoardData.unPublishedSignUpList">
+			<div class="heading center-block col-md-8 col-xs-12">
+					<h3 class="schoolName">{{fairDetails.schoolName}}</h3>
+					<h2 class="fairName">{{fairDetails.eventName}} | <small>{{fairDetails.fairStartEndRange}}</small></h2>
+					<div class="eventsDescription">
+						<p>We have another book fair in the works and we can use all the help we can get. Contact the chairperson.</p>
+						<div class="organisedBy col-md-12 col-sm-12 col-xs-12">
+							<div class="col-md-4 col-sm-6 col-xs-2">
+							<h2>Organized<br />by</h2>
+							</div>
+							<div class="address col-md-8 col-sm-6 col-xs-12">
+								<span class="email"><a ng-href="mailto:{{fairDetails.organizerInfo.email}}">{{fairDetails.organizerInfo.firstName}} {{fairDetails.organizerInfo.lastName}}</a></span>
+								<span ng-show="fairDetails.organizerInfo.phone!=null">{{fairDetails.organizerInfo.phone | phoneFormat}}</span>
+							</div>
+						</div>
+					</div>
+					<div>
+						<a class="btn btn-custom pull-right" href="mailto:{{fairDetails.organizerInfo.email}}?subject=Volunteer%20Inquiry">Contact <br /> ChairPerson</a>
+					</div>
+			</div>
+		</div>
+	</section>
+	</div>
+	<footer class="dashboardfooter col-md-12 col-xs-12">
+		<div class="center-block col-md-8">
+			<p>Events are listed based on the schools associated to your account. You
+			can make changes to your profile at any time in <a href="javascript:void(0);" ng-click="callMyAccount()" class="hide-image">My Scholastic</a>.</p>
+		</div>
+	</footer>
+</div>
+</div>

@@ -1,0 +1,63 @@
+{
+  "name": "VMS",
+  "private": true,
+  "version": "0.0.0",
+  "description": "descriptions",
+  "dependencies": {
+    "angular": "1.4.8",
+    "angular-ui-bootstrap": "~1.0.3",
+    "angular-route": "1.4.8",
+    "angular-uuid4": "0.3.1",
+    "bootstrap": "^3.3.7",
+    "jquery": "2.2.4",
+    "lodash": "4.17.2",
+    "moment": "2.17.0",
+    "select2": "3.4.5",
+    "iframe-resizer": "3.5.5"
+  },
+  "devDependencies": {
+    "angular-mocks": "1.4.8",
+    "eslint": "^3.19",
+    "eslint-config-standard": "^10.2",
+    "eslint-plugin-angular": "^2.3",
+    "eslint-plugin-jasmine": "^2.2.0",
+    "grunt": "~1.0",
+    "grunt-contrib-clean": "~1.1",
+    "grunt-contrib-concat": "~1.0",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-cssmin": "~2.2",
+    "grunt-contrib-htmlmin": "~2.4.0",
+    "grunt-contrib-jshint": "~1.1",
+    "grunt-contrib-less": "^1.4.1",
+    "grunt-contrib-uglify": "~3.0",
+    "grunt-contrib-watch": "~1.0",
+    "grunt-gitinfo": "^0.1.8",
+    "grunt-jsbeautifier": "~0.2.13",
+    "grunt-karma": "~2.0",
+    "grunt-lesslint": "~4.0",
+    "grunt-sonar-runner": "^2.4.8",
+    "gruntify-eslint": "^3.1.0",
+    "jasmine-core": "^2.4.1",
+    "karma": "~1.7",
+    "karma-coverage": "^1.1.0",
+    "karma-jasmine": "^1.1",
+    "karma-junit-reporter": "^1.2",
+    "karma-phantomjs-launcher": "^1.0.4",
+    "karma-spec-reporter": "^0.0.31"
+  },
+  "scripts": {
+    "prestart": "npm install",
+    "start": "http-server -a localhost -p 8000 -c-1 dist/",
+    "start-public": "http-server -a 0.0.0.0 -p 8000 -c-1 dist/"
+  },
+  "bugs": "https://jira.sts.scholastic.com/secure/RapidBoard.jspa?rapidView=544",
+  "repository": "https://bitbucket.org/scholastic/cpt-volunteer-manager-gui",
+  "license": "UNLICENSED",
+  "homepage": "https://volunteer.scholastic.com",
+  "engines": {
+    "node": "*"
+  },
+  "keywords": [],
+  "author": [],
+  "contributors": []
+}

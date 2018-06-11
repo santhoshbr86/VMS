@@ -1,0 +1,84 @@
+<style type="text/css">
+.Footer
+{
+visibility: hidden;
+}
+@media screen and (max-width: 480px){
+.mobile_all_frame_newpass{
+position:absolute;
+margin-left:-240px;!important
+}
+}
+</style>
+
+<link href="style/sps-myaccount-pwd.min.css" rel="stylesheet" type="text/css">
+
+
+<div class="mobile_all_frame_newpass"> 
+	<div id="SPS-MyAccount" class="passwordReset">
+		<div id="pwd-reg-wrapper" class="frame-wrapper">
+			<h1>Password Reset</h1>
+			<div id="pwd-reg-inner" class="frame-content-wrapper">
+				<div class="content">
+						<!--  NEW STYLE -->
+						<div class="spsContent">
+							<div>
+								<h3>Please Reset Your Password</h3>
+							</div>
+							<div>
+								
+							<div class="spsDetails">
+								<p>Please create a new password that is seven or more characters long, including at least one letter and one number.</p>
+							</div>
+								
+							<div class="spsFields">
+								
+					<div id="AddPwdButtonContainer">	
+					<div class="form-container">		
+			
+						<form  name="newpass_form" novalidate ng-submit="newpass()">
+							 <form id="add-pwd-form" method="POST" action="">
+									<div id="LinkClassroomAjaxContainer">								
+									   <br> <div class="errorMsg">{{error}}</div>
+										<!-- /ActiveClassr -->
+										<!-- New buttons -->
+										<div class="spsField clearfix">
+		
+										<label for="pwd" class="required-label"><span class="required-asterisk">*</span>New password:</label> 
+											<input id="newpasstxt" maxlength="30" tabindex="1" value=""  ng-model="newpasstxt" required type="password">
+											<input id="tokenpass"  type="hidden" name="tokenpass" maxlength="30" class="required info-data gwt-PasswordTextBox"  tabindex="1"  ng-model="tokenpass" required>
+										
+										<div class="confirmWrap">
+											<label for="pwdConfirm" class="required-label"><span class="required-asterisk">*</span>Confirm Password:</label> 
+											<input id="pwdConfirm" name="pwdConfirm"  maxlength="30"   ng-model="pwdConfirm" tabindex="2" type="password">
+										</div>
+			
+									</div>
+											<div id="saveButton" class="save formButton clearfix">
+											<button type="button" name="CancelPwdDetails" id="SaveChildInfoButton" class="button-type-1" value="1" tabindex="3"  ng-click="redirectToLoginPage()">Cancel</button>
+											<button type="button" name="SavPwdDetails" id="SaveChildInfoButton" class="button-type-1" value="1" tabindex="3" ng-show="(newpasstxt && pwdConfirm)" ng-click="newpass()">Continue</button>
+											<button type="button" name="SavPwdDetails1" id="SaveChildInfoButton1" class="button-type-2" value="1" tabindex="3" ng-show="(!newpasstxt || !pwdConfirm)" ng-disabled="(!newpasstxt || !pwdConfirm)">Continue</button>
+											</div>
+											
+										<!-- End new buttons -->
+							
+									
+								</form>
+					</div>
+					</div>
+				</div>
+				</div>
+			</div>
+		
+		<div class="contactCustomerService">
+			If you are experiencing issues or require further assistance, please contact <a target="_blank" href="https://scholastic-bookfairs.custhelp.com/">customer service</a>.
+		</div>
+		*This new password will be used to access all Scholastic sites, including Reading Club,
+		Classroom Magazines, Book Fairs, Teaching Stores and Scholastic Store.
+		</div> 
+		</div>
+		</div>
+	</div>	
+	</div>
+	</div>
+	<p class="forget_footer">&nbsp;<p>

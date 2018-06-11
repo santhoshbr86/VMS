@@ -1,0 +1,455 @@
+<style type="text/css">
+#cpt_header,.cpt-footerWrap,footer.container{display:none;}
+</style>
+<div class="container taskDetails">
+	<div  ng-include="include.topmost"></div>
+	<section class="row roles">
+		<div class="col-md-12 col-sm-12 col-xs-12" ng-include="include.top"></div>
+		<ul  class="col-md-12">
+			<li class="col-md-3" ng-repeat="adminrole in adminroles.rolesStatus | orderBy:'title'">
+				<div class="input-group">
+		     		<span class="input-group-addon">
+      				   <input type="radio" name="tasks" id="tasks" ng-click="editRole(adminrole)">
+      				</span>
+					<span class="title">{{adminrole.title}}</span>
+				</div>
+			</li>
+		</ul>
+
+		<ul class="col-md-12 customTask">
+			<li class="col-md-3">
+				<div class="input-group default-task">
+		     		<span class="input-group-addon">
+      				   <input type="radio" name="tasks" id="tasks" ng-click="clearRole()">
+      				</span>
+					<span class="title customFont">Create Your Own</span>
+				</div>
+			</li>
+
+
+			<li class="col-md-3" ng-repeat="customrole in customroles.signupSheetCustomRolesMessagesList | orderBy:'title'">
+				<div class="input-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+					<!--<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">-->
+					<span class="input-group-addon">
+					   <input type="radio" name="tasks" id="tasks"
+							  ng-click="editCustomRole(customrole)">
+					</span>
+					<!--</div>-->
+					<!--<div class="">-->
+						<span class="title col-xs-9 col-sm-9 col-md-9 col-lg-9 customFont">{{customrole.title}}</span>
+					<!--</div>-->
+					<!--<div >-->
+						<span class="pull-right glyphicon glyphicon-remove-circle"
+							  ng-click="deleteCustomTaskConfirm(customrole)"></span>
+					<!--</div>-->
+				</div>
+
+			</li>
+		</ul>
+
+		<!-- Combined POC
+        <ul  class="col-md-12">
+          <li class="col-md-3" ng-repeat="adminrole in adminroles.rolesStatus">
+               <div class="input-group">
+                    <span class="input-group-addon">
+                        <input type="radio" name="tasks" id="tasks" ng-click="editRole(adminrole)">
+                     </span>
+                     <span class="title">{{adminrole.title}}</span>
+                </div>
+               </li>
+
+           <br>
+
+              <li class="col-md-3">
+               <div class="input-group default-task">
+                    <span class="input-group-addon">
+                        <input type="radio" name="ctasks" id="ctasks" ng-click="clearRole()">
+                     </span>
+                     <span class="title">Create Your Own</span>
+                </div>
+           </li>
+
+           <li class="col-md-3" ng-repeat="customrole in customroles.signupSheetCustomRolesMessagesList">
+               <div class="input-group">
+                    <span class="input-group-addon">
+                        <input type="radio" name="ctasks" id="ctasks" ng-click="editCustomRole(customrole)">
+                     </span>
+                     <span class="title">{{customrole.title}}</span> <span ng-click="deleteRole(customrole)" class="glyphicon glyphicon-remove-circle"> </span>
+                </div>
+            </li>
+       </ul>
+       -->
+	</section>
+	<section class="basicInfo row">
+		<div class="col-md-1 col-sm-1 col-xs-1"></div>
+		<div class="show_error col-md-6 col-sm-6 col-xs-6" ng-show="(taskDetailsFrm.title.$error.required && submitted)
+		|| (taskDetailsFrm.startTime.$error.required&&submitted)
+		||	(taskDetailsFrm.endTime.$error.required&&submitted)
+		|| (taskDetailsFrm.title.$error.maxlength && submitted)
+		|| (taskDetailsFrm.description.$error.maxlength && submitted)
+		|| (taskDetailsFrm.volName.$error.pattern && submitted)
+		|| (!noVolunteer)
+		|| (taskDetailsFrm.startDate.$error.required && submitted)
+		|| (taskDetailsFrm.startDate.$error.date && submitted)
+		|| (thisIsBefore(task.startDate,task.maxPastDate) && submitted)
+		|| (thisIsAfter(task.startDate,task.maxFutureDate) && submitted)
+		|| (isSameOrAfter(task.start,task.end) && submitted)
+		|| ((task.start !== 'Any Time' && task.end === 'Any Time') && submitted)
+		|| wrongTime
+		|| (isGreaterthan12(task.start,task.end) && submitted)
+		">
+			<span class="glyphicon glyphicon-alert col-md-1 error_message"></span>
+			<!--<span class="glyphicon glyphicon-warning-sign col-md-1"></span>-->
+		 					<span class="col-md-11 error_message">
+		 						<p ng-show="taskDetailsFrm.title.$error.required">
+									Title is a required field.
+								</p>
+								<p ng-show="taskDetailsFrm.startTime.$error.required">
+									Start time is a required field.
+								</p>
+								<p ng-show="taskDetailsFrm.endTime.$error.required">
+									End time is a required field.
+								</p>
+			 					<p ng-show="taskDetailsFrm.title.$error.maxlength">
+									Title cannot be more than 30 characters.
+								</p>
+			 					<p ng-show="taskDetailsFrm.description.$error.maxlength">
+									Description cannot be more that 500 characters.
+								</p>
+             				    <p ng-show="taskDetailsFrm.volName.$error.pattern">
+									Volunteer Name should be in the format {first_name} {last_name}.
+								</p>
+             				     <p ng-show="taskDetailsFrm.startDate.$error.required">
+									 Date is a required field.
+								 </p>
+             				     <p ng-show="taskDetailsFrm.startDate.$error.date">
+									 Invalid date: valid format "MM/DD/YYYY".
+								 </p>
+             				     <p ng-show="!noVolunteer">
+									 Please enter required contact details below.
+								 </p>
+             				     <p ng-show="thisIsBefore(task.startDate,task.maxPastDate)">
+									 Please select a date after {{task.maxPastDate | standardDate}}
+								 </p>
+             				     <p ng-show="thisIsAfter(task.startDate,task.maxFutureDate)">
+									 Please select a date before {{task.maxFutureDate | standardDate}}
+								 </p>
+             				     <p ng-show="isSameOrAfter(task.start,task.end)">
+									 End time must be after start time.
+								 </p>
+             				     <p ng-show="task.start !== 'Any Time' && task.end === 'Any Time'">
+									 End time must be a specific time after start time, and not 'Any Time'.
+								 </p>
+								<p ng-show="wrongTime">
+									Enter correct time format. Example 00:00 or 0:00
+								</p>
+								<p ng-show="isGreaterthan12(task.start,task.end)">
+									Duration can not exceed 12 hours.
+								</p>
+			   			   </span>
+		</div>
+		<div class="col-md-5 col-sm-5 col-xs-5"></div>
+
+		<form name="taskDetailsFrm" class="form-horizontal" novalidate class="form-horizontal" role="form" autocomplete="off">
+			<div class="col-md-12 col-sm-12">
+				<div class="col-md-7 col-sm-7 col-xs-12">
+					<div class="form-group">
+						<label class="col-md-3 col-sm-3 col-xs-12 control-label">
+							Title:
+						</label>
+						<div class="col-md-7 col-sm-7 col-xs-12">
+							<input class="form-control"
+								   type="text"
+								   name="title"
+								   ng-model="task.title"
+								   ng-class="{ errorBorder : (taskDetailsFrm.title.$error.required && submitted) ||
+	   (taskDetailsFrm.title.$error.maxlength && submitted) }"
+								   ng-maxlength="40"
+								   maxlength="40"
+								   required>
+                            <span class="subtitle pull-right">maximum 40 characters</span>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-3 col-sm-3 col-xs-12 control-label">
+							Date:
+						</label>
+						<div class="col-md-4 col-sm-5 col-xs-12">
+							<div class="input-group">
+								<input class="form-control"
+									   type="text"
+									   name="startDate"
+									   uib-datepicker-popup="MM/dd/yyyy"
+									   ng-model="task.startDate"
+									   ng-class="{ errorBorder : (taskDetailsFrm.startDate.$error.required && submitted)
+									   || (taskDetailsFrm.startDate.$error.date && submitted)
+									   || (thisIsBefore(task.startDate,task.maxPastDate) && submitted)
+									   || (thisIsAfter(task.startDate,task.maxFutureDate) && submitted)
+									   }"
+									   is-open="opened"
+									   show-button-bar="false"
+									   required>
+				        <span class="input-group-btn">
+				          <button class="btn btn-default btnCalender" type="button" ng-click="open($event)"> <img src="../images/icon-calendar2.png" height="28"/></button>
+				        </span>
+							</div>
+						</div>
+					</div>
+					<!--<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"><pre> task.start {{task.start}} task.end {{task.end}}</pre></div>-->
+					<div class="form-group">
+						<label class="col-md-3 col-sm-3 col-xs-12 control-label">
+							Start Time:
+						</label>
+						<div class="col-md-3 col-sm-3 col-xs-12 timeWrap" id="startTimeWrap">
+							<!-- <select ng-model="task.start"
+									name="startTime"
+									class="form-control"
+								ng-class="{ errorBorder : (taskDetailsFrm.startTime.$error.required && submitted)
+								|| (taskDetailsFrm.startTime.$error.date && submitted)
+								|| (isSameOrAfter(task.start,task.end) && submitted)
+								}">
+								<option ng-repeat="hour in hours">{{hour}}</option>
+							</select> -->
+							<input type="text"
+							ng-model="task.start"
+							name="startTime"
+							class="form-control"
+							ng-class="{ errorBorder : (taskDetailsFrm.startTime.$error.required && submitted)
+								|| (taskDetailsFrm.startTime.$error.date && submitted)
+								|| (isSameOrAfter(task.start,task.end) && submitted)
+								}" required validate-start/>
+							<time-start></time-start>
+						</div>
+						<label class="col-md-1 col-sm-3 col-xs-12 control-label" ng-hide="task.start==='Any Time'">
+							End:
+						</label>
+						<div class="col-md-3 col-sm-3 col-xs-12 timeWrap" id="endTimeWrap" ng-hide="task.start==='Any Time'">
+							<!-- <select ng-model="task.end"
+									name="endTime"
+									class="form-control"
+									ng-class="{ errorBorder : (taskDetailsFrm.startTime.$error.required && submitted)
+								|| (taskDetailsFrm.startTime.$error.date && submitted)
+								|| (isSameOrAfter(task.start,task.end) && submitted)
+								|| ((task.start !== 'Any Time' && task.end === 'Any Time') && submitted)
+								}">
+								<option ng-repeat="endHour in endHours" ng-selected="task.end===endHour">{{endHour}}</option>
+
+							</select> -->
+							<input type="text" ng-model="task.end"
+
+									name="endTime"
+									class="form-control"
+									ng-class="{ errorBorder : (taskDetailsFrm.startTime.$error.required && submitted)
+								|| (taskDetailsFrm.startTime.$error.date && submitted)
+								|| (isSameOrAfter(task.start,task.end) && submitted)
+								|| ((task.start !== 'Any Time' && task.end === 'Any Time') && submitted)
+								}" required validate-end/>
+							 <time-end></time-end>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-3 col-sm-3 col-xs-12 control-label">
+							Description:
+						</label>
+						<div class="col-md-7 col-sm-7 col-xs-12">
+							<textarea class="form-control" name="description" ng-model="task.description"  ng-maxlength="500" maxlength="500"> </textarea>
+							<div class="remainingDesc">{{task.description.length-0}} of 500</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-5 col-sm-5 col-xs-12 addtionalInfo">
+					<div class=" row col-xs-12 top_contact" ng-include="include.right"></div>
+					<br/>
+					<p ng-show="showHow">
+						<a href="{{howLink}}" target="_blank"><img src="{{howImg}}"/></a> {{howMessage}}
+					</p>
+				</div>
+
+				<!--<div class="col-md-5 col-sm-5 col-xs-12 addtionalInfo" ng-include="include.right"></div>-->
+
+				<section class="volunteerName col-md-12 col-sm-12">
+					<div class="form-group">
+						<label class="col-md-2 col-sm-2 col-xs-12 control-label">
+							Volunteer Name:
+						</label>
+						<div class="col-md-4 col-sm-4 col-xs-12">
+							<input class="form-control" type="text" name="volName"  ng-model="task.volName" ng-change="checkVolunteer()" autocomplete="off"> <!-- ng-blur -->
+						</div>
+						<div class="col-md-5 col-sm-5 col-xs-12" ng-include="include.bottom"></div>
+					</div>
+					<ul class="contactList" ng-show="showlist">
+						<li ng-repeat="contact in contactList | filter: task.volName | orderBy: ['volunteerExt.firstName', 'volunteerExt.lastName']">
+						<a href="javascript:void(0);" ng-click="onSelect(contact)"><span class='name'>{{contact.volunteerExt.firstName}}</span> <span class='name'>| {{contact.volunteerExt.lastName}}</span> <span ng-if="contact.email.length>0">| {{contact.email}}</span> <span ng-if="contact.volunteerExt.phone !==null"> | {{contact.volunteerExt.phone | phoneFormat}}</span></a>
+						</li>
+						<span class="addNew" ng-show="(filteredContact=(contactList | filter: task.volName)).length==0"><a href="javascript:void(0);" ng-click="addNewContact()">Add new Contact</a></span>
+					</ul>
+				</section>
+				<div class="col-md-7 col-sm-7 col-xs-12 newVolunteer" ng-show="!noVolunteer">
+					<div class="form-group"><br/></div>
+					<!-- <div class="col-md-offset-1 alert alert-danger ng-binding ng-hide" ng-show="!noVolunteer"> <span class="glyphicon glyphicon-alert"></span> {{volMsg}}</div> -->
+					<div class="col-md-offset-1 col-md-11 alert alert-danger" ng-show="(taskDetailsFrm.phone.$error.pattern && submitted) ||
+	   (taskDetailsFrm.volName.$error.maxlength && submitted) ||
+	   (taskDetailsFrm.email.$error.pattern && submitted) || (taskDetailsFrm.volName.$error.pattern && submitted)
+	   || (taskDetailsFrm.firstName.$error.minlength && submitted)  || (taskDetailsFrm.lastName.$error.minlength && submitted)
+	   || (taskDetailsFrm.email.$error.minlength && submitted) || (taskDetailsFrm.lastName.$error.maxlength && submitted)
+	   || (taskDetailsFrm.firstName.$error.maxlength && submitted) || (taskDetailsFrm.phone.$error.length && submitted) || (addContactErrors) || (addContactFirstNameError)
+	   || (addContactLastNameError) || (addContactEmailError) ">
+						<span class="glyphicon glyphicon-alert col-md-1"></span>
+						<span class="col-md-11">
+						<p ng-show="taskDetailsFrm.volName.$error.maxlength">
+							Volunteer Name cannot be more than 35 characters.
+						</p>
+						<p ng-show="taskDetailsFrm.email.$error.pattern || taskDetailsFrm.email.$error.minlength">
+							Email address is not valid.
+						</p>
+						<p ng-show="taskDetailsFrm.volName.$error.pattern">
+							Volunteer Name is not valid.
+						</p>
+						<p ng-show="taskDetailsFrm.firstName.$error.minlength">
+							Volunteer First Name should be at least 1 characters.
+						</p>
+						<p ng-show="taskDetailsFrm.lastName.$error.minlength">
+							Volunteer Last Name should be at least 1 characters.
+						</p>
+						<p ng-show="taskDetailsFrm.phone.$error.length">
+							Please enter your 10-digit telephone number, including area code, with no spaces or special characters.
+						</p>
+						<p ng-show="addContactErrors">
+							{{addContactErrorsMsg}}
+						</p>
+						<p ng-show="addContactFirstNameError">
+							First Name is a required field
+						</p>
+						<p ng-show="taskDetailsFrm.firstName.$error.maxlength">
+                        First Name cannot be more than 30 characters.
+                    </p>
+						<p ng-show="addContactLastNameError">
+							Last Name is a required field
+						</p>
+						 <p ng-show="taskDetailsFrm.lastName.$error.maxlength">
+                        Last Name cannot be more than 30 characters.
+                   		 </p>
+						<p ng-show="addContactEmailError">
+							Email is a required field
+						</p>
+						</span>
+					</div>
+
+					<div class="form-group">
+						<label class="col-md-3 col-sm-3 col-xs-12 control-label">
+							First Name:
+						</label>
+						<div class="col-md-4 col-sm-7 col-xs-12">
+							<input type="text"
+								   ng-model="task.firstName"
+								   ng-minlength="1"
+								   ng-maxlength="30"
+								   name="firstName"
+								   class="form-control"
+								   maxlength="30" />
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-md-3 col-sm-3 col-xs-12 control-label">
+							Last Name:
+						</label>
+						<div class="col-md-4 col-sm-7 col-xs-12">
+							<input type="text"
+								   ng-model="task.lastName"
+								   ng-minlength="1"
+								   ng-maxlength="30"
+								   name="lastName"
+								   class="form-control"
+								   maxlength="30" />
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-md-3 col-sm-3 col-xs-12 control-label">
+							Email:
+						</label>
+						<div class="col-md-7 col-sm-7 col-xs-12">
+							<input type="email" ng-model="task.email" ng-minlength="6" name="email" class="form-control" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{1,}$/">
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-md-3 col-sm-3 col-xs-12 control-label">
+							Phone:
+						</label>
+						<div class="col-md-4 col-sm-7 col-xs-12">
+							<input type="tel" ng-model="task.phone" name="phone" class="form-control" maxlength="12" ng-maxlength="12" format-phone>
+							<span class="control-label-area-code">(Please include area code)</span>
+						</div>
+						<span class="control-label-optional">(optional)</span>
+					</div>
+				</div>
+			</div>
+
+			<footer class="calenderFooter col-md-12 col-sm-12 col-xs-12 footer_taskdetails">
+				<button class="btn btn-custom" ng-click="close()">CANCEL</button>
+				<button class="btn btn-primary" ng-click="saveTask()"ng-disabled="noMatch ||showlist || runingSaveTask">SAVE</button>
+				<span class="btn btn-primary-wrap">
+					<button class="btn btn-primary save_duplicate" ng-click="saveDupTask()" ng-disabled="noMatch || showlist || runingSaveTaskDup">
+						SAVE &amp; DUPLICATE
+					</button>
+					<span class="duplicate">
+						<select class="btn btn-primary" ng-model="task.dups" name="taskdups">
+							<option value="1">+1</option>
+							<option value="2">+2</option>
+							<option value="3">+3</option>
+							<option value="4">+4</option>
+							<option value="5">+5</option>
+						</select>
+					</span>
+				</span>
+				<button ng-show="dupsHide==true" class="btn btn-custom pull-right" ng-click="deleteTaskConfirm()">DELETE</button>
+				<div ng-style="resizerStyle" class="clearfix resizerElement" ng-show="showlist"></div>
+			</footer>
+
+			<!-- test httpErrorLogging html start -->
+			<!--<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">-->
+				<!--<button class="btn btn-primary" ng-click="saveTask(500)" ng-disabled="noMatch">(500) SAVE</button>-->
+			   	<!--<span class="btn btn-primary-wrap">-->
+					<!--<button class="btn btn-primary save_duplicate" ng-click="saveDupTask(500)" ng-disabled="noMatch">-->
+						<!--(500) SAVE &amp; DUPLICATE-->
+					<!--</button>-->
+					<!--<span class="duplicate">-->
+						<!--<select class="btn btn-primary" ng-model="task.dups" name="taskdups">-->
+							<!--<option value="1" selected>+1</option>-->
+							<!--<option value="2">+2</option>-->
+							<!--<option value="3">+3</option>-->
+							<!--<option value="4">+4</option>-->
+							<!--<option value="5">+5</option>-->
+						<!--</select>-->
+					<!--</span>-->
+				<!--</span>-->
+			<!--</div>-->
+			<!-- test httpErrorLogging html end -->
+
+		</form>
+	</section>
+
+	<div class="calenderBg hide" ng-click="closeCalender()"></div>
+</div>
+<div class="deleteOverlay hide"></div>
+<div class="deletectaskpopUp hide">
+	<p class="title">Confirm Delete</p>
+	<p>Are you sure you want to permanently delete this volunteer role from your library?</p>
+	<footer>
+		<button class="btn btn-custom" ng-click="closeCustomTaskDeletePopup()">Cancel</button>
+		<button class="btn btn-primary" ng-click="deleteRole()">Delete</button>
+	</footer>
+</div>
+<div class="deletepopUp hide">
+	<p ng-show="task.volName==null" class="title">Delete Time slot</p>
+	<p ng-show="task.volName!=null"class="title">Delete Time slot</p>
+	<p ng-show="task.volName==null">Are you sure you want to delete this time slot?</p>
+	<p ng-show="task.volName!=null">A volunteer has signed up for this time slot,<br /> are you sure you want to delete it? If so, <br /> please notify the volunteer of this change.</p>
+	<footer>
+		<button class="btn btn-custom" ng-click="closeDeletePopup()">Cancel</button>
+		<button class="btn btn-primary" ng-click="deleteTask(task)">Delete</button>
+	</footer>
+</div>

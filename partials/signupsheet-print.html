@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Printable SignupSheet Activities</title>
+</head>
+
+<body>
+<div>
+<h1 style="font-family: Verdana, Arial, Helvetica, sans-serif; color: #000000; font-size: 30px; font-weight: 400">{{printData.eventName}}</h1>
+<h2 style="font-family: Verdana, Arial, Helvetica, sans-serif; color: #000000; font-size: 18px; font-weight: 400">{{printData.schoolName}}</h2>
+</div>
+
+<div style="float: left; margin-top: 25px; width: 100%">
+<h3 style="font-family: Verdana, Arial, Helvetica, sans-serif; color: #666666; font-size: 20px; font-weight: bold; margin: 0px;">Tasks &amp; Times:</h3>
+
+<div ng-repeat="orderactivity in printData.orderedsignupSheetActivities">
+
+<h3 style="font-family: Verdana, Arial, Helvetica, sans-serif; color: #444444; font-size: 26px; font-weight: bold; margin: 0px; margin-top: 20px">{{orderactivity.header}}</h3>
+
+<div ng-repeat="signupSheetActivity in orderactivity.signupSheetActivities">
+
+<div>
+<p style="font-family: Verdana, Arial, Helvetica, sans-serif; color: #444444; font-size: 18px; font-weight: 400; margin: 0px; margin-top: 20px">
+    	<span style="font-weight: bold">{{signupSheetActivity.eventName}}</span> |
+    	<span id="time" ng-hide="signupSheetActivity.anyTime">{{signupSheetActivity.startTime}} – {{signupSheetActivity.endTime}}</span>
+        <span id="time" ng-show="signupSheetActivity.anyTime">Any Time</span>
+</p>
+</div>
+
+<div style="float: left; margin-left: 40px; margin-top: 20px; clear: both; width: 100%" ng-if="signupSheetActivity.volunteerName">
+	<div style="width: 15px; height: 15px; background-color: #fff; border: 3px solid #000000; float: left"></div>
+    <p style="font-family: Verdana, Arial, Helvetica, sans-serif; color: #444444; font-size: 18px; font-weight: 400; margin: 0px; margin-top: 0px; float: left; margin-left: 10px; margin-bottom: 30px;">
+ 		<span id="name">{{signupSheetActivity.volunteerName}}</span> | <span id="email">{{signupSheetActivity.volunteerEmail}}</span> | <span id="number">{{signupSheetActivity.volunteerPhone | phoneFormat}}</span>
+	</p>
+</div>
+
+<div style="float: left; margin-left: 40px; margin-top: 20px; clear: both; width: 100%;" ng-if="!signupSheetActivity.volunteerName">
+	<div style="width: 15px; height: 15px; background-color: #000; border: 3px solid #000000; float: left"></div>
+    <p style="font-family: Verdana, Arial, Helvetica, sans-serif; color: #444444; font-size: 18px; font-weight: 400; margin: 0px; margin-top: 0px; float: left; margin-left: 10px; margin-bottom: 30px;">
+	<span id="unassigned">Unassigned</span>
+	</p>
+</div>
+
+<br/>
+
+</div>
+
+</div>
+
+</div>
+</body>
+<script>
+window.setTimeout(function() {
+	   window.print();
+}, 2000)   
+</script>
+</html>

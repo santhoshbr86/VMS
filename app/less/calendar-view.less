@@ -1,0 +1,354 @@
+.calenderWrap {
+    .taskDetails {
+        .custom {
+            padding-bottom: 40px;
+            ul {
+                li:first-child {
+                    background-color: #EEEEEE;
+                }
+                li {
+                    a {
+                        background: rgba(0, 0, 0, 0) url(../images/rolesClose.png) no-repeat scroll right top;
+                        height: 18px;
+                        width: 20px;
+                        position: relative;
+                        top: 7px;
+                        float: right;
+                    }
+                }
+            }
+        }
+        .roles {
+            ul {
+                padding: 15px 0;
+                margin: 0;
+                list-style-type: none;
+                li {
+                    border: 1px solid #007FC3;
+                    margin: 8px 16px 8px 0;
+                    height: 38px;
+                    padding: 4px 10px;
+                    display: table;
+                    float: left;
+                    cursor: pointer;
+                    word-wrap: break-word;
+                    overflow-wrap: break-word;
+                    font: 13px verdana, Arial, sans-sarif;
+                    color: #000;
+                    line-height: 1em;
+                    overflow: hidden;
+                    width: 215px;
+                    span {
+                        display: table-cell;
+                        vertical-align: middle;
+                    }
+                }
+                li:nth-child(4n) {
+                    margin-right: 0px;
+                }
+            }
+            .rolesLine {
+                border-bottom: 1px dashed #b4b4b4;
+            }
+        }
+    }
+}
+
+.schedulerWrap {
+    clear: both;
+    .middleTables {
+        padding-left: 10px;
+        padding-right: 0px;
+        float: left;
+        width: 810px;
+    }
+}
+
+.invisible {
+    visibility: hidden;
+}
+
+.outerWrap {
+    width: 720px;
+    height: 30px;
+    overflow: hidden;
+    position: relative;
+    float: left;
+    .innerWrap {
+        position: absolute;
+        left: -630px;
+        top: 0px;
+        dl {
+            padding: 0;
+            margin: 0;
+            dd {
+                float: left;
+                display: inline-block;
+                padding: 8px 12px;
+                background: #f5f5f5;
+                width: 90px;
+                height: 30px;
+                border-right: 1px solid #fff;
+                color: #444;
+                font: 14px Arial;
+                text-align: left;
+            }
+        }
+    }
+}
+
+.preWrap {
+    float: left;
+    display: inline-block;
+    background: #f8f8f8;
+    width: 38px;
+    height: 30px;
+    position: relative;
+    border-right: 1px solid #fff;
+    .previous {
+        width: 0;
+        height: 0;
+        border-top: 7px solid transparent;
+        border-bottom: 7px solid transparent;
+        border-right: 12px solid #1588d9;
+        cursor: pointer;
+        position: absolute;
+        top: 7px;
+        left: 10px;
+    }
+}
+
+.nextWrap {
+    background: #F8F8F8;
+    width: 38px;
+    height: 30px;
+    float: left;
+    position: relative;
+    .next {
+        width: 0;
+        height: 0;
+        border-top: 7px solid transparent;
+        border-bottom: 7px solid transparent;
+        border-left: 12px solid #1588d9;
+        cursor: pointer;
+        position: absolute;
+        top: 7px;
+        left: 10px;
+    }
+}
+
+.taskSection {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    width: 796px;
+    /*height: 420px;
+    position: relative;
+    overflow-y: hidden;*/
+    float: left;
+    border-bottom: 1px solid #cacdc8;
+    border-left: 1px solid #cacdc8;
+    border-right: 1px solid #cacdc8;
+    /*.innerTaskSection {
+        position: absolute;
+        width: 100%;
+        top: -1680px;
+    }*/
+    .DaysRow {
+        float: left;
+        margin: 0;
+        .outerWrap {
+            height: 60px;
+            /* border-left: 1px dotted #cacdc8;*/
+            .innerWrap {
+                height: 60px;
+                border-top: 1px solid #cacdc8;
+                /*    .dataBox:nth-child(1) {
+                    border-left: 1px dotted #cacdc8;
+                }
+            */
+                .dataBox {
+                    float: left;
+                    display: inline-block;
+                    padding: 3px 6px;
+                    width: 90px;
+                    height: 60px;
+                    border-bottom: 1px solid #cacdc8;
+                    border-right: 1px dotted #cacdc8;
+                    font: 14px Arial;
+                    text-align: left;
+                    position: relative;
+                    ul {
+                        padding: 0;
+                        margin: 0;
+                        list-style-type: none;
+                        .bg-success {
+                            background: #CBE8AE;
+                        }
+                        .bg-success.notAssinged {
+                            background: #FBE6B9;
+                            cursor: pointer;
+                        }
+                        li {
+                            z-index: 8 !important;
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            color: #127FBA;
+                            font-size: 12px;
+                            padding: 0 10px 0 2px;
+                            margin: 2px;
+                            font-weight: 700;
+                            height: 22px;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            cursor: pointer;
+                            .taskEventGlyphicon {
+                                color: #74AD46;
+                                float: right;
+                                vertical-align: text-bottom;
+                                width: 12px;
+                                position: absolute;
+                                right: 1px;
+                                background: #CBE8AE;
+                            }
+                            .taskEventContainer {
+                                text-align: left;
+                                margin: 0 auto;
+                                padding: 1px 0;
+                                .taskEventName {
+                                    word-wrap: break-word;
+                                    overflow: hidden;
+                                    display: inline-block;
+                                    padding-top: 2px;
+                                }
+                                .taskEventVolunteerName {
+                                    color: #31431B;
+                                    font-weight: 400;
+                                    font-size: 11px;
+                                    display: inline;
+                                    margin: 1px 0 0 0;
+                                    white-space: pre-wrap;
+                                    text-transform: capitalize;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .preIndicatorWrap,
+        .nextIndicatorWrap {
+            float: left;
+            width: 37px;
+            height: 60px;
+            position: relative;
+            .taskBefore {
+                background: #FBE6B9;
+                width: 16px;
+                height: 16px;
+                position: absolute;
+                top: 10px;
+                right: 0;
+            }
+        }
+        .preIndicatorWrap {
+            border-top: 1px solid #cacdc8;
+            border-right: 1px dotted #cacdc8;
+        }
+        .nextIndicatorWrap {
+            border-top: 1px solid #cacdc8;
+        }
+    }
+}
+
+.hoursWrap {
+    width: 796px;
+}
+
+.weekdaysCol {
+    padding: 0;
+    width: 100px;
+    float: left;
+    .prevTopWrap,
+    .nextBottomWrap {
+        background: #D2ECF9;
+        /*border-bottom: 4px solid #fff;*/
+        height: 30px;
+        padding-top: 6px;
+    }
+    .prevTopWrap {
+        .prevTop {
+            width: 0;
+            height: 0;
+            border-right: 7px solid transparent;
+            border-left: 7px solid transparent;
+            border-bottom: 12px solid #1588d9;
+            cursor: pointer;
+            margin: 0 auto;
+            display: block;
+        }
+    }
+    .nextBottomWrap {
+        .nextBottom {
+            width: 0;
+            height: 0;
+            border-right: 7px solid transparent;
+            border-left: 7px solid transparent;
+            border-top: 12px solid #1588d9;
+            cursor: pointer;
+            margin: 0 auto;
+            display: block;
+        }
+    }
+    .outerWrapVertical {
+        /* height: 420px;
+        overflow: hidden;*/
+        position: relative;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        .innerWrapVertical {
+            /*position: absolute;
+            width: 100%;
+            top: -1680px;*/
+            dl {
+                margin-bottom: 0;
+                margin-top: 0;
+                dd {
+                    padding: 6px;
+                    background: #D2ECF9;
+                    border-bottom: 1px solid #fff;
+                    text-align: left;
+                    text-transform: uppercase;
+                    width: 100%;
+                    display: inline-block;
+                    height: 60px;
+                    color: #666;
+                    font: 12px verdana, Arial;
+                    span {
+                        font: 24px Arial, sans-sarif;
+                    }
+                    .calButton {
+                        display: none;
+                        a {
+                            background: rgba(255, 255, 255, 0.5);
+                            width: 88%;
+                            height: 2%;
+                            position: absolute;
+                            .linkText {
+                                font: 12px verdana, Arial;
+                                text-align: center;
+                                color: #127FBA;
+                                padding: 0px 10px;
+                                position: relative;
+                                cursor: pointer;
+                            }
+                        }
+                    }
+                }
+                dd.heightFairDate {
+                    background: #FEAE00;
+                }
+            }
+        }
+    }
+}

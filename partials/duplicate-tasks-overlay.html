@@ -1,0 +1,22 @@
+<div>
+	<div class="popupOverlay"></div>
+	<div class="popUp dupOverlay">
+		<div ng-include="include.VOL430_Duplicate_top"></div>
+		
+		<div class="form-group col-md-12 col-sm-12">
+			
+			<div class="input-group">
+				<input type="text" class="form-control" ng-model="duplicateDayTo" uib-datepicker-popup="MM/dd/yyyy"  is-open="popup.datePickerOpened" datepicker-options="dateOptions" ng-required="true"  />
+				<span class="input-group-btn">
+				    	<button class="btn btn-default btnCalender" type="button" ng-click="openDatePicker($event)"> <img src="../images/icon-calendar2.png" /></button>
+				</span>
+			</div>
+			
+		</div>
+		<div ng-include="include.VOL430_Duplicate_bottom"></div>
+		<footer class="overlayFooter">
+			<button class="btn btn-custom" ng-click="closeOverlay()">cancel</button>
+			<button class="btn btn-primary" ng-click="duplicateDayTasks()">Duplicate</button>
+		</footer>
+	</div>
+</div>

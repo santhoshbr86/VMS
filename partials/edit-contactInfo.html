@@ -1,0 +1,89 @@
+<style type="text/css">
+#cpt_header,.cpt-footerWrap, #cpt_footer-holder, footer.container{display:none;}
+</style>
+<div class="editBasicinfo editContactinfo">
+	<div class="row">
+		<div class="breadCrumb col-md-12 col-sm-12"> 
+			<a href="javascript:void(0);" ng-click="gotoVolunteers()">Volunteers > </a>
+			<a href="javascript:void(0);" ng-click="stepBack()"> Sign-up Builder > </a>	
+			<a class="disabled"> Edit Contact Information</a>
+		</div>
+		<div class="col-md-12 col-sm-12 heading">
+			<div ng-include="include.VOL420_top"></div>
+		</div>
+	</div>
+	<div class="show_error col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-show="(contactInfo.$invalid && submitted)">
+			<span class="glyphicon glyphicon-alert warning"></span>
+			<span ng-include="include.VOL420_sendto" class="error_message col-md-11 no-padding"></span>
+	</div>
+	<section class="row basicInfoForm">
+		<form class="form-horizontal" name="contactInfo" novalidate>
+			<div class="col-md-10 col-sm-7 col-xs-12">
+				<div class="form-group">
+					<label class="col-md-3 col-sm-3 col-xs-12 control-label">
+						First Name*:
+					</label>
+					<div class="col-md-5 col-sm-5 col-xs-12">
+						<input maxlength="30" class="form-control" type="text" ng-model="fair.coordinatorFirstName" name="firstName" required>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 col-sm-3 col-xs-12 control-label">
+						Last Name*:
+					</label>
+					<div class="col-md-5 col-sm-5 col-xs-12">
+						<input maxlength="30" class="form-control" type="text" ng-model="fair.coordinatorLastName" name="lastName" required>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 col-sm-3 col-xs-12 control-label">
+						Email Address:
+					</label>
+					<div class="col-md-7 col-sm-7 col-xs-12">
+						<input maxlength="70" class="form-control" type="text" ng-model="fair.coordinatorEmail" name="emailAdd" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/">
+						<div class="input-group col-md-12 copyEmail">
+					        <div class="squaredOne col-md-2">
+			                    <input type="checkbox" value="None" id="emailAdd" name="showEmail" ng-model="fair.showEmail">
+			                    <label for="emailAdd"></label>
+			                </div>
+			                <div ng-include="include.VOL420_email"></div>
+						</div>
+					</div>
+					
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 col-sm-3 col-xs-12 control-label">
+						Phone:
+					</label>
+					<div class="col-md-5 col-sm-5 col-xs-12">
+						<input maxlength="10" class="form-control" type="text" ng-model="fair.coordinatorPhone" name="phone" numbers-only>
+						<div class="input-group col-md-12 copyEmail">
+					        <div class="squaredOne col-md-2">
+			                    <input type="checkbox" value="None" id="phone" name="showPhone" ng-model="fair.showPhone">
+			                    <label for="phone"></label>
+			                </div>
+			                <div ng-include="include.VOL420_phone"></div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group sendEmails">
+					<div class="col-md-10 col-sm-10 col-xs-12 col-md-offset-3">
+						<p>Send email alerts to the following people when a volunteer signs up or cancels:</p>
+						<select ui-select2="select2Options" id="selectBox" name="email" multiple='multiple' ng-model="selectedEmails" ng-change="updateSelection()">
+						<option ng-repeat="tag in contactList track by $index" value="{{tag.id}}">{{tag.name}}</option>
+						</select>
+						<input type="text" id="groupExpandID" ng-model="groupExpand" class="ng-hide">
+					</div>
+				</div>
+				<div class="form-group">
+					<button class="btn btn-custom col-md-offset-1" ng-click="stepBack()">cancel</button>
+					<button class="btn btn-primary" ng-click="editFormSubmit()">Save</button>
+				</div>
+			</div>
+		
+
+		</form>
+
+	</section>
+
+</div>

@@ -1,0 +1,87 @@
+<style type="text/css">
+    #cpt_header,
+    .cpt-footerWrap,
+    footer {
+        display: none;
+    }
+</style>
+
+<script>
+    //console.log("Showing 123 JanRainWidget");
+    //document.getElementById("janrainEngageEmbed").style.display = 'block';
+</script>
+<div class="importContacts">
+    <section class="col-md-12">
+        <div class="page-header">
+            <small><a class="goToContacts" ng-click="goToContacts()">Contacts</a></small>
+            <h1>Import Contacts</h1>
+        </div>
+        <section class="col-md-12 no-padding">
+            <div class="col-md-6 bg-danger" ng-show="invalid">
+                <span class="glyphicon glyphicon-warning-sign col-md-1"></span> No Contacts are available to import
+            </div>
+        </section>
+        <div ng-include="include.top"></div>
+    </section>
+    <div class="col-md-12 no-padding">
+        <div class="col-md-2 col-xs-2">
+            <a href="javascript:void(0);" class="thumbnailContainerGrey" ng-hide="showChooseFile">
+                <img class="csvThumbnail" src="images/csv.png" alt="CSV file" ng-click="showChooseFile=true;invalid=false;clearFileAttr()" />
+            </a>
+            <a href="javascript:void(0);" class="thumbnailContainerWhite" ng-show="showChooseFile">
+                <img class="csvThumbnail" src="images/csv-white.png" alt="CSV file" ng-click="showChooseFile=false;invalid=false" />
+            </a>
+        </div>
+
+        <!--  Commenting as groom contacts is not going to 12/7 Prod Release  -->
+
+        <div class="col-md-2 col-xs-2">
+            <a href="javascript:void(0);" class="thumbnail thumbnailGrey" ng-click="getOutLookContacts()">
+                <img src="images/outlook.png" alt="Outlook" ng-click="showChooseFile=false;invalid=false" />
+            </a>
+        </div>
+        <div class="col-md-2 col-xs-2">
+            <a href="javascript:void(0);" class="thumbnail thumbnailGrey" ng-click="getGooglePlusContacts()">
+                <img src="images/gmail.png" alt="Gmail" ng-click="showChooseFile=false;invalid=false" />
+            </a>
+        </div>
+        <div class="col-md-2 col-xs-2">
+            <a href="javascript:void(0);" class="thumbnail thumbnailGrey" ng-click="getYahooContacts()">
+                <img src="images/yahoo.png" alt="Yahoo" ng-click="showChooseFile=false;invalid=false" />
+            </a>
+        </div>
+
+
+
+    </div>
+
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div ng-include="include.middle"></div>
+        <!--<div class="fileuploadSection" ng-show="showuploadFile">-->
+        <div class="fileuploadSection" ng-show="showChooseFile">
+            <div class="fileUpload" id="uploadFile">
+                <span>Choose file</span>
+                <input id="uploadBtn" type="file" class="upload" file-model="myFile" accept=".csv,.txt" />
+            </div>
+            <span class="text uploadInstructions" ng-show="myFile.name">{{myFile.name}}</span>
+            <span class="text uploadInstructions" ng-hide="myFile.name">
+            <div ng-include="include.csv_middle"></div> 
+            </span>
+            <div class="fileuploadSection">
+                <button class="btn btn-primary" ng-click="uploadFile()" ng-show="myFile.name">Import</button>
+            </div>
+        </div>
+
+        <!-- <div class="fileuploadSection">
+            <a href="javascript:void(0)" ng-click="getOutLookContacts()">OUTLOOK CONTACTS</a>
+          <janrain-import-contacts></janrain-import-contacts> 
+            <a href="javascript:void(0)" ng-click="getOutLookContacts()">
+                <img src="images/outlook.png" alt="Import OutLook Contacts " style="width:42px;height:42px;border:0; ">
+            </a>
+            <div id="socialLoginButtons">
+                <button id="googleplus " ng-click="getGooglePlusJanRain()">Google+</button>
+                <button id="yahoo" ng-click="getYahooJanRain()">Yahoo</button>
+            </div>
+        </div> -->
+    </div>
+</div>

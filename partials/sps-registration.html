@@ -1,0 +1,149 @@
+<style type="text/css">
+    .Footer {
+        visibility: hidden;
+    }
+</style>
+<div class="container spsReg">
+    <header class="row">
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <h1>Registration</h1>
+        </div>
+    </header>
+    <section class="row">
+       
+        <div class="socialIcons col-md-4 col-sm-4 col-xs-12">
+            <h2>Sign in with:</h2>
+            <ul class="col-md-6 col-sm-10 col-xs-12">
+                <li><a ng-click="getFacebookJanRain()"><img src="images/icon_fb.jpg" /></a></li>
+                <li><a ng-click="getGooglePlusJanRain()"><img src="images/icon_gplus.jpg" /></a></li>
+                <li><a ng-click="getTwitterJanRain()"><img src="images/icon_twitter.jpg" /></a></li>
+                <li><a ng-click="getLinkedInJanRain()"><img src="images/icon_in.jpg" /></a></li>
+            </ul>
+            <p class="visible-xs">Or, fill out this registration form.</p>
+           
+            <!--janrain-social-registration></janrain-social-registration> --> 
+            <p>&nbsp;</p>
+        </div>
+        <section ng-show="showWarning5xx" role="alert" class="row alert alert-danger">
+            <span ng-show="showWarning5xx"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Unable to register at this time. If this problem persists, please contact Customer Service. </span>
+        </section>
+        <div class="formSection col-md-8 col-sm-8 col-xs-10">
+            <div class="row">
+                <div class="show_error col-md-11 col-sm-12 col-xs-12" ng-show="(registration.firstName.$error.required  && submitted) ||
+       (registration.firstName.$error.maxlength && submitted) ||
+       (registration.lastName.$error.required && submitted) || (registration.emailaddress.$error.pattern && submitted) ||
+       (registration.lastName.$error.maxlength && submitted) || (registration.emailaddress.$error.required && submitted) ||
+       (registration.emailaddress.$error.maxlength  && submitted) || (registration.terms.$error.required && submitted) ||
+       (registration.privacyPolicy.$error.required  && submitted)
+        || status==417 || errorMessage!=null">
+                    <span class="glyphicon glyphicon-warning-sign col-md-1 col-xs-2"></span>
+                    <span class="col-md-9 col-xs-10">
+            <p ng-show="registration.firstName.$error.required && submitted">
+		 		First Name is required field.
+            </p>
+			 <p ng-show="registration.firstName.$error.maxlength && submitted">
+                 First Name cannot be more than 30 characters.
+            </p>
+            <p ng-show="registration.lastName.$error.required && submitted">
+			   Last Name is required field.
+            </p>
+            <p ng-show="registration.lastName.$error.maxlength && submitted">
+                 Last Name cannot be more than 30 characters.
+            </p>
+			  <p ng-show="registration.emailaddress.$error.required && submitted">
+			     Email address is required field.
+			 </p>
+             <p ng-show="registration.emailaddress.$error.pattern && submitted">
+                 Email address is not valid.
+             </p>
+             <p ng-show="registration.emailaddress.$error.maxlength && submitted">
+                 Email address cannot be more than 75 characters.
+             </p>
+             <p ng-show="registration.terms.$error.required && submitted">
+                Please check the Terms of Use checkbox.
+             </p>
+             <p ng-show="registration.privacyPolicy.$error.required && submitted">
+                 Please accept the Privacy Policy.
+             </p>
+            <p ng-show="status==417">
+                 {{data}}
+             </p>
+              <p ng-show="errorMessage!=null">
+                 {{errorMessage}}
+             </p>
+		 </span>
+                </div>
+            </div>
+            <div class="all-required">(All fields required)</div>
+            <form name="registration" ng-submit="register()" novalidate class="form-horizontal" role="form">
+                <div class="form-group">
+                    <label class="control-label col-md-12 col-sm-12 col-xs-12">First Name:</label>
+                    <span class="col-md-4 col-sm-6 col-xs-12">
+                         <input type="text" ng-model="user.firstName" name="firstName"class="form-control styleOne" required  show-focus="true" ng-class="{errorBorder:addcontact.firstName.$error.required && submitted}" ng-maxlength="30">
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-12 col-sm-12 col-xs-12">Last Name:</label>
+                    <span class="col-md-4 col-sm-6 col-xs-12">
+                         <input type="text" ng-model="user.lastName" name="lastName" class="form-control styleOne" required  show-focus="true" ng-maxlength="30">
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-12 col-sm-12 col-xs-12">Email Address:</label>
+                    <span class="col-md-8 col-sm-10 col-xs-12">
+                         <input type="email" ng-model="user.email" name="emailaddress"class="form-control styleTwo" required ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{1,}$/" ng-maxlength="75">
+                    </span>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-12 col-sm-12 col-xs-12">Confirm E-mail Address</label>
+                    <span class="col-md-8 col-sm-10 col-xs-12">
+                         <input type="email" ng-model="user.confirmEmail"
+                         name="confirmEmail"class="form-control">
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-12 col-sm-12 col-xs-12">Password</label>
+                    <span class="col-md-4 col-sm-6 col-xs-12">
+                         <input type="password" ng-model="user.password"
+                         name="password"class="form-control">
+                         <p>
+                         	Your password must be seven or more characters and include at least one letter and one number. 
+                         </p>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-12 col-sm-12 col-xs-12">Confirm Password</label>
+                    <span class="col-md-4 col-sm-6 col-xs-12">
+                         <input type="password" ng-model="user.confirmpassword"
+                         name="confirmpassword"class="form-control">
+                    </span>
+                </div>
+                <div class="form-group privacy_font">
+                    <div class="checkbox">
+                        <label class="col-md-12 col-sm-12 col-xs-12">
+                            <input type="checkbox" name="terms" ng-model="user.terms" required> I have read and accept the <a target="_blank" href="http://www.scholastic.com/terms.htm">Terms of Use.</a>
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group privacy_font">
+                    <div class="checkbox">
+                        <label class="col-md-12 col-sm-12 col-xs-12">
+                            <input type="checkbox" name="privacyPolicy" ng-model="user.privacyPolicy" required> I have read and accept the <a target="_blank" href="http://www.scholastic.com/privacy.htm">Privacy Policy.</a>
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group btnGroup col-md-12 line_register">
+                    <div class="col-md-12 col-sm-11 col-xs-12 no-margin no_margin_button">
+
+                        <button type="submit" class="btn btn-lg btn-custom" style="padding: 10px 36px; font-size: 24px;">Register</button>
+                        <br/>
+                        <br/>
+                        <a href="javascript:void(0);" ng-click="cancelRegistration()">Cancel</a>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+</div>

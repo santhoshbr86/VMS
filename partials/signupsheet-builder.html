@@ -1,0 +1,193 @@
+<style type="text/css">
+    #cpt_header-holder,
+    .cpt-footerWrap,
+    footer.container,
+    #cpt_header {
+        display: none;
+    }
+</style>
+<div class="container volunteerSchedule builderTop">
+   <header class="row pageHeader">
+        <div class="col-md-10 col-sm-10 col-xs-10" ng-include="include.top"></div>
+		<div class="pageHeader1" ng-show="susData.status==='PUBLISHED_W_UNPUBLISHED_ACT' || susData.status==='UNPUBLISHED' || susData.status==='MOVED'">
+			  <div class="col-md-12 col-sm-12 col-xs-12" ng-include="include.fairMoveMessage"></div>
+		</div>
+    </header>
+</div>
+ 
+<div>
+    <div ng-include="include.editBasicInfo"></div>
+    <div class="builderRight col-md-2" ng-include="include.right"></div>
+    <header class="col-md-10 builderExp builderBasic">
+		<div class="center-block col-md-7 col-sm-7 dashBoard">
+		</div>
+		<section class="builder-Dashboard center-block col-md-12 col-sm-12">
+		        <div ng-include="include.basicTop"></div>
+				<h2>{{susData.eventName}} <small>{{fair.fairStartDate | date : 'M/d':'UTC'}}&mdash;{{fair.fairEndDate | date : 'M/d/yy':'UTC'}}</small>
+				</h2>
+				<span>{{susData.schoolName}}</span>
+				<p ng-bind="susData.description">
+				</p>
+		</section>
+	</header>
+	<div class="builderVolunteerSection">
+	<section class="builderExp col-md-12 col-sm-7 helpBlock builderBasic time-slot-sample" ng-if="susData.signupSheetActivities.length===0"> 
+	</section>
+	<section class="builderExp col-md-12 col-sm-12 builderBasic helpBlock"  ng-if="susData.signupSheetActivities.length>0">
+		<div class="center-block col-md-12 col-sm-9">
+			<h2>
+				How you can help:
+			</h2>
+			<div class="panel panel-default panelLayout">
+			<ul class="list-group">
+		 	  <li class="list-group-item activityPanel" ng-repeat="activityDetails in susData.orderedSignupSheetActivities" >
+			  <div class="panel-heading">{{activityDetails.header}}
+			  <span class="pull-right glyphicon glyphicon-menu-down" id="openPanel"></span>
+			  <span class="pull-right glyphicon glyphicon-menu-up hide" id="closePanel"></span>
+			  </div>
+			  <div class="panel-body hide" id="panelBody" show-tasks>
+			    <ul class="list-group"> 
+				  <li class="list-group-item" ng-repeat="activity in activityDetails.signupSheetActivities" >
+				  	    <h1>{{activity.eventName}}<span ng-if="activity.anyTime===true">Any Time</span>
+				  	    <span ng-if="activity.anyTime==false">{{activity.startTime}} - {{activity.endTime}}</span></h1>
+						<p id="select">
+							<button class="btn btn-primary" data-toggle="popover" ng-hide="activity.volunteerName!=null && activity.volunteerName!=''">select</button>
+							<a href="javascript:void(0);" ng-show="((activity.volunteerName===null ||  activity.volunteerName==='') && activity.description!==null && activity.description!=='')" id="showDetails">Show Details</a>
+						</p>
+						<script>
+						$(document).ready(function(){
+						    $('[data-toggle="popover"]').popover({
+						        placement : 'top',
+						        html : true,
+						        content : '<div class="media"><a class="pull-right glyphicon glyphicon-remove-circle close-popup" data-dismiss="alert"></a><div class="media-body"><h4>Disabled during preview.</h4></div></div>'
+						    });
+						    $(document).on("click", ".popover .close-popup" , function(){
+						        $(this).parents(".popover").popover('hide');
+						    });
+						});
+                       </script>
+						<div class="hide" select-bar>
+							<p>
+								<button class="btn btn-success">selected <span class="glyphicon glyphicon-ok"></span>
+								</button>
+								<a href="javascript:void(0);" id="hideSelected" ng-click="removeActivity(activity)">Cancel</a>
+							</p>
+							<div class="input-group">
+								<label class="control-label">
+									You are in preview mode.
+								</label>
+								<!--<textarea class="form-control message" ng-model="activity.comments" name="message" ng-maxlength="500"  maxlength="500">
+								</textarea>
+							  	<div class="remaining">{{500-activity.comments.length}} of 500 characters remaining.</div> -->
+							</div>
+						</div>
+						<div class="details" ng-show="activity.volunteerName!=null &&  activity.volunteerName!=''">
+							<span>Volunteer: {{activity.volunteerName}}</span>
+							<!--<a href="javascript:void(0);"
+							ng-hide="(volExpData.spsUserReturn.volId!=activity.volunteerId || activity.status==='I')" id="hideDetails">Cancel</a> -->
+						</div>
+						<div class="hide commitment" show-commitments>
+							<h1>Are you sure?</h1>
+							<!-- <p>If you are unable to volunteer at this time click Cancel Commitment.</p> -->
+							<button class="btn btn-primary" id="cancelCommit" ng-click="cancelSignUpActivityForVolunteer(activity,volExpData)">Cancel <br /> Commitment
+							</button>
+							<a class="btn btn-link" id="keepCommit">Keep Commitment
+							</a>
+						</div>
+						<!--<div class="hide commitConfirmation" id="ConfirmPopup">
+								<p>You have successfully cancelled your participating in this event.</p>
+								<button class="btn btn-primary">Ok</button>
+						</div>-->
+						<div class="details actDesc hide" show-details>
+							<p>
+								<button class="btn btn-primary" data-toggle="popover" ng-hide="activity.volunteerName!=null && activity.volunteerName!=''"
+							>select
+							</button>
+								<a href="javascript:void(0);"  id="hideDetails">hide Details</a>
+							</p>
+							<p>{{activity.description}}</p>
+							
+							<!--  <p>{{activity.whyText}}</p> -->
+							
+							<!--<p><ng-include src="'/vmsassets/'+activity.howFile"></ng-include></p>-->
+							
+						</div>
+				  </li>
+				  <!--  <li class="list-group-item">
+				  	    <h1>Cashier<span> 9:00 AM - 10:00 AM</span></h1>
+						<p>
+							<button class="btn btn-primary">select</button>
+							<a href="#">Show Details</a>
+						</p>
+
+				  </li> -->
+				</ul>
+			  </div>
+			  </li></ul>
+			</div>
+
+		</div>
+	</section>
+	<div ng-include="include.editVolSchedule"></div>
+	</div>
+	<section class="builderExp col-md-12 selectedTask submit-bar-mobile ng-hide"  id="selectedCount" ng-show="selectedCount>0">
+		<div class="center-block col-md-6">
+			<div class="pull-left col-md-6">
+			<h2>1 Task Selected</h2>
+			</div>
+			<div class="col-md-6">
+			<button class="pull-right btn btn-primary">Submit</button>
+			</div>
+		</div>
+	</section>
+	<div class="builderContactSection">
+	<footer class="col-md-12 builderContactInfo">
+		<div class="organisedBy center-block col-md-7">
+			<div class="col-md-6">
+			<h2>Organized<br />by</h2>
+			</div>
+			<div class="address col-md-6">
+			     <span ng-show="susData.showEmail===true && susData.coordinatorEmail!=null && susData.coordinatorEmail!=''" class="email"><a ng-href="mailto:{{susData.coordinatorEmail}}">{{susData.coordinatorFirstName}} {{susData.coordinatorLastName}}</a></span>
+			     <span ng-show="susData.showEmail===false || susData.coordinatorEmail===null || susData.coordinatorEmail===''" class="email">{{susData.coordinatorFirstName}} {{susData.coordinatorLastName}}</span>
+				<span ng-show="susData.coordinatorPhone!=null &&  susData.coordinatorPhone!=''
+				 && susData.showPhone===true">{{susData.coordinatorPhone | phoneFormat}}</span>
+			</div>
+		</div>
+    </footer>
+    <div ng-include="include.editContactInfo"></div>
+    </div>
+
+    <footer class="builderFooter col-md-10 col-sm-10 col-xs-10" >
+		<button class="btn btn-default" ng-click="cancel()"><strong>CANCEL</strong></button>
+		<button class="btn btn-primary" ng-show="susData.status==='PUBLISHED_W_UNPUBLISHED_ACT' || susData.status==='UNPUBLISHED' || susData.status==='MOVED' " ng-click="cancel()">PUBLISH LATER</button>
+		<button class="btn btn-success" ng-show="susData.status==='PUBLISHED_W_UNPUBLISHED_ACT' || susData.status==='UNPUBLISHED' || susData.status==='MOVED'" ng-click="publishNow(susData.signUpSheetId,'Y')">PUBLISH NOW</button>
+		<!--<button class="btn btn-default pull-right" ng-click="viewSignUpSheet(fair)"><strong>PREVIEW</strong></button>--> 
+	</footer>
+
+	<section class="popUp publishNow" ng-show="showPublishNow">
+		<h4>Your Sign-Up Sheet is Published &amp; displays on your Book Fair Homepage.</h4>
+		<p>Share your Book Fair schedule with your school community!</p>
+		<div class="bg-danger" ng-show="showFBErrorPublishNow" >
+			<span class="glyphicon glyphicon-warning-sign"> </span>
+			<span class="bg-danger"> {{fbError}} </span>
+		</div>
+		<div class="socialIcon">
+			<span>Share sign-up sheet:</span>
+			<ul>
+				<li>
+					<a ng-click="openFaceBook(fair.maskedSignUpStr)"><img src="images/icon_fb.jpg" /></a>
+				</li>
+				<li>
+					<a ng-click="openTwitter(fair.maskedSignUpStr)"><img src="images/icon_twitter.jpg" /></a>
+				</li>
+				<li><a href="" ng-click="goToMessages()" class="email btn-custom">
+					<span class="glyphicon glyphicon-envelope"></span> Email Invite
+				</a>
+				</li>
+			</ul>
+		</div>
+		<footer>
+			<button class="btn btn-primary" ng-click="closePopUpAndRedirect()">Close</button>
+		</footer>
+	</section>
+</div>

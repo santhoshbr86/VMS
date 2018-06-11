@@ -1,0 +1,350 @@
+<style type="text/css">
+	#cpt_header-holder,.cpt-footerWrap,footer.container{display:none;}
+</style>
+
+<div class="container volunteerSchedule">
+	<header class="row pageHeader">
+		<div class="col-md-12 col-sm-12 col-xs-12" ng-include="include.top"></div>
+		<div class="pageHeader1" ng-show="fair.status==='MOVED'">
+			  <div class="col-md-12 col-sm-12 col-xs-12" ng-include="include.fairMoveMessage"></div>
+		</div>
+	</header>
+	<section class="basicInfo">
+		<h2>Basic Information
+		<button class="btn btn-default pull-right" ng-click="viewSignUpSheet(fair)"><strong>PREVIEW</strong></button>
+		<button class="btn btn-success pull-right custom-margin" ng-click="publishNow(fair,fair.signUpSheetId,$event)">PUBLISH NOW</button>
+		<button class="btn btn-primary pull-right custom-margin" ng-click="saveFair(fair)">PUBLISH LATER</button>
+		</h2>
+		<div class="show_error col-lg-7 col-md-7 col-sm-12 col-xs-12" ng-show="(fairform.$invalid && submitted)">
+			<span class="glyphicon glyphicon-alert col-md-1"></span>
+				 <span class="error_message col-md-11">
+					<p ng-show="fairform.eventName.$error.required && submitted">
+						Event Name is required field.
+					 </p>
+					 <p ng-show="fairform.schoolName.$error.required && submitted">
+						 School Name is required field.
+					 </p>
+				  </span>
+		</div>
+		<form class="form-horizontal" name="fairform" novalidate>
+			<div class="col-md-7 col-sm-7 col-xs-12">
+				<div class="form-group">
+					<label class="col-md-3 col-sm-3 col-xs-12 control-label">
+						Event Name:
+					</label>
+					<div class="col-md-9 col-sm-9 col-xs-12">
+						<input maxlength="50" class="form-control" type="text" ng-model="fair.eventName" name="eventName" required>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 col-sm-3 col-xs-12 control-label">
+						School:
+					</label>
+					<div class="col-md-9 col-sm-9 col-xs-12">
+						<input maxlength="50" class="form-control" type="text" ng-model="fair.schoolName" name="schoolName" required>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 col-sm-3 col-xs-12 control-label">
+						Type:
+					</label>
+					<div class="col-md-9 col-sm-9 col-xs-12">
+						<input class="form-control" type="text" disabled="true"  ng-model="fair.eventType">
+					</div>
+				</div>
+				
+				<!-- VMS-2290
+				<div class="form-group">
+					<label class="col-md-3 col-sm-3 col-xs-12 control-label">
+						First Name:
+					</label>
+					<div class="col-md-9 col-sm-9 col-xs-12">
+						<input maxlength="50" class="form-control" type="text" ng-model="fair.coordinatorFirstName" name="coordinatorFirstName" required>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 col-sm-3 col-xs-12 control-label">
+						Last Name:
+					</label>
+					<div class="col-md-9 col-sm-9 col-xs-12">
+						<input maxlength="50" class="form-control" type="text" ng-model="fair.coordinatorLastName" name="coordinatorLastName" required>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 col-sm-3 col-xs-12 control-label">
+						Email:
+					</label>
+					<div class="col-md-9 col-sm-9 col-xs-12">
+						<input maxlength="50" class="form-control" type="text" ng-model="fair.coordinatorEmail" name="coordinatorEmail" required>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 col-sm-3 col-xs-12 control-label">
+						Phone :
+					</label>
+					<div class="col-md-9 col-sm-9 col-xs-12">
+						<input maxlength="50" class="form-control" type="text" ng-model="fair.coordinatorPhone" name="coordinatorPhone" required>
+					</div>
+				</div>
+				-->
+				
+				<div class="form-group">
+					<label class="col-md-3 col-sm-3 col-xs-12 control-label">
+						Email Alerts:
+					</label>
+					<div class="col-md-9 col-sm-9 col-xs-12">
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" ng-model="fair.volunteerSignAlert" ng-checked="fair.volunteerSignAlert" ng-init="fair.volunteerSignAlert=fair.volunteerSignAlert || false"> Volunteer Signs Up
+							</label>
+						</div>
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" ng-model="fair.volunteerCancelAlert" ng-checked="fair.volunteerCancelAlert" ng-init="fair.volunteerCancelAlert=fair.volunteerCancelAlert || false"> Volunteer Cancels
+							</label>
+						</div>
+					</div>
+				</div>
+				
+				<!-- VMS-2290
+				<div class="form-group">
+					<label class="col-md-3 col-sm-3 col-xs-12 control-label">
+						Contact Information:
+					</label>
+					<div class="col-md-9 col-sm-9 col-xs-12">
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" ng-model="fair.showEmail" ng-checked="fair.showEmail" ng-init="fair.showEmail=fair.showEmail || false"> Display Email
+							</label>
+						</div>
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" ng-model="fair.showPhone" ng-checked="fair.showPhone" ng-init="fair.showPhone=fair.showPhone || false"> Display Phone
+							</label>
+						</div>
+					</div>
+				</div>
+				-->
+				
+			</div>
+			<div class="cl-md-5 col-sm-5 col-xs-12">
+				<div class="form-group">
+					<label class="col-md-9 col-sm-2 col-xs-12 control-label-sign">
+						Sign-Up Sheet Message:
+					</label>
+					<div class="col-md-12 col-sm-12 col-xs-12">
+						<textarea class="form-control" ng-model="fair.description" 
+						ng-maxlength="2000" maxlength="2000"> </textarea>
+						<div class="remainingDesc">{{fair.description.length-0}} of 2000</div>
+					</div>
+				</div>
+			</div>
+			<div class="address col-md-12 col-sm-12 col-xs-12">
+				<div class="form-group">
+					<label class="col-md-2 col-sm-2 col-xs-12 control-label">
+						Address:
+					</label>
+					<div class="col-md-10 col-sm-10 col-xs-12">
+						<input id="fairaddress" class="form-control" type="text" readonly  ng-model="fair.address">
+						<!--  <a href="" data-clipboard-target="#fairaddress" class="changeUrl">Copy URL</a>-->
+						<a href="" ng-click="copyUrl()" class="changeUrl">Copy URL</a>
+						<!-- <a id="cpyUrl" href=""  class="changeUrl">Copy URL</a>  -->
+					</div>
+				</div>
+				<div class="form-group alert alert-danger" ng-show="showCopyError">
+					<label class="col-md-1 col-sm-1 col-xs-1">
+						<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+					</label>
+					<div class="col-md-10 col-sm-10 col-xs-10">
+						This browser doesn't support this function. Highlight and copy the URL above to share.
+					</div>
+					<div class="col-md-1 col-sm-1 col-xs-1">
+						<span ng-click="showCopyError=false" class="changeUrl" style="float:right;cursor: pointer;">Close</span>
+					</div>
+				</div>
+			</div>
+		</form>
+	</section>
+	<section class="col-md-12 col-sm-12 col-xs-12 taskTime">
+		<h2>Time Slots &amp; Volunteer Roles</h2>
+
+		<div ng-include="include.middle"></div>
+
+		<div class="calenderWrap noAnimate noAnimate-children"  ng-controller="calenderTaskScheduler">
+			<table class="table-bordered weekdaysCol col-md-1 col-sm-1">
+				<tbody>
+				<tr>
+					<td class="prevTopWrap" ng-class="{'disable':currentWeek==0}">
+						<a ng-disabled="currentWeek==0" class="prevTop" ng-click="prevDates()"></a>
+					</td>
+				</tr>
+
+				<tr ng-repeat="d in weekDays | dateScroller: currentWeek * weekSize | limitTo:weekSize">
+					<td style="text-align: left" ng-class="{'heightFairDate':DateRangeCheck(d)}">{{d.day}}<br /><span style="font-size: 22px;">{{d.dat}}</span></td>
+				</tr>
+				<tr>
+					<td class="nextBottomWrap" ng-class="{'disable':disableNext==true}">
+						<a href="javascript:void(0);" ng-disabled="disableNext" class="nextBottom" ng-click="nextDates()"></a>
+					</td>
+				</tr>
+				</tbody>
+			</table>
+			<div class="middleTables col-md-10 col-sm-10">
+				<table class="table-bordered hours col-md-9">
+					<tbody>
+					<tr>
+						<td class="preWrap" ng-class="{'disable':disablePrevTime==true}" ng-hide="disablePrevTime">
+							<a href="javascript:void(0);" class="previous" ng-click="previousHours()" ng-disabled="disablePrevTime"></a>
+						</td>
+						<td ng-repeat="hour in hoursPage | limitTo:pageSize track by $index">{{hour}}</td>
+						<td class="nextWrap" ng-class="{'disable':disableNextTime==true}" ng-hide="disableNextTime">
+							<a href="javascript:void(0);" class="next" ng-click="nextHours()" ng-disabled="disableNextTime"></a>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+				<table class="table-bordered weekDaysAdd col-md-9">
+					<tbody>
+					<tr ng-repeat="d in weekDays | dateScroller: currentWeek * weekSize |limitTo:weekSize">
+						<td class="preWrap" ng-hide="disablePrevTime" ng-hide="disablePrevTime">
+							<span class="taskBefore" ng-if="taskBefore(d,tasks.signupSheetActivities)"></span>
+							<span class="tasksAssigned" ng-if="taskBeforeAssigned(d,tasks.signupSheetActivities)"></span>
+						</td>
+						<td ng-repeat="hour in hoursPage | limitTo:pageSize track by $index">
+							<button class="btn btn-primary" show-btn ng-click="addSchedule(hour,d,fair)">+ ADD</button>
+							<ul>
+								<li ng-class="{'overlap':overlapSpacer(t, hour, d)}"ng-repeat="t in tasks.signupSheetActivities | orderBy: '-millisecondDuration'" ng-if="overlapSpacer(t, hour, d)"><span style="display:none">{{t.activityId}}</span></li>
+							</ul>
+							<ul>
+								<li apply-width class="bg-success" ng-repeat="t in tasks.signupSheetActivities | orderBy: '-millisecondDuration'" ng-if="isInTimeBlock(t, hour, d)" ng-class="{ spanBlock: isInTimeBlock(t, hour, d), 'notAssinged':t.volunteerName==null}" ng-click="$parent.openAssigned(t,orgId, fair.fairId,fair.signUpSheetId,'Unpub')">
+								    <span style="display:none">{{t.activityId}}</span>
+									<!-- DJ VMS-1186 may be an overlap issue -->
+									<div id="{{t.activityId}}" class="taskEventGlyphicon pull-right" ng-show="t.volunteerName!=null"><span class="glyphicon glyphicon-ok"></span></div>
+									<div class="taskEventContainer pull-left">
+										<div class="taskEventName pull-left">{{t.eventName}}</div>
+										<div class="taskEventVolunteerName" ng-show="t.volunteerName!=null">: {{t.volunteerName}}</div>
+									</div>
+								</li>
+							</ul>
+						</td>
+						<td class="nextWrap" ng-hide="disableNextTime">
+							<span class="taskBefore" ng-if="taskAfter(d,tasks.signupSheetActivities)"></span>
+							<span class="tasksAssigned" ng-if="nextTasksAssigned(d,tasks.signupSheetActivities)"></span>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+				<table class="hours col-md-9">
+					<tbody>
+					<tr>
+						<td class="preWrap" ng-class="{'disable':disablePrevTime==true}" ng-hide="disablePrevTime">
+							<a href="javascript:void(0);" class="previous" ng-click="previousHours()" ng-disabled="disablePrevTime"></a>
+						</td>
+						<td ng-repeat="hour in hoursPage | limitTo:pageSize track by $index">{{hour}}</td>
+						<td class="nextWrap" ng-class="{'disable':disableNextTime==true}" ng-hide="disableNextTime">
+							<a href="javascript:void(0);" class="next" ng-click="nextHours()" ng-disabled="disableNextTime"></a>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</div>
+			<table class="table-bordered anyTime col-md-1">
+				<tbody>
+				<tr>
+					<td class="prevTopWrap">
+						<span>Any Time</span>
+					</td>
+				</tr>
+
+				<tr ng-repeat="d in weekDays | dateScroller: currentWeek * weekSize | limitTo:weekSize">
+					<td>
+						<button class="btn btn-primary" show-btn ng-click="addSchedule(hour,d,fair)">+ ADD</button>
+						<ul>
+							<li class="bg-success"  ng-repeat="t in tasks.signupSheetActivities | orderBy: '-millisecondDuration'" ng-if="isInAnyTime(t,d)" ng-class="{'spanBlock': isInAnyTime(t,d), 'notAssinged':t.volunteerName==null}" ng-click="$parent.openAssigned(t,orgId, fair.fairId,fair.signUpSheetId,'Unpub')">
+								<div class="taskEventGlyphicon pull-right" ng-show="t.volunteerName!=null"><span class="glyphicon glyphicon-ok"></span></div>
+								<div class="taskEventContainer pull-left">
+									<div class="taskEventName pull-left">{{t.eventName}}</div>
+									<div class="taskEventVolunteerName" ng-show="t.volunteerName!=null">: {{t.volunteerName}}</div>
+								</div> <!-- DJ VMS-1186 -->
+								<!--<span ng-show="t.volunteerName!=null" class="glyphicon glyphicon-ok pull-right"></span>-->
+							</li>
+						</ul>
+					</td>
+				</tr>
+				<tr>
+					<td class="nextBottomWrap">
+						<span>Any Time</span>
+					</td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+		
+		<div class="popupOverlay" id="overLay" ng-click="closePopUp()" ng-show="showOverlay"></div>
+		
+		<!-- NOTE: There is a very very similar section to this in partials/volunteers-signup.html -->
+		<section class="popUp viewAssigned" id="viewAssigned" ng-show="showViewAssigned">
+			<h4>{{assignTaskDetails.title}}</h4>
+			<p>{{assignTaskDetails.description}}</p>
+			<p>{{assignTaskDetails.startDate}} | {{assignTaskDetails.start}} <span class="hyphen"></span> {{assignTaskDetails.end}}</p>
+			<h4 ng-show="assignTaskDetails.volName!=null">{{assignTaskDetails.volName}}</h4>
+			<h5 ng-show="assignTaskDetails.volName==null">Unassigned</h5>
+			<!-- <p ng-show="assignTaskDetails.volunteerName!=null">{{assignTaskDetails.dupsCount}}</p> -->
+			<p ng-show="assignTaskDetails.comments!=null">{{assignTaskDetails.comments}}</p>
+			<p ng-show="assignTaskDetails.volName!=null">{{assignTaskDetails.volunteerEmail}}<br/>{{assignTaskDetails.volunteerPhone | phoneFormat}}</p>
+			<footer class="col-md-12">
+				<button class="btn btn-custom" ng-click="editTask()">EDIT</button>
+				<button class="btn btn-primary" ng-click="closePopUp()">CLOSE</button>
+				<button class="btn btn-custom pull-right" ng-click="deleteTaskConfirm()">DELETE</button>
+			</footer>
+		</section>
+		<!-- NOTE: There is a very very similar section to this in partials/volunteers-signup.html -->
+		<div class="deletepopUp" ng-show="showDelete" >
+			<p ng-show="assignTaskDetails.volName==null" class="title">Delete Time slot</p>
+			<p ng-show="assignTaskDetails.volName!=null"class="title">Delete Time slot</p>
+			<p ng-show="assignTaskDetails.volName==null">Are you sure you want to delete this time slot?</p>
+			<p ng-show="assignTaskDetails.volName!=null">A volunteer has signed up for this time slot,<br /> are you sure you want to delete it? If so, <br /> please notify the volunteer of this change.</p>
+			<footer>
+				<button class="btn btn-custom" ng-click="closePopUp()">Cancel</button>
+				<button class="btn btn-primary" ng-click="deleteTask(assignTaskDetails)">Delete</button>
+			</footer>
+		</div>
+
+	</section>
+
+	<footer class="calenderFooter col-md-12 col-sm-12 col-xs-12">
+		<button class="btn btn-default" ng-click="cancel()"><strong>CANCEL</strong></button>
+		<button class="btn btn-primary" ng-click="saveFair(fair)">PUBLISH LATER</button>
+		<button class="btn btn-success" ng-click="publishNow(fair,fair.signUpSheetId, $event)">PUBLISH NOW</button>
+		<button class="btn btn-default pull-right" ng-click="viewSignUpSheet(fair)"><strong>PREVIEW</strong></button>
+	</footer>
+
+	<section class="popUp publishNow" ng-show="showPublishNow">
+		<h4>Your Sign-Up Sheet is Published &amp; displays on your Book Fair Homepage.</h4>
+		<p>Share your Book Fair schedule with your school community!</p>
+		<div class="bg-danger" ng-show="showFBErrorPublishNow" >
+			<span class="glyphicon glyphicon-warning-sign"> </span>
+			<span class="bg-danger"> {{fbError}} </span>
+		</div>
+		<div class="socialIcon">
+			<span>Share sign-up sheet:</span>
+			<ul>
+				<li>
+					<a ng-click="openFaceBook(fair.maskedSignUpStr)"><img src="images/icon_fb.jpg" /></a>
+				</li>
+				<li>
+					<a ng-click="openTwitter(fair.maskedSignUpStr)"><img src="images/icon_twitter.jpg" /></a>
+				</li>
+				<li><a href="" ng-click="goToMessages()" class="email btn-custom">
+					<span class="glyphicon glyphicon-envelope"></span> Email Invite
+				</a>
+				</li>
+			</ul>
+		</div>
+		<footer>
+			<button class="btn btn-primary" ng-click="closePopUpAndRedirect()">Close</button>
+		</footer>
+	</section>
+
+</div>
+<scheduler-carousel class="volunteerSchedule"></scheduler-carousel>

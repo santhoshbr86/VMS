@@ -1,0 +1,42 @@
+# Dockerfile - Deploy static VMS assets.
+# Volunteer Management System <vms@scholastic.com>
+
+# TODO: This should only build, and not serve
+
+FROM library/node
+MAINTAINER VMS <vms@scholastic.com>
+
+RUN npm install -g grunt-cli http-server
+
+WORKDIR /data
+
+## -----BEGIN COPY-----
+# NOTE: This is kinda ugly, can I make it better?
+COPY Gruntfile.js    \
+     package.json    \
+     index.html      \
+     robots.txt      \
+     favicon.ico     \
+     .eslintrc.json  \
+     cpt-volunteer-manager-gui/
+
+COPY .git/      cpt-volunteer-manager-gui/.git/
+COPY app/       cpt-volunteer-manager-gui/app/
+COPY fonts/     cpt-volunteer-manager-gui/fonts/
+COPY images/    cpt-volunteer-manager-gui/images/
+COPY include/   cpt-volunteer-manager-gui/include/
+COPY libs/      cpt-volunteer-manager-gui/libs/
+COPY partials/  cpt-volunteer-manager-gui/partials/
+COPY resources/ cpt-volunteer-manager-gui/resources/
+## -----END COPY-----
+
+
+## -----BEGIN BUILDandPUBLISH-----
+RUN mkdir dist \
+    && cd cpt-volunteer-manager-gui \
+    && npm install \
+    && grunt dev
+## -----END BUILDandPUBLISH-----
+
+EXPOSE 8000
+CMD ["http-server", "-a0.0.0.0", "-p8000", "-c-1", "/data/cpt-volunteer-manager-gui/dist/"]

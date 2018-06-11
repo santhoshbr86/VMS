@@ -1,0 +1,40 @@
+<style type="text/css">
+    #cpt_header-holder,
+    .cpt-footerWrap,
+    footer.container,
+    #cpt_header {
+        display: none;
+    }
+</style>
+<div class="bookfair">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 btn-group-sm">
+            <a class="btn btn-default" href="" ng-click="goToHome()">Go Back</a>
+            <button class="btn btn-default" ng-click="clear()">Cancel</button>
+            <button class="btn btn-default" ng-click="addMessage('SAVE')" ng-show="!disabledSave">Save</button>
+            <button class="btn btn-default" ng-click="addMessage('PUBLISH_LATER')" ng-show="!disablePublishLater">Publish Later</button>
+            <button class="btn btn-default" ng-click="addMessage('PUBLISH_NOW')" ng-show="!disablePublishNow">Publish Now</button>
+        </div>
+        <div class="col-md-12 col-sm-12 btn-group-sm" ng-include="include.top"></div>
+    </div>
+    <section class="row">
+        <div class="col-md-8 formSection">
+            <form name="messageform" novalidate ng-submit="addMessage()">
+                <div class="form-group">
+                    <label class="col-md-2">Message:</label>
+                    <span class="col-md-10">
+			   		<textarea class="form-control" name="message" ng-model="message" required ng-maxlength="2000" maxlength="2000" ng-class="{invalidborder:messageform.message.$error.required && submitted}" ng-change="changeStatus()">
+			    	</textarea>
+                    <div class="remainingDesc">{{message.length-0}} of 2000</div>
+			    	<span ng-show="messageform.message.$error.required && submitted" class="error">
+			         Message can't blank.
+			    	</span>
+                    <span ng-show="messageform.message.$error.maxlength && submitted" class="error">
+			         Message length can't be more than 2000.
+			    	</span>
+                    </span>
+                </div>
+            </form>
+        </div>
+    </section>
+</div>

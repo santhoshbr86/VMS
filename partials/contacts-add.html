@@ -1,0 +1,216 @@
+<style type="text/css">
+    #cpt_header-holder,
+    .cpt-footerWrap,
+    footer.container,
+    #cpt_header {
+        display: none;
+    }
+
+    .blue_button {
+        border: 1px solid #2E6DA4;
+        color: #2E6DA4;
+    }
+</style>
+<div class="container addContact">
+    <section class="row">
+        <div class="page-header">
+            <small><a class="goToContacts" ng-click="goToContacts()">Contacts</a></small>
+            <h1>Contact Details</h1>
+        </div>
+    </section>
+    <section ng-show="showWarning5xx" role="alert" class="row alert alert-danger">
+        <span ng-show="showWarning5xx"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Unable to save Contact at this time. If this problem persists, please contact Customer Service. </span>
+    </section>
+    <section class="row">
+        <div ng-include="include.top"></div>
+        <div class="row">
+            <div class="col-md-6 bg-danger" ng-show="(addcontact.$invalid && submitted) || status==417 || cptkErrorMessage!=null">
+                <span class="glyphicon glyphicon-warning-sign col-md-1"></span>
+                <span class="col-md-11">
+                    <p ng-show="addcontact.firstName.$error.required && submitted">
+                        First Name is required field.
+                    </p>
+                    <p ng-show="addcontact.firstName.$error.maxlength && submitted">
+                        First Name cannot be more than 30 characters.
+                    </p>
+                    <p ng-show="addcontact.lastName.$error.required && submitted">
+                        Last Name is required field.
+                    </p>
+                    <p ng-show="addcontact.lastName.$error.maxlength && submitted">
+                        Last Name cannot be more than 30 characters.
+                    </p>
+                    
+                    <p ng-show="addcontact.emailaddress.$error.pattern ||  addcontact.emailaddress.$error.email && submitted">
+                        Email address is not valid.
+                    </p>
+                    <!-- 
+                    <p ng-show="addcontact.emailaddress.$error.maxlength && submitted">
+                        Email address cannot be more than 75 characters.
+                    </p>
+                     -->
+                    <p ng-show="addcontact.phone.$error.length && submitted">
+                        Please enter your 10-digit telephone number, including area code, with no spaces or special
+                        characters.
+                    </p>
+                    <p ng-show="addcontact.address1.$error.maxlength && submitted">
+                        Address1 cannot be more than 30 characters.
+                    </p>
+                    <p ng-show="addcontact.city.$error.maxlength && submitted">
+                        City cannot be more than 30 characters.
+                    </p>
+                    <p ng-show="addcontact.postalCode.$error.pattern && submitted">
+                        Invalid postal code.
+                    </p>
+                    <p ng-show="status==417">
+                        {{data}}
+                    </p>
+                    <p ng-show="(cptkErrorMessage!=null)">
+                        {{cptkErrorMessage}}
+                    </p>
+                </span>
+            </div>
+        </div>
+
+        <form name="addcontact" novalidate class="form-horizontal" role="form">
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-4 col-xs-4"> First Name<sup class="required">&#10033;</sup>:</label>
+                <span class="col-md-9 col-sm-8 col-xs-8">
+                    <input type="text"
+                           ng-model="user.firstName"
+                           name="firstName"
+                           class="form-control styleOne"
+                           required
+                           show-focus="true"
+                           ng-class="{ errorBorder : addcontact.firstName.$error.required && submitted}"
+                           ng-maxlength="30"
+                           maxlength="30"/>
+                    </span>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-4 col-xs-4"> Last Name<sup class="required">&#10033;</sup>:</label>
+                <span class="col-md-9 col-sm-8 col-xs-8">
+                    <input type="text"
+                           ng-model="user.lastName"
+                           name="lastName"
+                           class="form-control styleOne"
+                           required
+                           show-focus="true"
+                           ng-class="{ errorBorder : addcontact.lastName.$error.required && submitted}"
+                           ng-maxlength="30"
+                           maxlength="30"/>
+                    </span>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-4 col-xs-4"> Email:</label>
+                <span class="col-md-9 col-sm-8 col-xs-8">
+                    <input type="email"
+                                ng-model="user.email"
+                                name="emailaddress"
+                                class="form-control styleTwo"
+                                ng-class="{ errorBorder : addcontact.emailaddress.$error.required && submitted}"
+                                ng-maxlength="75" />
+                    </span>
+            </div>
+            <div>
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-4 col-xs-4">&nbsp;</label>
+                    <span class="col-md-9 col-sm-8 col-xs-8">
+				        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" ng-model="user.toolKitAccess"
+                                       ng-checked="user.toolKitAccess=='Y'" id="toolKitValue" ng-disabled="user.internalType==='BFC'&&user.currentBFC==='Y'"
+                                       ng-click="getToolKitValue()"/> Allow Toolkit Access
+                            </label>
+                        </div>
+                    </span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-4 col-xs-4"> Phone:</label>
+                <span class="col-md-9 col-sm-8 col-xs-8">
+                    <input type="tel" ng-model="user.phone" name="phone" class="form-control styleOne" maxlength="12"
+                           ng-maxlength="12" format-phone/>
+                    <span class="control-label-area-code">(Please include area code)</span>
+                </span>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-4 col-xs-4"> Address:</label>
+                <span class="col-md-9 col-sm-8 col-xs-8">
+                    <input type="text" class="form-control styleTwo" ng-model="user.address1" name="address1"
+                           ng-maxlength="30"/>
+                </span>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-4 col-xs-4"> </label>
+                <span class="col-md-9 col-sm-8 col-xs-8">
+                    <input type="text" class="form-control styleTwo" ng-model="user.address2" name="address2"
+                           ng-maxlength="30"/>
+                </span>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-4 col-xs-4"> City:</label>
+                <span class="col-md-9 col-sm-8 col-xs-8">
+                    <input class="form-control styleTwo" ng-model="user.city" name="city" ng-maxlength="30"/>
+                </span>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-4 col-xs-4"> State:</label>
+                <span class="col-md-9 col-sm-8 col-xs-8">
+                <!-- <select class="form-control styleOne"
+                        ng-init="user.state=stateList[0].Name"
+                        ng-model="user.state"
+                        name="state"
+                        ng-options="sta.Id as sta.Name for sta in stateList"
+                        ng-selected="user.state===sta.Id"
+                /></select> -->
+                <select class="form-control styleOne"
+                        ng-model="user.state"
+                        name="state">
+                <option value="" selected>Select a State</option>
+                <option ng-repeat="sta in stateList" value="{{sta.Id}}" ng-selected="{{user.state==sta.Id}}">{{sta.Name}}</option>
+                </select>
+                </span>
+            </div>
+
+            <!--ng-model="user.state"-->
+            <!--ng-selected="user.volunteerExt.state===sta.Id"-->
+            <!--<div>user.state {{user.state}}</div>-->
+            <!--<div>ng-init=user.volunteerExt.state {{user.volunteerExt.state}}</div>-->
+            <!--<div>stateList {{stateList[0]}}</div>-->
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-4 col-xs-4"> Postal Code:</label>
+                <span class="col-md-9 col-sm-8 col-xs-8">
+                    <input maxlength="9" type="text" ng-model="user.postalCode" name="postalCode"
+                           class="form-control styleThree" ng-pattern="/^([0-9]{5}|[0-9]{9}){1}$/"/>
+                </span>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-4 col-xs-4">
+				</label>
+                <span class="">
+                   <label class="control-label-note col-md-3 col-sm-4 col-xs-4">
+                   Additional Notes:
+				   </label>
+                </span>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-4 col-xs-4">
+				</label>
+                <span class="col-md-9 col-sm-8 col-xs-8">
+                    <textarea class="form-control styleTwo" name="usernotes" ng-model="user.note" ng-maxlength="250" maxlength="250" rows="5"> </textarea>
+                    <div>({{250-user.note.length}} characters remaining)</div>
+                </span>
+            </div>
+
+            <div class="form-group btnGroup">
+                <div class="col-md-offset-1 col-md-11 col-sm-offset-1 col-sm-11 col-xs-12">
+                    <a class="btn btn-default blue_button" ng-click="goToContacts()">Cancel</a>
+                    <button class="btn btn-primary" id="saveConId" ng-click="addContactDetails('Save')">Save</button>
+                    <button class="btn btn-primary" id="saveAnotherConId" ng-click="addContactDetails('addAnother')">Save &amp; Add Another
+                    </button>
+                </div>
+            </div>
+        </form>
+    </section>
+</div>

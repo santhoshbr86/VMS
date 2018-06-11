@@ -1,0 +1,44 @@
+{
+	"extends":"eslint:recommended",
+	"plugins": ["angular", "jasmine"],
+	"env": {
+		"phantomjs": true,
+		"browser": true,
+		"jasmine": true,
+		"jquery": true
+	},
+	"globals": {
+		"angular": true,
+		"module": true,
+		"moment": true,
+		"inject": true
+	},
+	"parserOptions":{
+		"ecmaVersion":6,
+		"sourceType":"module",
+		"ecmaFeatures":{
+			"jsx":true
+		}
+	},
+	"rules":{
+		"no-console": 0,
+		"no-unused-vars": 0,
+		"semi": ["error", "always"],
+		"eqeqeq": ["error", "always"],
+
+		"angular/no-private-call": 2,
+		"angular/no-cookiestore": 2,
+		"angular/no-directive-replace": 2,
+		"angular/no-http-callback": 2,
+		"angular/document-service": 2,
+		"angular/interval-service": 2,
+		"angular/window-service": 2,
+
+		"jasmine/no-assign-spyon": 2,
+		"jasmine/valid-expect": 1,
+		"jasmine/no-unsafe-spy": 1,
+		"jasmine/no-global-setup": 2,
+		"jasmine/missing-expect": 2,
+		"jasmine/no-suite-dupes": 1
+	}
+}

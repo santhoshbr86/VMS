@@ -1,0 +1,89 @@
+<style type="text/css">
+    #cpt_header,
+    #cpt_footer-holder,
+    footer {
+        display: none;
+    }
+</style>
+<div id="importTop" class="container myContacts contactsGroom">
+    <section class="row">
+        <div class="page-header">
+            <small><a class="goToContacts" ng-click="cancelImportContacts()">Import Contacts</a></small>
+            <h3>Review Your Import</h3>
+        </div>
+
+        <section ng-if="groomList.length===0 && submitted" role="alert" class="show_error col-md-12 col-sm-12 col-xs-10">
+            <div class="col-md-6 bg-danger">
+                <span class="glyphicon glyphicon-warning-sign col-md-1 col-xs-2"></span>
+                <p>To import, at least 1 contact must be selected.</p>
+            </div>
+        </section>
+
+        <div class="groomText" ng-include="include.top_groom"></div>
+    </section>
+
+    <section class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="tableHeader">
+                <ul>
+                    <li>
+                        <span>
+                            <div class="squaredOne">
+                                <input type="checkbox" value="None" id="squaredOneHead" ng-model="checkAll" class="openPanel" id="checkAll" ng-click="selectAll()" />
+                                <label for="squaredOneHead" ng-model="checkAll"></label>
+                            </div>
+                        </span>
+
+                        <span class="shade">
+                            <!--DJ VMS-937-->
+                            <img src="images/group.png" alt=""/>
+                            <span class="spanTableHeader">Contacts Available for Import</span>
+                        </span>
+
+                        <span> &nbsp; &nbsp; </span>
+                        <span class="shade">
+                            <div class="input-group">
+                                <div class="control-label">Sort by:</div>
+                                <span class="selectWrap">
+                                    <select class="form-control" ng-model='contactSort' ng-change="fixSort()">
+                                        <option value="first">First Name</option>
+                                        <option value="last">Last Name</option>
+                                    </select>
+                                </span>
+            </div>
+            </span>
+            </li>
+            </ul>
+        </div>
+        <div class="tableBody">
+            <ul>
+                <li ng-repeat="contact in contactList | orderBy:sortOrder track by contact.volunteerExt.transId" check-all>
+                    <span>
+                        <div class="squaredOne">
+                            <input type="checkbox"
+                                   value="None"
+                                   id="squaredOne{{$index}}"
+                                   name="check"
+                                   class="openPanel"
+                                   checkbox-group
+                                   ng-model="contact.checked"
+                                   ng-click="groomCount()"/>
+                            <label for="squaredOne{{$index}}"></label>
+                        </div>
+                        </span>
+                    <span>
+                    <span ng-if="contact.volunteerExt.firstName===''&&contact.volunteerExt.lastName===''">No Name</span> {{contact.volunteerExt.firstName}} {{contact.volunteerExt.lastName}}
+                    </span>
+                    <span class="shade"><div>{{contact.email}}</div></span>
+                    <span class="shade">{{contact.volunteerExt.phone | phoneFormat }}</span>
+                </li>
+            </ul>
+        </div>
+</div>
+
+<section class="col-md-9 btnImportGrp">
+    <button class="btn btn-default blue_button" ng-click="cancelImportContacts()">Cancel</button>
+    <button class="btn btn-primary" ng-click="saveImportedContacts()">Import Selected</button> {{groomList.length}} of {{selectedContacts.length}} Selected
+</section>
+</section>
+</div>

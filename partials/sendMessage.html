@@ -1,0 +1,111 @@
+<style type="text/css">
+#cpt_header-holder,.cpt-footerWrap,footer.container,#cpt_header{display: none;}
+</style>
+<div class="container addContact sendMessage">
+	<section class="row">
+			<div class="page-header">
+				<small><a class="goToContacts" ng-click="goToContacts()">Contacts</a></small>
+			</div>
+				<div ng-include="include.top_send"></div>
+				<div class="row">
+						<div class="col-md-6 bg-danger" ng-show="(sendMessage.$invalid && submitted) || (selectedEmails.length==0 && submitted) || emailExist">
+							<span class="glyphicon glyphicon-warning-sign col-md-1"></span>
+							<span class="col-md-11">
+								<p ng-show="selectedEmails.length==0 && submitted">
+									Email Address is required field.
+								</p>
+								<p ng-show="sendMessage.email.$error.pattern && submitted">
+									Email Address is not valid.
+								</p>
+								<p ng-show="sendMessage.email.$error.maxlength && submitted">
+									Email Address cannot be more than 75 characters.
+								</p>
+								<p ng-show="sendMessage.message.$error.required && submitted">
+									Email Message is required field.
+								</p>
+								<p ng-show="sendMessage.message.$error.maxlength && submitted">
+									Email Message cannot be more than 500 characters.
+								</p>
+								<p ng-show="emailExist">Email already exists in Contacts. Select contact name from list.</p>
+							</span>
+						</div>
+			 </div>
+	</section>
+	<section ng-hide="formHide" class="form-section col-md-7">
+		<form ng-show="showSelect" name="sendMessage" novalidate class="ng-hide form-horizontal" novalidate ng-submit="sendEmail()">
+		    <div class="input-group col-md-12" ng-show="templates">
+		    	<label class="control-label templateLabel">
+		    		Select a template:
+		    	</label>
+		    	<div class="col-md-12 templateRow">
+		    		<div class="templateCol">
+		    			<img ng-show="selectedTemplate!=='signUp'" src="../images/template-invite-off.png">
+		    			<img ng-show="selectedTemplate==='signUp'" src="../images/template-invite-on.png">
+		    			<div class="col-md-12">
+		    				<div class="templateOption" id="signUp">
+		    					<input type="radio" ng-model="selectedTemplate" value="signUp">
+		    				</div>
+		    				<label class="col-md-10">Invitation to Sign-Up</label>
+		    			</div>
+		    		</div>
+		    		<div class="templateCol">
+		    			<img ng-show="selectedTemplate!=='thankYou'" src="../images/template-thank-you-off.png">
+		    			<img ng-show="selectedTemplate==='thankYou'" src="../images/template-thank-you-on.png">
+		    			<div class="col-md-12">
+		    				<div class="templateOption" id="thankYou">
+		    					<input type="radio" ng-model="selectedTemplate" value="thankYou">
+		    				</div>
+		    				<label class="col-md-10">Volunteer Thank You</label>
+		    			</div>
+		    		</div>
+		    		<div class="templateCol">
+		    			<img ng-show="selectedTemplate!=='blank'" src="../images/template-blank-off.png">
+		    			<img ng-show="selectedTemplate==='blank'" src="../images/template-blank-on.png">
+		    			<div class="col-md-12">
+		    				<div class="templateOption" id="blank">
+		    					<input type="radio" ng-model="selectedTemplate" value="blank">
+		    				</div>
+		    				<label class="col-md-10">Blank Message</label>
+		    			</div>
+		    		</div>
+		    	</div>
+		    </div>
+			<div class="input-group col-md-12 col-sm-12 col-xs-12">
+				<label class="control-label">
+					Send To:
+				</label>
+				<select ui-select2="select2Options" id="selectBox" name="email" multiple='multiple' ng-model="selectedEmails" ng-change="updateSelection()">
+				<option ng-repeat="tag in contactList track by $index" value="{{tag.id}}">{{tag.name}}</option>
+				</select>
+				<input type="text" id="groupExpandID" ng-model="groupExpand" class="ng-hide">
+			</div>
+		    <div class="input-group col-md-12 copyEmail">
+		        <div class="squaredOne col-md-2">
+                    <input type="checkbox" value="None" id="squaredOneHead" name="bccFlag" ng-model="bccFlag" class="openPanel" />
+                    <label for="squaredOneHead"></label>
+                </div>
+                <p>Send me a copy of this email</p>
+			</div>
+			<div class="input-group col-md-12 col-sm-12 col-xs-12">
+				<label class="control-label">
+					Your Message:
+				</label>
+				<textarea class="form-control message" name="message" ng-model="email.message" required ng-change="monitorLength(2000)">
+				</textarea>
+				<div class="email-message">{{email.message.length-0}} of 2000</div>
+			</div>
+			<div ng-show="errorPopUp" class="popupOverlay"></div>
+
+			<div ng-show="errorPopUp" class="errorPopUp">
+			<a class="close pull-right" ng-click="closeSendMessagePopUp()">×</a>
+			<p class="blah">{{error}}</p>
+			<button class="btn-primary pull-left col-md-3" ng-click="closeSendMessagePopUpAndRedirect()" style="border: none">OK</button>
+			</div>
+
+			<div class="btnGroup">
+			 <a ng-click="goToContacts()" class="btn btn-default blue_button">Cancel</a>
+			 <input type="submit" value="Send" name="Send" class="btn btn-primary">
+			</div>
+		</form>
+	</section>
+</div>

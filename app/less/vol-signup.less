@@ -1,0 +1,1182 @@
+@import 'variable';
+@import 'mixins';
+body {
+    overflow-x: hidden;
+}
+
+.volunteerSignup {
+    color: @text-color; //width: @cptkWidth;
+    //font-family: @volFont;
+    .row {
+        margin: 0;
+    }
+    .pageHeader {
+        div {
+            padding: 0;
+        }
+        h2 {
+            font-size: 26px;
+            padding: 4px 4px 4px 54px;
+            background: url(../images/vol-header-icon.png) no-repeat;
+        }
+        .ContactCount {
+            .vol-btn;
+            padding: 2px 10px;
+            margin-top: 26px;
+            display: inline-block;
+            text-decoration: none;
+            float: right;
+            span.glyphicon {
+                color: #2C81B7;
+                padding-right: 10px;
+                top: 3px;
+            }
+        }
+    }
+    .pageContent {
+        /*margin-top: 20px;*/
+        margin-top: 0;
+        .panel {
+            .box-show;
+            .panel-body {
+                h4 {
+                    font-size: 22px;
+                    font-weight: 400;
+                    padding: 0;
+                    margin: 0;
+                }
+                .btn-success {
+                    background: #59A020;
+                    float: right;
+                    border-radius: 0;
+                    text-transform: uppercase;
+                    padding: 10px 26px;
+                    width: 217px;
+                }
+                .continueWrap {
+                    .btn-primary {
+                        padding: 10px 30px;
+                        span {
+                            left: 5px;
+                        }
+                    }
+                    .btn-deleteSignup {
+                        position: relative;
+                        color: #888;
+                        border: 0;
+                        background: #fff;
+                        padding: 15px 50px 10px 0;
+                        font-size: 12px;
+                        font-family: verdana, arial;
+                        &::after {
+                            content: '';
+                            background-image: url(../images/deleteSignup.png);
+                            position: absolute;
+                            top: 14px;
+                            right: 20px;
+                            width: 19px;
+                            height: 20px;
+                        }
+                    }
+                }
+            }
+        }
+        .content {
+            h4 {
+                color: @vol-heading-color;
+                font-size: @vol-heading-size;
+            }
+        }
+        .pastBookfair {
+            margin-top: 40px;
+            padding: 0;
+            h4 {
+                color: #808080;
+                font-size: @vol-heading-size;
+            }
+            .panel {
+                .panel-body {
+                    .head {
+                        padding-left: 0;
+                        padding-right: 0;
+                        .pull-left {
+                            padding-left: 0;
+                        }
+                        .pull-right {
+                            margin-bottom: 10px;
+                            div:first-child {
+                                padding-right: 0;
+                            }
+                        }
+                        .btn-custom {
+                            .vol-btn;
+                            padding: 3px 4px;
+                            color: #368DD0;
+                            border-radius: 0;
+                            font-size: 12px;
+                            width: 178px;
+                        }
+                        .socialIcon {
+                            span {
+                                font-size: 12px;
+                            }
+                            .email {
+                                text-transform: capitalize;
+                                text-decoration: none;
+                                padding: 2px 20px 2px 10px;
+                                font-size: 16px;
+                                position: relative;
+                                top: 2px;
+                                .glyphicon {
+                                    font-size: 13px;
+                                    margin-right: 10px;
+                                }
+                            }
+                            ul {
+                                margin: 0;
+                                padding: 0;
+                                list-style-type: none;
+                                li {
+                                    display: inline;
+                                    a {
+                                        img {
+                                            width: 30px;
+                                            height: 24px;
+                                            cursor: pointer;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        .headerFoot {
+                            height: 85px;
+                            padding: 0;
+                            .btn {
+                                border-radius: 0;
+                                padding: 2px 10px;
+                                text-transform: uppercase;
+                            }
+                            .editSchedule {
+                                position: absolute;
+                                bottom: 0;
+                                left: 0;
+                                padding-left: 0;
+                                padding-top: 60px;
+                                margin-bottom: 8px;
+                                .btn-primary {
+                                    background: #007FC4;
+                                    padding: 3px 30px;
+                                    border: none;
+                                    border-bottom: 1px solid #ccc;
+                                }
+                            }
+                            .publishBox {
+                                position: absolute;
+                                bottom: 0;
+                                left: 30%;
+                                background: #FFF9BF;
+                                padding: 10px 20px;
+                                color: #69615F;
+                                font-size: 12px;
+                                text-align: center;
+                                .btn-publishNow {
+                                    background: #60AD21;
+                                    border: 1px solid #559A25; //margin: 5px 20px 0 0;
+                                    margin: 0 0 0 0;
+                                    color: #fff;
+                                    float: left;
+                                }
+                                .btn-publishLater {
+                                    color: #3786B1;
+                                    background: none;
+                                    margin: 0 0 0 0;
+                                    float: right;
+                                }
+                            }
+                            .signUpandprintable {
+                                position: absolute;
+                                bottom: 0;
+                                left: 58%;
+                                padding-top: 50px;
+                                text-align: right;
+                                padding-right: 0;
+                                .print {
+                                    padding-right: 20px;
+                                }
+                            }
+                        }
+                    }
+                    .middle {
+                        border-top: 1px solid #ccc;
+                        padding: 0;
+                        ul {
+                            list-style-type: none;
+                            padding: 0;
+                            margin: 10px 0 0 0;
+                            li {
+                                display: inline-block;
+                                padding: 5px 10px;
+                                .btn-custom {
+                                    .vol-btn;
+                                    padding: 2px 10px;
+                                    color: #368DD0;
+                                    border-radius: 0;
+                                    text-transform: capitalize;
+                                    font-size: 14px;
+                                    width: 172px;
+                                }
+                                .btn-custom#hide {
+                                    display: none;
+                                }
+                                span {
+                                    padding-left: 10px;
+                                    font-size: 14px;
+                                }
+                                .progressbarWrap {
+                                    width: 200px;
+                                    display: inline-block;
+                                    position: relative;
+                                    top: 3px;
+                                    .progress {
+                                        margin-bottom: 0;
+                                        border-radius: 0;
+                                        height: 16px;
+                                        padding: 4px;
+                                        .progress-bar-success {
+                                            background-color: #4F931A;
+                                        }
+                                    }
+                                }
+                                .score {
+                                    color: @vol-heading-color;
+                                    font-weight: 700;
+                                }
+                            }
+                            li:nth-child(1) {
+                                padding-left: 0;
+                            }
+                        }
+                    }
+                    .foot {
+                        padding: 0;
+                        margin-top: 10px;
+                        display: none;
+                    }
+                }
+            }
+        }
+        .currentFair {
+            /*margin-top: 40px;*/
+            margin-top: 20px;
+            padding: 0;
+            h4 {
+                color: @vol-heading-color;
+                font-size: @vol-heading-size;
+            }
+            .panel {
+                .btn-deleteSignup {
+                    position: relative;
+                    color: #888;
+                    border: 0;
+                    background: #fff;
+                    padding: 2px 39px 10px 0;
+                    font-size: 12px;
+                    font-family: verdana, arial;
+                    &::after {
+                        content: '';
+                        background-image: url(../images/deleteSignup.png);
+                        position: absolute;
+                        top: 0px;
+                        right: 11px;
+                        width: 19px;
+                        height: 20px;
+                    }
+                }
+                .panel-body {
+                    .head {
+                        padding-left: 0;
+                        padding-right: 0;
+                        .pull-left {
+                            padding-left: 0;
+                        }
+                        .pull-right {
+                            /*margin-bottom: 10px;*/
+                            padding-right: 0;
+                            text-align: right;
+                            .rightTitleElement {
+                                .btn {
+                                    padding: 2px 4px;
+                                    width: 178px;
+                                }
+                                .print {
+                                    padding-right: 16px;
+                                    font-size: 12px;
+                                    font-family: verdana, sans-serif;
+                                    &:hover {
+                                        text-decoration: none;
+                                    }
+                                }
+                                .deleteSheet {
+                                    margin-left: 45px;
+                                    margin-bottom: 23px;
+                                    span {
+                                        color: red;
+                                        margin-left: 15px;
+                                        cursor: pointer;
+                                    }
+                                }
+                            }
+                        }
+                        .btn-custom {
+                            .vol-btn;
+                            padding: 3px 16px;
+                            color: #368DD0;
+                            border-radius: 0;
+                            font-size: 12px;
+                            margin: 14px 0;
+                        }
+                        .share {
+                            margin-top: 0px !important;
+                            padding-right: 21px;
+                            img {
+                                width: 16px;
+                            }
+                            label {
+                                display: inline;
+                                max-width: 100%;
+                                margin-bottom: 5px;
+                                font-weight: 500;
+                                margin-left: 3px;
+                            }
+                        }
+                        .pull-left {
+                            .btn-custom {
+                                text-transform: capitalize;
+                                font-family: verdana, sans-serif;
+                            }
+                        }
+                        .headerFoot {
+                            height: 60px;
+                            padding: 0;
+                            .btn {
+                                border-radius: 0;
+                                padding: 2px 10px;
+                                text-transform: uppercase;
+                            }
+                            /*.editSchedule {
+                                position: absolute;
+                                bottom: 0;
+                                left: 0;
+                                padding-left: 0;
+                                padding-top: 60px;
+                                margin-bottom: 8px;
+                                .btn-primary {
+                                    background: #007FC4;
+                                    padding: 3px 30px;
+                                    border: none;
+                                    border-bottom: 1px solid #ccc;
+                                }
+                            }*/
+                            .socialIcon {
+                                padding-left: 0;
+                                padding-right: 0;
+                                span {
+                                    font-size: 12px;
+                                    font-family: verdana, sans-serif;
+                                }
+                                .email {
+                                    text-transform: capitalize;
+                                    text-decoration: none;
+                                    padding: 2px 20px 2px 10px;
+                                    font-size: 16px;
+                                    position: relative;
+                                    top: 2px;
+                                    .glyphicon {
+                                        font-size: 13px;
+                                        margin-right: 10px;
+                                    }
+                                }
+                                ul {
+                                    margin: 0;
+                                    padding: 0;
+                                    list-style-type: none;
+                                    li {
+                                        display: inline;
+                                        float: left;
+                                        margin: 6px 6px 0 0;
+                                        a {
+                                            img {
+                                                width: 30px;
+                                                height: 24px;
+                                                cursor: pointer;
+                                            }
+                                        }
+                                    }
+                                    .textBox {
+                                        padding: 0;
+                                        margin: 5px 0 0 0;
+                                        .form-control {
+                                            height: 26px;
+                                            border-radius: 0;
+                                            border: none;
+                                            background: #f7f7f7;
+                                            box-shadow: none;
+                                        }
+                                        .changeUrl {
+                                            position: absolute;
+                                            top: 5px;
+                                            right: 10px;
+                                            text-decoration: none;
+                                            color: #007FC4;
+                                            font-family: verdana, sans-serif;
+                                        }
+                                    }
+                                }
+                            }
+                            .signUpandprintable {
+                                position: absolute;
+                                bottom: 0;
+                                left: 58%;
+                                padding-top: 50px;
+                                text-align: right;
+                                padding-right: 0;
+                                .print {
+                                    padding-right: 20px;
+                                }
+                            }
+                        }
+                        .publishBox {
+                            position: absolute;
+                            top: -15px;
+                            left: 44%;
+                            background: #FFF9BF;
+                            padding: 10px 15px;
+                            color: #69615F;
+                            font-size: 12px;
+                            text-align: center;
+                            .btn-publishNow {
+                                background: #60AD21;
+                                border: 1px solid #559A25; //margin: 5px 20px 0 0;
+                                color: #fff;
+                                display: block;
+                                margin-left: auto;
+                                margin-right: auto;
+                            }
+                            .btn-publishLater {
+                                color: #3786B1;
+                                background: none;
+                                margin: 0 0 0 0;
+                                float: right;
+                            }
+                            &::after,
+                            &::before {
+                                content: '';
+                                position: absolute;
+                                bottom: -15px;
+                                width: 0;
+                                height: 0;
+                                border-top: 15px solid #fff9bf;
+                            }
+                            &::after {
+                                left: 0;
+                                border-left: 0 solid transparent;
+                                border-right: 180px solid transparent;
+                            }
+                            &::before {
+                                right: 0;
+                                border-left: 180px solid transparent;
+                                border-right: 0 solid transparent;
+                            }
+                        }
+                    }
+                    .middle {
+                        border-top: 1px solid #ccc;
+                        padding: 0;
+                        ul {
+                            list-style-type: none;
+                            padding: 0;
+                            margin: 10px 0 0 0;
+                            li {
+                                display: inline-block;
+                                padding: 5px 10px;
+                                .btn-custom {
+                                    .vol-btn;
+                                    padding: 2px 10px;
+                                    color: #368DD0;
+                                    border-radius: 0;
+                                    text-transform: capitalize;
+                                    font-size: 14px;
+                                    width: 172px;
+                                }
+                                .btn-custom#hide {
+                                    display: none;
+                                }
+                                span {
+                                    padding-left: 10px;
+                                    font-size: 14px;
+                                }
+                                .progressbarWrap {
+                                    width: 200px;
+                                    display: inline-block;
+                                    position: relative;
+                                    top: 3px;
+                                    .progress {
+                                        margin-bottom: 0;
+                                        border-radius: 0;
+                                        height: 16px;
+                                        padding: 4px;
+                                        .progress-bar-success {
+                                            background-color: #4F931A;
+                                        }
+                                    }
+                                }
+                                .score {
+                                    color: @vol-heading-color;
+                                    font-weight: 700;
+                                }
+                            }
+                            li:nth-child(1) {
+                                padding-left: 0;
+                            }
+                        }
+                    }
+                    .foot {
+                        padding: 0;
+                        margin-top: 10px;
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+    /* Duplicate in app/less/vol-schedule.less */
+    .popUp {
+        width: 330px;
+        height: auto;
+        top: 18%;
+        .bg-danger {
+            padding: 3px;
+            background-color: #E54C4C;
+            color: white;
+        }
+        .socialIcon {
+            margin-bottom: 30px;
+            span {
+                font-size: 12px;
+            }
+            .email {
+                text-transform: capitalize;
+                text-decoration: none;
+                padding: 3px 20px 3px 10px;
+                font-size: 16px;
+                border: 1px solid #007FC4;
+                color: #007FC4;
+                .glyphicon {
+                    font-size: 13px;
+                    margin-right: 10px;
+                }
+            }
+            ul {
+                margin: 0;
+                padding: 0;
+                list-style-type: none;
+                li {
+                    display: inline;
+                    a {
+                        img {
+                            width: 30px;
+                            height: 24px;
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }
+        }
+        .deleteMsg {
+            margin-right: 10px;
+        }
+        .deleteFooter {
+            left: 15px !important;
+        }
+        footer {
+            left: 115px;
+            .btn-primary {
+                background: #007FC4;
+                color: #fff;
+            }
+        }
+    }
+    /* Duplicate in app/less/vol-schedule.less */
+    .viewAssigned {
+        width: 410px;
+        min-height: 240px;
+        height: auto;
+        padding-bottom: 34px;
+        h4 {
+            text-transform: capitalize;
+            font-size: 20px;
+        }
+        h5 {
+            color: #55A90D;
+            text-transform: capitalize;
+            font-size: 16px;
+            font-weight: 700;
+        }
+        p {
+            font-size: 14px;
+        }
+        footer {
+            left: 0;
+            .btn-custom {
+                border-radius: 0;
+                background: #FFF;
+                color: #007FC4;
+                border: 1px solid #007FC4;
+                padding: 2px 19px;
+            }
+            .btn-custom.pull-right {
+                margin-right: 0;
+            }
+        }
+    }
+    .messageNotify {
+        width: 300px;
+        height: 120px;
+        footer {
+            left: 15px;
+            .btn-primary {
+                padding: 2px 30px;
+                border: none;
+            }
+        }
+    }
+}
+
+.disable {
+    pointer-events: none;
+    .prevTop,
+    .nextBottom {
+        pointer-events: none;
+        opacity: .5
+    }
+}
+
+@media (width: @screen-sm-min) {
+    .volunteerSignup {
+        color: green;
+    }
+    .ContactCount {
+        float: left;
+    }
+}
+
+.cleare_share_block {
+    border-top: 1px solid #59a01f;
+    padding: 15px 0 15px 0;
+    overflow: hidden;
+    margin-top: 30px;
+    h1 {
+        font-size: 24px;
+        font-family: Verdana;
+        margin-bottom: 15px;
+    }
+    h1 span.create {
+        color: #fe5a00;
+    }
+    h1 span.share {
+        color: #087d9f;
+    }
+    h1 span.recruit {
+        color: #a44672;
+    }
+    p {
+        font-size: 14px;
+        color: #666666;
+    }
+    p span {
+        font-weight: bold;
+        line-height: 22px;
+    }
+    .arrow {
+        float: left;
+        margin-top: 50px;
+        margin-right: 30px;
+    }
+    .text_video {
+        color: #666666;
+        font-size: 14px;
+        width: 280px;
+        padding-top: 10px;
+    }
+    .video_block {
+        margin-left: 15px;
+        margin-top: 30px;
+        float: left;
+    }
+    .text_video a {
+        color: #007fc4;
+    }
+    .tutorial_link {
+        font-size: 14px;
+        background: url("../images/icon_video.jpg") no-repeat;
+        padding-left: 40px;
+        margin-top: 30px;
+        float: left;
+    }
+    .tutorial_link a {
+        color: #007fc4;
+    }
+    .text_video span {
+        font-weight: bold;
+    }
+    .how_it_works_block {
+        /*width: 970px;
+        float: left;*/
+        .left_how_it_works_block {
+            width: 800px;
+            /*float: left;*/
+            margin: 0 auto;
+            .create_block {
+                width: 215px;
+                float: left;
+                .howItworks {
+                    text-align: center;
+                    width: 150px;
+                    padding-top: 10px;
+                }
+            }
+            .share_block {
+                width: 215px;
+                float: left;
+                .howItworks {
+                    text-align: center;
+                    width: 150px;
+                    padding-top: 10px;
+                }
+            }
+            .recruit_block,
+            .manage_block {
+                width: 215px;
+                float: left;
+                .howItworks {
+                    text-align: center;
+                    width: 150px;
+                    padding-top: 10px;
+                }
+            }
+            .manage_block {
+                width: 150px;
+            }
+            .clear_float {
+                clear: both;
+                h3 {
+                    font-size: 16px;
+                    font-weight: bold;
+                    text-transform: uppercase;
+                }
+                p {
+                    color: #666666;
+                    font-size: 12px;
+                    /*font-weight: bold;*/
+                    font-family: verdana, Arial, sans-serif;
+                }
+                h3.create_heading {
+                    color: #fe5a00;
+                }
+                h3.share_heading {
+                    color: #087d9f;
+                }
+                h3.recruit_heading {
+                    color: #80a446;
+                }
+                h3.manage_heading {
+                    color: #a44672;
+                }
+            }
+            .create_block div img,
+            .share_block div img,
+            .recruit_block img {
+                float: left;
+                margin-right: 10px;
+            }
+            .howItworks h2 {
+                color: #8a8a8a;
+                font-size: 24px;
+            }
+        }
+        .right_how_it_works_block {
+            width: 310px;
+            float: left;
+            margin-top: 20px;
+        }
+    }
+}
+
+.get_started {
+    position: relative;
+    z-index: 100;
+    top: 60px;
+    left: 84%;
+}
+
+a,
+button {
+    outline: 0 !important;
+}
+
+.taskBefore {
+    background: #FBE6B9;
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    top: 10px;
+}
+
+.tasksAssigned {
+    background: #CBE8AE;
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    top: 30px;
+}
+
+.nextWrap {
+    .tasksAssigned,
+    .taskBefore {
+        right: 0
+    }
+}
+
+.preWrap {
+    .tasksAssigned,
+    .taskBefore {
+        left: 0
+    }
+}
+
+.hyphen {
+    width: 10px;
+    height: 10px;
+    position: relative;
+    display: inline-block;
+    &:before {
+        position: absolute;
+        content: "";
+        top: 4px;
+        left: 1px;
+        width: 10px;
+        height: 0;
+        border-top-style: solid;
+        border-top-width: 1px;
+        border-top-color: #777;
+    }
+}
+
+.close-popup {
+    color: #FF6825 !important;
+}
+
+.newcreateFairSection {
+    margin-top: 20px;
+    padding: 20px 10px;
+    background: #f0f6fa;
+    -webkit-box-shadow: 0 1px 4px 1px #ccc;
+    -moz-box-shadow: 0 1px 4px 1px #ccc;
+    -ms-box-shadow: 0 1px 4px 1px #ccc;
+    box-shadow: 0 1px 4px 1px #ccc;
+    min-height: 170px;
+    p {
+        font: 14px verdana, Arial, sans-serif;
+        line-height: 1.5em;
+    }
+    .btn {
+        padding: 2px 35px;
+    }
+    .createSheetTitle.text-center {
+        padding-bottom: 10px;
+    }
+    .createSheetTitle {
+        color: #0a7ec7;
+        font-size: 18px;
+        padding-bottom: 5px;
+        font-family: verdana, Arial, sans-serif;
+    }
+    .input-group {
+        margin-bottom: 10px;
+        .form-control {
+            height: 26px;
+            padding: 2px 4px;
+            min-width: 300px;
+        }
+    }
+    .pastfairsWrap {
+        padding-left: 0;
+    }
+    .orPoleWrap {
+        text-align: center;
+        .orPole {
+            background: #337ab7;
+            color: #fff;
+            width: 30px;
+            height: 30px;
+            border-radius: 15px;
+            display: inline-block;
+            vertical-align: middle;
+            padding: 6px;
+            position: relative;
+            top: 50px;
+            font-family: Liberation Sans-serif;
+            &::after {
+                content: '';
+                width: 2px;
+                height: 40px;
+                position: absolute;
+                top: 30px;
+                left: 14px;
+                border: 1px solid #337ab7;
+            }
+            &::before {
+                content: '';
+                width: 2px;
+                height: 40px;
+                position: absolute;
+                top: -40px;
+                left: 14px;
+                border: 1px solid #337ab7;
+            }
+        }
+    }
+}
+
+.seeItInAction {
+    border-top: 1px solid #59a01f;
+    margin-top: 20px;
+    padding: 30px 0;
+    p:last-child {
+        margin-top: 20px;
+        margin-bottom: 30px;
+    }
+}
+
+.signupsheetHelp {
+    .carousel {
+        left: 50%;
+        margin-left: -181px;
+        .item {
+            background: none;
+        }
+        .signupsheet0 {
+            background-image: url(../images/VOL500-helpBubble.png);
+            width: 372px;
+            position: relative;
+            p {
+                font: 14px verdana, Arial;
+                color: #666;
+                a {
+                    color: #007fc4;
+                    font: 15px verdana, Arial;
+                    &:hover {
+                        text-decoration: none;
+                    }
+                }
+            }
+            h3 {
+                font: 24px verdana, Arial;
+                color: #579901;
+            }
+            .helpTop {
+                position: absolute;
+                top: 46px;
+                left: 75px;
+                text-align: center;
+                .btn-primary {
+                    background: #007fc4;
+                    border: none;
+                }
+            }
+            .helpBottom {
+                position: absolute;
+                bottom: 16px;
+                left: 115px;
+                text-align: center;
+                .checkbox {
+                    input {
+                        margin-top: 2px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.socialShare {
+    list-style-type: none;
+    padding-left: 0px;
+    margin-top: 15px;
+    margin-bottom: 105px;
+    .list {
+        display: inline;
+        img {
+            width: 30px;
+            height: 24px;
+            cursor: pointer;
+        }
+    }
+}
+
+.shareImg {
+    width: 100%;
+    height: auto;
+}
+
+.signupsheetHelp {
+    .carousel {
+        left: 50%;
+        margin-left: -181px;
+        .item {
+            background: none;
+        }
+        .signupsheet0 {
+            background-image: url(../images/VOL500-helpBubble.png);
+            width: 372px;
+            position: relative;
+            p {
+                font: 14px verdana, Arial;
+                color: #666;
+                a {
+                    color: #007fc4;
+                    font: 15px verdana, Arial;
+                    &:hover {
+                        text-decoration: none;
+                    }
+                }
+            }
+            h3 {
+                font: 24px verdana, Arial;
+                color: #579901;
+            }
+            .helpTop {
+                position: absolute;
+                top: 46px;
+                left: 75px;
+                text-align: center;
+                .btn-primary {
+                    background: #007fc4;
+                    border: none;
+                }
+            }
+            .helpBottom {
+                position: absolute;
+                bottom: 16px;
+                left: 115px;
+                text-align: center;
+                .checkbox {
+                    input {
+                        margin-top: 2px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.editContactinfo,
+.editBasicinfo {
+    .breadCrumb {
+        a.disabled {
+            cursor: auto;
+            color: #888;
+            text-decoration: none;
+        }
+    }
+}
+
+.pastsignupBtnpopover {
+    background: #ffffff;
+    border: 1px solid #ee4f42;
+    height: 60px;
+    top: 41px;
+    left: 0;
+    border-radius: 7px;
+    position: absolute;
+    z-index: 111;
+    span {
+        font: 14px verdana, sans-serif, Arial;
+        color: #101010;
+        padding: 12px 15px;
+    }
+    &::after,
+    &::before {
+        top: 100%;
+        left: 50%;
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+    }
+    &::after {
+        border-color: rgba(255, 255, 255, 0);
+        border-top-color: #fff;
+        border-width: 10px;
+        margin-left: -10px;
+    }
+    &::before {
+        border-color: rgba(255, 104, 37, 0);
+        border-top-color: #ff6825;
+        border-width: 11px;
+        margin-left: -11px;
+    }
+}
+
+.duplicateTasks {
+    margin-top: 50px;
+    float: left;
+}
+
+.duplicateTasks button.btn-custom {
+    text-transform: capitalize;
+    text-decoration: none;
+    padding: 1px 25px;
+    font-size: 12px;
+    border: 1px solid #007FC4;
+    color: #007FC4;
+    background-color: #fff;
+}
+
+.duplicateTasks .greenText,
+.taskDetails .greenText {
+    font-size: 14px;
+    color: #59a01f;
+}
+
+.taskDetails .greenText {
+    float: left;
+}
+
+.taskDetails .buttons_footer .btn:nth-child(3) {
+    padding: 1px 10px;
+    margin-right: 0px;
+}
+
+.volunteerName p {
+    font-size: 14px;
+    color: #666666;
+    padding-top: 5px;
+}
+
+.duplicateTasks button.del_duplicate {
+    background-image: url(../images/deleteSignup.png);
+    background-repeat: no-repeat;
+}
+
+.basicinfo_details {
+    border-top: none !important;
+    margin-top: 0px;
+    padding-top: 0px;
+}
+
+.taskdetails_heading p {
+    color: #666;
+}

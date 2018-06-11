@@ -1,0 +1,53 @@
+<div>
+	<div class="carouselWrap"></div>
+	<div id="carousel-schedule" class="carousel slide">
+	  <!-- Indicators -->
+	  <ol class="carousel-indicators">
+	    <li data-target="#carousel-schedule" data-slide-to="0" class="active"></li>
+	    <li data-target="#carousel-schedule" data-slide-to="1"></li>
+	    <li data-target="#carousel-schedule" data-slide-to="2"></li>
+	   </ol>
+
+	  <!-- Wrapper for slides -->
+	  <div class="carousel-inner" role="listbox">
+		    <div class="item schedule0 scheduleItem active">
+		        <div class="helpTop">
+		            <h3>Easier-than-Ever Volunteer Tool</h3>
+		            <p>Check out the new features to help you build your volunteer schedule.</p>
+                </div>
+				<div class="carouselContent">
+					<button class="btn btn-primary" data-target="#carousel-schedule" data-slide-to="1">
+						Next
+					</button>
+					<p class="checkbox">
+						<label>
+							<input type="checkbox" ng-click="donotShowOverLay()"> Don't show again
+						</label>
+					</p>
+					<p>
+						<a href="javascript:void(0);" ng-click="CloseCarousel()">Close</a>
+					</p>
+				</div>
+			</div>
+		    <div class="item schedule2 scheduleItem">
+				<div class="carouselContent">
+				<button class="btn btn-primary" data-target="#carousel-schedule" data-slide-to="2">Next</button>
+			    <p><a href="javascript:void(0);" ng-click="CloseCarousel()">Close</a></p>
+			    </div>
+		    </div>
+		    <div class="item schedule3 scheduleItem">
+				<div class="carouselContent">
+					<p class="checkbox">
+						<label>
+							<input type="checkbox" ng-click="donotShowOverLay()"> Don't show again
+						</label>
+					</p>
+				    <p>
+						<a href="javascript:void(0);" ng-click="CloseCarousel()">Close</a>
+					</p>
+			    </div>
+		    </div>
+
+		</div>
+    </div>
+</div>

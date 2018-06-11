@@ -1,0 +1,49 @@
+<div ng-controller="carousel">
+    <div ng-show="carouselWrap" class="carouselWrap"></div>
+    <div id="carousel-contacts" ng-show="carouselEle" class="carousel slide">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li data-target="#carousel-contacts" data-slide-to="0" class="active"></li>
+            <li data-target="#carousel-contacts" data-slide-to="1"></li>
+            <li data-target="#carousel-contacts" data-slide-to="2"></li>
+            <li data-target="#carousel-contacts" data-slide-to="3"></li>
+        </ol>
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner" role="listbox">
+            <div class="item contact0 active">
+                <div class="carouselContent">
+                    <button class="btn btn-primary" data-target="#carousel-contacts" data-slide-to="1">Next</button>
+                    <p class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-click="donotShowOverLay()" /> Don't show again
+                        </label>
+                    </p>
+                    <p><a href="javascript:void(0);" ng-click="CloseCarousel()">Close</a></p>
+                </div>
+            </div>
+            <div class="item contact1">
+                <div class="carouselContent">
+                    <button class="btn btn-primary" data-target="#carousel-contacts" data-slide-to="2">Next</button>
+                    <p><a href="javascript:void(0);" ng-click="CloseCarousel()">Close</a></p>
+                </div>
+            </div>
+            <div class="item contact2">
+                <div class="carouselContent">
+                    <button class="btn btn-primary" data-target="#carousel-contacts" data-slide-to="3">Next</button>
+                    <p><a href="javascript:void(0);" ng-click="CloseCarousel()">Close</a></p>
+                </div>
+            </div>
+            <div class="item contact3">
+                <div class="carouselContent">
+                    <p class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-click="donotShowOverLay()" /> Don't show again
+                        </label>
+                    </p>
+                    <p><a href="javascript:void(0);" ng-click="CloseCarousel()">Close</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

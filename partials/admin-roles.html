@@ -1,0 +1,500 @@
+<style type="text/css">
+    #cpt_header-holder,
+    .cpt-footerWrap,
+    footer.container,
+    #cpt_header {
+        display: none;
+    }
+
+    .spacing {
+        margin-top: 25px !important;
+    }
+</style>
+<div class="bookfair">
+    <div class="alert alert-success" ng-show="statusBox">
+        {{statusMessage}}
+    </div>
+    <div class="col-md-6 bg-danger" ng-show="statusBoxerror">
+        <span class="glyphicon glyphicon-warning-sign col-md-1"></span>
+        <span class="col-md-11"><p> {{statusMessage}} </p></span>
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 btn-group-sm">
+            <a class="btn btn-default" href="" ng-click="goToHome()">Go Back</a>
+            <button class="btn btn-default" ng-click="clear()">Cancel</button>
+            <!-- <button class="btn btn-default" ng-click="addRole('SAVE')" ng-show="!disabledSave">Save</button>
+             
+            <button class="btn btn-default" ng-click="addRole('SAVE');clear();" ng-show="!disabledSaveandAdd">Add Another</button>-->
+            <!--<button class="btn btn-default" ng-click="addRole('PUBLISH_LATER')" ng-show="!disablePublishLater">Publish Later</button>
+            <button class="btn btn-default" ng-click="addRole('PUBLISH_NOW')" ng-show="!disablePublishNow">Publish Now</button> -->
+        </div>
+        <div class="col-md-12 col-sm-12 btn-group-sm" ng-include="include.top"></div>
+    </div>
+    <section class="row">
+        <div class="col-md-12 roles">
+            <h3>Roles/Tasks</h3>
+            <ul>
+                <li ng-repeat="role in roles | orderBy: 'title'"><a href="javascript:void(0)" ng-click="editRole(role, $index)">{{role.title}}</a></li>
+            </ul>
+        </div>
+    </section>
+    <section class="row">
+        <div class="col-md-8 formSection">
+            <form name="rolesTask" novalidate>
+                <div class="form-group row spacing">
+                    <label class="col-md-2">Fair Type:</label>
+                    <span class="col-md-10" ng-model="task.fairType">{{fairTypes[0]}}</span>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2">Title:</label>
+                    <span class="col-md-10">
+                    <input type="text" class="form-control rolesTitle" name="title" ng-model="task.title" required ng-maxlength="40" 
+                    ng-class="{invalidborder:rolesTask.title.$error.required && submitted}" ng-change="changeStatus('Form')" maxlength="40">
+                    <span ng-show="rolesTask.title.$error.required && submitted" class="error">
+                      Title can't be blank.
+                    </span>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2">Description:</label>
+                    <span class="col-md-10">
+                    <textarea class="form-control" name="description" ng-model="task.description" ng-maxlength="500" ng-class="{invalidborder:rolesTask.description.$error.required
+                       && submitted}" ng-change="changeStatus('Form')">
+                    </textarea>
+                    <span ng-show="rolesTask.description.$error.maxlength && submitted" class="error"> 
+                     Description length can't be more than 500.
+                    </span>
+                    </span>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2">How:</label>
+                    <span class="col-md-10">
+                    <textarea class="form-control" name="howFile" ng-model="task.fileData" ng-change="changeStatus('Form')" maxlength="5000">
+                    </textarea>
+                    </span>
+                </div>
+
+                <div class="form-group ng-hide">
+                    <span class="col-md-4 no-padding">File, Image or Video:</span>
+                    <span class="col-md-8"> Image (135 &times; 111)
+
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="file" value="Choose File">
+
+                    </span>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 btn-group-sm no-padding">
+
+                        <button class="btn btn-default" ng-click="addRole('SAVE','Form')" ng-show="!disabledSave">Save</button>
+                        <button class="btn btn-default" ng-click="addRole('SAVE','Form');" ng-show="!disabledSaveandAdd">Save &amp; Add Another</button>
+                        <button class="btn btn-default" ng-click="addRole('PUBLISH_LATER','Form')" ng-show="!disablePublishLater">Publish Later</button>
+                        <button class="btn btn-default" ng-click="addRole('PUBLISH_NOW','Form')" ng-show="!disablePublishNow">Publish Now</button>
+                        <button class="btn btn-default pull-right" ng-show="!showInactive" ng-click="showInactive=true;buttonSel=true; changeStatus('Form');">Activate</button>
+                        <button class="btn btn-default pull-right" ng-show="showInactive" ng-click="showInactive=false;buttonSel=true; changeStatus('Form');">Inactivate</button>
+                    </div>
+                </div>
+
+
+                <!--<div class="form-group">
+                    <label class="col-md-2"></label>
+                    <span class="col-md-10">
+                  <button class="btn btn-default pull-right" ng-show="!editedRole.activeFlag" ng-click="editedRole.activeFlag=true; changeStatus();">Activate</button>
+                  <button class="btn btn-default pull-right" ng-show="editedRole.activeFlag" ng-click="editedRole.activeFlag=false; changeStatus();">Inactivate</button>
+                  </span>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2"></label>
+                    <span class="col-md-10">
+                 Image size (100 &times; 100) (why)
+                
+                 <input type="file" file-model="whyFile" id="browse" name="fileupload" style="display: none" onchange="Handlechange()"/>
+                 <input type="button" value="Upload File" id="fakeBrowse" ng-click="HandleBrowseClick()"/>
+                 <input type="text" id="filename" readonly="true" style="border: none"/>
+                 <strong>
+                    <a target="_blank" ng-href="/vmsassets/{{task.whyFileName}}">{{task.whyFileName}}</a>
+                 </strong>
+                 </span>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2"></label>
+                    <span class="col-md-10">
+                    Image size (100 &times; 100) (how)
+                    
+                    <input type="file" file-model="howFile" id="browse1" name="fileupload" style="display: none" onchange="Handlechange1()"/>
+                    <input type="button" value="Upload File" id="fakeBrowse1" ng-click="HandleBrowseClick1()"/>
+                    <input type="text" id="filename1" readonly="true" style="border: none"/>
+                    <strong>
+                        <a target="_blank" ng-href="/vmsassets/{{task.howFileName}}">{{task.howFileName}}</a>
+                    </strong>
+                    </span>
+                </div> -->
+
+            </form>
+
+
+            <!------------- each of the forms == from1 ---->
+
+            <form name="rolesTask1" novalidate>
+
+                <div class="form-group row spacing">
+                    <label class="col-md-2">Fair Type:</label>
+                    <span class="col-md-10">{{fairTypes[1]}}</span>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2">Title:</label>
+                    <span class="col-md-10">
+                    <input type="text" class="form-control rolesTitle" name="title" ng-model="task1.title" required ng-maxlength="40" 
+                    ng-class="{invalidborder:rolesTask1.title.$error.required && submitted1}" ng-change="changeStatus('Form1')" maxlength="40">
+                    <span ng-show="rolesTask1.title.$error.required && submitted1" class="error">
+                      Title can't be blank.
+                    </span>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2">Description:</label>
+                    <span class="col-md-10">
+                    <textarea class="form-control" name="description" ng-model="task1.description" ng-maxlength="500" ng-class="{invalidborder:rolesTask1.description.$error.required
+                       && submitted1}" ng-change="changeStatus('Form1')">
+                    </textarea>
+                    <span ng-show="rolesTask1.description.$error.maxlength && submitted1" class="error"> 
+                     Description length can't be more than 500.
+                    </span>
+                    </span>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2">How:</label>
+                    <span class="col-md-10">
+                    <textarea class="form-control" name="howFile1" ng-model="task1.fileData" ng-change="changeStatus('Form1')" maxlength="5000">
+                    </textarea>
+                    </span>
+                </div>
+
+                <div class="form-group ng-hide">
+                    <span class="col-md-4 no-padding">File, Image or Video:</span>
+                    <span class="col-md-8"> Image (135 &times; 111)
+
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="file" value="Choose File">
+
+                    </span>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 btn-group-sm no-padding">
+
+                        <button class="btn btn-default" ng-click="addRole('SAVE','Form1')" ng-show="!disabledSave1">Save</button>
+                        <button class="btn btn-default" ng-click="addRole('SAVE','Form1');" ng-show="!disabledSaveandAdd1">Save &amp; Add Another</button>
+                        <button class="btn btn-default" ng-click="addRole('PUBLISH_LATER','Form1')" ng-show="!disablePublishLater1">Publish Later</button>
+                        <button class="btn btn-default" ng-click="addRole('PUBLISH_NOW','Form1')" ng-show="!disablePublishNow1">Publish Now</button>
+                        <button class="btn btn-default pull-right" ng-show="!showInactive1" ng-click="showInactive1=true;buttonSel1=true; changeStatus('Form1');">Activate</button>
+                        <button class="btn btn-default pull-right" ng-show="showInactive1" ng-click="showInactive1=false;buttonSel1=true; changeStatus('Form1');">Inactivate</button>
+                    </div>
+                </div>
+            </form>
+
+            <form name="rolesTask2" novalidate>
+
+                <!-------- form2 ---->
+                <div class="form-group row spacing">
+                    <label class="col-md-2">Fair Type:</label>
+                    <span class="col-md-10" ng-model="task2.fairType">{{fairTypes[2]}}</span>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2">Title:</label>
+                    <span class="col-md-10">
+                    <input type="text" class="form-control rolesTitle" name="title" ng-model="task2.title" required ng-maxlength="40" 
+                    ng-class="{invalidborder:rolesTask2.title.$error.required && submitted2}" ng-change="changeStatus('Form2')" maxlength="40">
+                    <span ng-show="rolesTask2.title.$error.required && submitted2" class="error">
+                      Title can't be blank.
+                    </span>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2">Description:</label>
+                    <span class="col-md-10">
+                    <textarea class="form-control" name="description" ng-model="task2.description" ng-maxlength="500" ng-class="{invalidborder:rolesTask2.description.$error.required
+                       && submitted2}" ng-change="changeStatus('Form2')">
+                    </textarea>
+                    <span ng-show="rolesTask2.description.$error.maxlength && submitted2" class="error"> 
+                     Description length can't be more than 500.
+                    </span>
+                    </span>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2">How:</label>
+                    <span class="col-md-10">
+                    <textarea class="form-control" name="howFile2" ng-model="task2.fileData" ng-change="changeStatus('Form2')" maxlength="5000">
+                    </textarea>
+                     </span>
+                </div>
+
+                <div class="form-group ng-hide">
+                    <span class="col-md-4 no-padding">File, Image or Video:</span>
+                    <span class="col-md-8"> Image (135 &times; 111)
+
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="file" value="Choose File">
+
+                    </span>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 btn-group-sm no-padding">
+
+                        <button class="btn btn-default" ng-click="addRole('SAVE','Form2')" ng-show="!disabledSave2">Save</button>
+                        <button class="btn btn-default" ng-click="addRole('SAVE','Form2');" ng-show="!disabledSaveandAdd2">Save &amp; Add Another</button>
+                        <button class="btn btn-default" ng-click="addRole('PUBLISH_LATER','Form2')" ng-show="!disablePublishLater2">Publish Later</button>
+                        <button class="btn btn-default" ng-click="addRole('PUBLISH_NOW','Form2')" ng-show="!disablePublishNow2">Publish Now</button>
+                        <button class="btn btn-default pull-right" ng-show="!showInactive2" ng-click="showInactive2=true;buttonSel2=true; changeStatus('Form2');">Activate</button>
+                        <button class="btn btn-default pull-right" ng-show="showInactive2" ng-click="showInactive2=false;buttonSel2=true;changeStatus('Form2');">Inactivate</button>
+
+                    </div>
+                </div>
+
+            </form>
+
+            <form name="rolesTask3" novalidate>
+                <!-------- form3 ---->
+                <div class="form-group row spacing">
+                    <label class="col-md-2">Fair Type:</label>
+                    <span class="col-md-10" ng-model="task3.fairType">{{fairTypes[3]}}</span>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2">Title:</label>
+                    <span class="col-md-10">
+                    <input type="text" class="form-control rolesTitle" name="title" ng-model="task3.title" required ng-maxlength="40" 
+                    ng-class="{invalidborder:rolesTask3.title.$error.required && submitted3}" ng-change="changeStatus('Form3')" maxlength="40">
+                    <span ng-show="rolesTask3.title.$error.required && submitted3" class="error">
+                      Title can't be blank.
+                    </span>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2">Description:</label>
+                    <span class="col-md-10">
+                    <textarea class="form-control" name="description" ng-model="task3.description" ng-maxlength="500" ng-class="{invalidborder:rolesTask3.description.$error.required
+                       && submitted3}" ng-change="changeStatus('Form3')">
+                    </textarea>
+                    <span ng-show="rolesTask3.description.$error.maxlength && submitted3" class="error"> 
+                     Description length can't be more than 500.
+                    </span>
+                    </span>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2">How:</label>
+                    <span class="col-md-10">
+                    <textarea class="form-control" name="howFile3" ng-model="task3.fileData" ng-change="changeStatus('Form3')" maxlength="5000">
+                    </textarea>
+                    </span>
+                </div>
+
+                <div class="form-group ng-hide">
+                    <span class="col-md-4 no-padding">File, Image or Video:</span>
+                    <span class="col-md-8"> Image (135 &times; 111)
+
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="file" value="Choose File">
+
+                    </span>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 btn-group-sm no-padding">
+
+                        <button class="btn btn-default" ng-click="addRole('SAVE', 'Form3')" ng-show="!disabledSave3">Save</button>
+                        <button class="btn btn-default" ng-click="addRole('SAVE','Form3');" ng-show="!disabledSaveandAdd3">Save &amp; Add Another</button>
+                        <button class="btn btn-default" ng-click="addRole('PUBLISH_LATER','Form3')" ng-show="!disablePublishLater3">Publish Later</button>
+                        <button class="btn btn-default" ng-click="addRole('PUBLISH_NOW','Form3')" ng-show="!disablePublishNow3">Publish Now</button>
+                        <button class="btn btn-default pull-right" ng-show="!showInactive3" ng-click="showInactive3=true;buttonSel3=true; changeStatus('Form3');">Activate</button>
+                        <button class="btn btn-default pull-right" ng-show="showInactive3" ng-click="showInactive3=false;buttonSel3=true;changeStatus('Form3');">Inactivate</button>
+                    </div>
+                </div>
+            </form>
+
+
+            <form name="rolesTask4" novalidate>
+                <!-------- form4 ---->
+                <div class="form-group row spacing">
+                    <label class="col-md-2">Fair Type:</label>
+                    <span class="col-md-10" ng-model="task4.fairType">{{fairTypes[4]}}</span>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2">Title:</label>
+                    <span class="col-md-10">
+                    <input type="text" class="form-control rolesTitle" name="title" ng-model="task4.title" required ng-maxlength="40" 
+                    ng-class="{invalidborder:rolesTask4.title.$error.required && submitted4}" ng-change="changeStatus('Form4')" maxlength="40">
+                    <span ng-show="rolesTask4.title.$error.required && submitted4" class="error">
+                      Title can't be blank.
+                    </span>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2">Description:</label>
+                    <span class="col-md-10">
+                    <textarea class="form-control" name="description" ng-model="task4.description" ng-maxlength="500" ng-class="{invalidborder:rolesTask4.description.$error.required
+                       && submitted4}" ng-change="changeStatus('Form4')">
+                    </textarea>
+                    <span ng-show="rolesTask4.description.$error.maxlength && submitted4" class="error"> 
+                     Description length can't be more than 500.
+                    </span>
+                    </span>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2">How:</label>
+                    <span class="col-md-10">
+                    <textarea class="form-control" name="howFile4" ng-model="task4.fileData" ng-change="changeStatus('Form4')" maxlength="5000">
+                    </textarea>
+                    </span>
+                </div>
+
+                <div class="form-group ng-hide">
+                    <span class="col-md-4 no-padding">File, Image or Video:</span>
+                    <span class="col-md-8"> Image (135 &times; 111)
+
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="file" value="Choose File">
+
+                    </span>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 btn-group-sm no-padding">
+
+                        <button class="btn btn-default" ng-click="addRole('SAVE', 'Form4')" ng-show="!disabledSave4">Save</button>
+                        <button class="btn btn-default" ng-click="addRole('SAVE','Form4');" ng-show="!disabledSaveandAdd4">Save &amp; Add Another</button>
+                        <button class="btn btn-default" ng-click="addRole('PUBLISH_LATER','Form4')" ng-show="!disablePublishLater4">Publish Later</button>
+                        <button class="btn btn-default" ng-click="addRole('PUBLISH_NOW','Form4')" ng-show="!disablePublishNow4">Publish Now</button>
+                        <button class="btn btn-default pull-right" ng-show="!showInactive4" ng-click="showInactive4=true;buttonSel4=true;changeStatus('Form4');">Activate</button>
+                        <button class="btn btn-default pull-right" ng-show="showInactive4" ng-click="showInactive4=false;buttonSel4=true;changeStatus('Form4');">Inactivate</button>
+                    </div>
+                </div>
+            </form>
+
+            <!-------- form5 ---->
+            <form name="rolesTask5" novalidate>
+                <div class="form-group row spacing">
+                    <label class="col-md-2">Fair Type:</label>
+                    <span class="col-md-10" ng-model="task5.fairType">{{fairTypes[5]}}</span>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2">Title:</label>
+                    <span class="col-md-10">
+                    <input type="text" class="form-control rolesTitle" name="title" ng-model="task5.title" required ng-maxlength="40" 
+                    ng-class="{invalidborder:rolesTask5.title.$error.required && submitted5}" ng-change="changeStatus('Form5')" maxlength="40">
+                    <span ng-show="rolesTask5.title.$error.required && submitted5" class="error">
+                      Title can't be blank.
+                    </span>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2">Description:</label>
+                    <span class="col-md-10">
+                    <textarea class="form-control" name="description" ng-model="task5.description" ng-maxlength="500" ng-class="{invalidborder:rolesTask5.description.$error.required
+                       && submitted5}" ng-change="changeStatus('Form5')">
+                    </textarea>
+                    <span ng-show="rolesTask5.description.$error.maxlength && submitted5" class="error"> 
+                     Description length can't be more than 500.
+                    </span>
+                    </span>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2">How:</label>
+                    <span class="col-md-10">
+                    <textarea class="form-control" name="howFile5" ng-model="task5.fileData" ng-change="changeStatus('Form5')" maxlength="5000">
+                    </textarea>
+                    </span>
+                </div>
+
+                <div class="form-group ng-hide">
+                    <span class="col-md-4 no-padding">File, Image or Video:</span>
+                    <span class="col-md-8"> Image (135 &times; 111)
+
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="file" value="Choose File">
+
+                    </span>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 btn-group-sm no-padding">
+
+                        <button class="btn btn-default" ng-click="addRole('SAVE', 'Form5')" ng-show="!disabledSave5">Save</button>
+                        <button class="btn btn-default" ng-click="addRole('SAVE','Form5');" ng-show="!disabledSaveandAdd5">Save &amp; Add Another</button>
+                        <button class="btn btn-default" ng-click="addRole('PUBLISH_LATER','Form5')" ng-show="!disablePublishLater5">Publish Later</button>
+                        <button class="btn btn-default" ng-click="addRole('PUBLISH_NOW','Form5')" ng-show="!disablePublishNow5">Publish Now</button>
+                        <button class="btn btn-default pull-right" ng-show="!showInactive5" ng-click="showInactive5=true;buttonSel5=true;changeStatus('Form5');">Activate</button>
+                        <button class="btn btn-default pull-right" ng-show="showInactive5" ng-click="showInactive5=false;buttonSel5=true;changeStatus('Form5');">Inactivate</button>
+                    </div>
+                </div>
+            </form>
+
+            <!-------- form6 ---->
+            <form name="rolesTask6" novalidate>
+                <div class="form-group row spacing">
+                    <label class="col-md-2">Fair Type:</label>
+                    <span class="col-md-10" ng-model="task5.fairType">{{fairTypes[6]}}</span>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2">Title:</label>
+                    <span class="col-md-10">
+                    <input type="text" class="form-control rolesTitle" name="title" ng-model="task6.title" required ng-maxlength="40" 
+                    ng-class="{invalidborder:rolesTask6.title.$error.required && submitted6}" ng-change="changeStatus('Form6')" maxlength="40">
+                    <span ng-show="rolesTask6.title.$error.required && submitted6" class="error">
+                      Title can't be blank.
+                    </span>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2">Description:</label>
+                    <span class="col-md-10">
+                    <textarea class="form-control" name="description" ng-model="task6.description" ng-maxlength="500" ng-class="{invalidborder:rolesTask6.description.$error.required
+                       && submitted6}" ng-change="changeStatus('Form6')">
+                    </textarea>
+                    <span ng-show="rolesTask6.description.$error.maxlength && submitted6" class="error"> 
+                     Description length can't be more than 500.
+                    </span>
+                    </span>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2">How:</label>
+                    <span class="col-md-10">
+                    <textarea class="form-control" name="howFile6" ng-model="task6.fileData" ng-change="changeStatus('Form6')" maxlength="5000">
+                    </textarea>
+                    </span>
+                </div>
+
+                <div class="form-group ng-hide">
+                    <span class="col-md-4 no-padding">File, Image or Video:</span>
+                    <span class="col-md-8"> Image (135 &times; 111)
+
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="file" value="Choose File">
+
+                    </span>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 btn-group-sm no-padding">
+
+                        <button class="btn btn-default" ng-click="addRole('SAVE', 'Form6')" ng-show="!disabledSave6">Save</button>
+                        <button class="btn btn-default" ng-click="addRole('SAVE','Form6');" ng-show="!disabledSaveandAdd6">Save &amp; Add Another</button>
+                        <button class="btn btn-default" ng-click="addRole('PUBLISH_LATER','Form6')" ng-show="!disablePublishLater6">Publish Later</button>
+                        <button class="btn btn-default" ng-click="addRole('PUBLISH_NOW','Form6')" ng-show="!disablePublishNow6">Publish Now</button>
+                        <button class="btn btn-default pull-right" ng-show="!showInactive6" ng-click="showInactive6=true;buttonSel6=true;changeStatus('Form6');">Activate</button>
+                        <button class="btn btn-default pull-right" ng-show="showInactive6" ng-click="showInactive6=false;buttonSel6=true;changeStatus('Form6');">Inactivate</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+</div>

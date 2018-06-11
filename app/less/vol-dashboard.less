@@ -1,0 +1,298 @@
+.volunteerDashboard {
+    header {
+        background: #6CAF3E;
+        color: #fff;
+        border-top: 8px solid #63A239;
+        border-bottom: 8px solid #EFEBEA;
+        padding: 30px 0 50px;
+        .dashboard {
+            float: none;
+            h1 {
+                font-weight: 100;
+                font-size: 28px;
+                letter-spacing: 1px;
+            }
+            p {
+                font-size: 16px;
+                line-height: 1.6em;
+            }
+        }
+    }
+    .center-block {
+        float: none;
+        margin: 0 auto;
+    }
+    .schoolGroupList,
+    .allUpcoming {
+        .panelBox {
+            padding: 30px 4px;
+            clear: both;
+            .heading {
+                color: #676767;
+                float: none;
+                .schoolName {
+                    padding: 0;
+                    margin-bottom: 0;
+                }
+                .fairName {
+                    margin-top: 0;
+                    padding: 0;
+                    font-size: 36px;
+                }
+                .btn {
+                    width: 194px;
+                    font-size: 16px;
+                    padding: 10px 0;
+                    border-radius: 4px;
+                    -webkit-box-shadow: 0 6px 0 0 #DEDEDE;
+                    -moz-box-shadow: 0 6px 0 0 #DEDEDE;
+                    -ms-box-shadow: 0 6px 0 0 #DEDEDE;
+                    box-shadow: 0 6px 0 0 #DEDEDE;
+                }
+                .btn-primary {
+                    text-transform: uppercase;
+                    background: #207FAD;
+                    padding: 3px 10px;
+                }
+                .btn-custom {
+                    background: #FF6825;
+                    color: #fff;
+                    text-transform: capitalize;
+                    padding: 12px 0;
+                    letter-spacing: 1px;
+                    outline: 0;
+                    .glyphicon {
+                        top: 4px;
+                    }
+                }
+            }
+            .panel-body {
+                background: #EEEEEE;
+                position: relative;
+                border-top: 8px solid #DDDDDD;
+                margin: 40px -15px 0;
+                float: left;
+                &:after,
+                &:before {
+                    bottom: 100%;
+                    left: 60%; // DJ VMS-1518
+                    //left: 73%;
+                    border: solid transparent;
+                    content: " ";
+                    height: 0;
+                    width: 0;
+                    position: absolute;
+                    pointer-events: none;
+                }
+                &:after {
+                    border-color: rgba(255, 255, 255, 0);
+                    border-bottom-color: #eee;
+                    border-width: 30px;
+                    margin-left: -30px;
+                }
+                &:before {
+                    border-color: rgba(221, 221, 221, 0);
+                    border-bottom-color: #ddd;
+                    border-width: 37px;
+                    margin-left: -41px;
+                }
+                .list-group {
+                    float: none;
+                    .list-group-item {
+                        background-color: #EEE;
+                        border: 0;
+                        position: relative;
+                        h1 {
+                            color: #4AA2D2;
+                        }
+                        h5 {
+                            color: #646464 !important;
+                            font-size: 32px;
+                            font-weight: 400;
+                            padding: 0;
+                        }
+                        .time {
+                            color: #C63119;
+                            font-size: 16px;
+                            font-weight: 700;
+                        }
+                        .description {
+                            border-left: 2px solid #CDCDCD;
+                            padding-left: 10px;
+                            margin-left: -10px;
+                            p {
+                                font-size: 15px;
+                                img {
+                                    float: left;
+                                    margin-right: 20px;
+                                }
+                            }
+                            .howFile {
+                                ul {
+                                    list-style-type: disc;
+                                }
+                            }
+                            .btn-default {
+                                color: #0096C4;
+                                border: 0;
+                                padding: 7px 29px;
+                                font-size: 16px;
+                                border-radius: 4px;
+                                -webkit-box-shadow: 0 6px 0 0 #CDCDCD;
+                                -moz-box-shadow: 0 6px 0 0 #CDCDCD;
+                                -ms-box-shadow: 0 6px 0 0 #CDCDCD;
+                                box-shadow: 0 6px 0 0 #CDCDCD;
+                                &:hover {
+                                    background-color: #fff;
+                                }
+                            }
+                        }
+                        ul {
+                            list-style-type: none;
+                            li {
+                                margin-bottom: 20px;
+                                position: relative;
+                            }
+                        }
+                    }
+                }
+                .organisedBy {
+                    float: none;
+                    clear: both;
+                    padding-bottom: 100px;
+                    h2 {
+                        text-align: right;
+                        color: #404040;
+                        padding: 0;
+                        margin: 0;
+                    }
+                    .address {
+                        border-left: 1px solid #000;
+                        padding-top: 0;
+                        color: #4A4A4A;
+                        font-size: 16px;
+                        span {
+                            display: block;
+                            letter-spacing: 1px;
+                        }
+                        .email {
+                            font-weight: 600;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .allUpcoming {
+        /*padding-top:30px;*/
+        margin-top: 50px;
+        border-top: 6px solid #ECECEC;
+        .panelBox {
+            .heading {
+                .btn-custom {
+                    background: #6CAF3E;
+                    color: #fff;
+                    text-transform: uppercase;
+                    padding: 3px 10px;
+                    letter-spacing: 1px;
+                    outline: 0;
+                }
+                .eventsDescription {
+                    background-color: #CBEDF9;
+                    padding: 20px;
+                    float: left;
+                    margin-bottom: 20px;
+                    .organisedBy {
+                        float: none;
+                        clear: both;
+                        padding: 30px 0;
+                        h2 {
+                            text-align: right;
+                            color: #404040;
+                            padding: 0;
+                            margin: 0;
+                        }
+                        .address {
+                            border-left: 1px solid #000;
+                            padding-top: 0;
+                            color: #4A4A4A;
+                            font-size: 20px;
+                            word-wrap: break-word;
+                            span {
+                                display: block;
+                                letter-spacing: 1px;
+                            }
+                            .email {
+                                font-weight: 600;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .dashboardfooter {
+        background-color: #EEEEEE;
+        border-top: 6px solid #DFDFDF;
+        margin-top: 40px;
+        .center-block {
+            float: none;
+            p {
+                color: #565656;
+                padding: 20px;
+            }
+        }
+    }
+    .commitment {
+        border-bottom: 8px solid #DEDEDE;
+        position: absolute;
+        top: 0;
+        padding: 10px 7px 15px;
+        background: #fff;
+        z-index: 1;
+        //width: 100%;
+        h1 {
+            color: #646464;
+            font-size: 30px;
+            font-weight: 400;
+            padding: 0;
+        }
+        p {}
+        .btn-primary {
+            background: #FF6825;
+            text-transform: uppercase;
+            padding: 4px 30px;
+            border-radius: 4px;
+            border: none;
+            font-size: 16px;
+            letter-spacing: 1px;
+            -webkit-box-shadow: 0 6px 0 0 #DEDEDE;
+            -moz-box-shadow: 0 6px 0 0 #DEDEDE;
+            -ms-box-shadow: 0 6px 0 0 #DEDEDE;
+            box-shadow: 0 6px 0 0 #DEDEDE;
+            cursor: pointer;
+            outline: none;
+        }
+        .btn-link {
+            color: #1385A7;
+            font-size: 18px;
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+    }
+    .commitConfirmation {
+        position: absolute;
+        bottom: -6px;
+        left: 0;
+        width: 90%;
+        background: #fff;
+        padding: 20px;
+        border-bottom: 8px solid #DEDEDE;
+        .btn {
+            padding: 1px 20px;
+            border: 0;
+            outline: 0;
+            border-radius: 0;
+        }
+    }
+}

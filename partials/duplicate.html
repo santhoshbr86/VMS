@@ -1,0 +1,206 @@
+<div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+</br></br>
+    <div class="ng-hide show_error col-md-11 col-sm-11 col-xs-11" ng-show="(duplicate.start.$error.required)
+		|| (duplicate.end.$error.required)
+		|| (duplicate.volName.$error.pattern && duplicate.submitted)
+		|| (duplicate.startDate.$error.required && duplicate.submitted)
+		|| (duplicate.startDate.$error.date && duplicate.submitted)
+		|| (thisIsBefore(duplicate.startDate,task.maxPastDate))
+		|| (thisIsAfter(duplicate.startDate,task.maxFutureDate))
+		|| (isSameOrAfter(duplicate.start,duplicate.end))
+		|| (isGreaterthan12(duplicate.start,duplicate.end))
+		">
+		<span class="glyphicon glyphicon-alert errorIcon"></span>
+		<span class="col-md-11 errorTextBox"">
+			<p ng-show="duplicate.start.$error.required">
+				Start time is a required field.
+			</p>
+			<p ng-show="duplicate.end.$error.required">
+				End time is a required field.
+			</p>
+            <p ng-show="duplicate.startDate.$error.required">
+				Date is a required field.
+			</p>
+            <p ng-show="duplicate.startDate.$error.date">
+				Invalid date: valid format "MM/DD/YYYY".
+			</p>
+            <p ng-show="!duplicate.noVolunteer">
+				Please enter required contact details below.
+			</p>
+            <p ng-show="thisIsBefore(duplicate.startDate,task.maxPastDate)">
+				Please select a date after {{task.maxPastDate | standardDate}}
+			</p>
+            <p ng-show="thisIsAfter(duplicate.startDate,task.maxFutureDate)">
+				Please select a date before {{task.maxFutureDate | standardDate}}
+			</p>
+            <p ng-show="isSameOrAfter(duplicate.start,duplicate.end)">
+				End time must be after start time.
+			</p>
+            <p ng-show="duplicate.start !== 'Any Time' && duplicate.end === 'Any Time'">
+				End time must be a specific time after start time, and not 'Any Time'.
+			</p>
+			<p ng-show="wrongTime">
+				Enter correct time format. Example 00:00 or 0:00
+			</p>
+			<p ng-show="isGreaterthan12(duplicate.start,duplicate.end)">
+				Duration can not exceed 12 hours.
+			</p>
+		</span>
+	</div>
+	<div class="form-group">
+					<label class="col-md-2 col-sm-2 col-xs-12 control-label">
+						Date:
+					</label>
+					<div class="col-md-3 col-sm-4 col-xs-12 date">
+						<div class="input-group">
+							<input class="form-control" type="text" name="startDate"
+									   uib-datepicker-popup="MM/dd/yyyy"
+									   ng-model="duplicate.startDate"
+									   ng-class="{ errorBorder : (taskDetailsFrm.startDate.$error.required && submitted)
+									   || (taskDetailsFrm.startDate.$error.date && submitted)
+									   || (thisIsBefore(task.startDate,task.maxPastDate) && submitted)
+									   || (thisIsAfter(task.startDate,task.maxFutureDate) && submitted)
+									   }"
+									   is-open="duplicate.opened"
+									   show-button-bar="false"
+									   required>
+							<span class="input-group-btn">
+					          	<button class="btn btn-default btnCalender" type="button" ng-click="openDuplicate($index,$event)"> <img src="../images/icon-calendar2.png" height="28"/></button>
+					        </span>
+				        </div>
+					</div>
+					<button class="btn pull-right dup-btn deleteDup" ng-click="deleteDuplicate($index)">Delete Duplicate</button>
+				</div>
+				<div class="form-group">
+					<label class="col-md-2 col-sm-2 col-xs-12 control-label">
+							Start Time:
+					</label>
+					<div class="col-md-2 col-sm-1 col-xs-12 timeWrap" id="startTimeWrap">
+							<input type="text"
+							ng-model="duplicate.start"
+							name="startTime"
+							class="form-control"
+							ng-class="{ errorBorder : duplicate.start.$error.required
+								|| duplicate.start.$error.date
+								|| (isSameOrAfter(duplicate.start,duplicate.end))
+								}" required validate-start/>
+							<time-start></time-start>
+					</div>
+					<label class="col-md-1 col-sm-1 col-xs-12 control-label" ng-hide="task.start==='Any Time'">
+							End:
+					</label>
+					<div class="col-md-2 col-sm-1 col-xs-12 timeWrap" id="endTimeWrap" ng-hide="task.start==='Any Time'">
+							<input type="text" ng-model="duplicate.end"
+									name="endTime"
+									class="form-control"
+									ng-class="{ errorBorder : duplicate.end.$error.required
+								|| duplicate.end.$error.date
+								|| (isSameOrAfter(duplicate.start,duplicate.end))
+								}" required validate-end/>
+							 <time-end></time-end>
+					</div>
+				</div>
+				<section class="volunteerName col-md-12 col-sm-12">
+					<div class="form-group">
+						<label class="col-md-2 col-sm-2 col-xs-12 control-label volunteerLabel">
+							Assign a Volunteer:
+						</label>
+						<div class="col-md-4 col-sm-4 col-xs-12 volunteerField">
+							<input class="form-control" type="text" name="volName"  ng-model="duplicate.volName" ng-change="checkDuplicateVolunteer($index)"autocomplete="off"> <!-- ng-blur -->
+						</div>
+						<div class="col-md-6 col-sm-5 col-xs-12" ng-include="include.volText"></div>
+					</div>
+					<ul class="contactList" ng-show="duplicate.showlist">
+						<li ng-repeat="contact in contactList | filter: duplicate.volName | orderBy: ['volunteerExt.firstName', 'volunteerExt.lastName']">
+						<a href="javascript:void(0);" ng-click="onSelectDuplicate(contact, $parent.$index)"><span class='name'>{{contact.volunteerExt.firstName}}</span> <span class='name'>| {{contact.volunteerExt.lastName}}</span> <span ng-if="contact.email.length>0">| {{contact.email}}</span> <span ng-if="contact.volunteerExt.phone !==null"> | {{contact.volunteerExt.phone | phoneFormat}}</span></a>
+						</li>
+						<span class="addNew" ng-show="(duplicate.filteredContact=(contactList | filter: duplicate.volName)).length==0"><a href="javascript:void(0);" ng-click="addNewDuplicateContact($index)">Add new Contact</a></span>
+					</ul>
+				</section>
+				<div class="col-md-10 col-sm-10 no_padding col-xs-12 newVolunteer" ng-show="!duplicate.noVolunteer">
+				    </br>
+				    <div class="show_error errorBox col-md-12" ng-show="((!(duplicate.hasOwnProperty('email'))) || (duplicate.firstName.length < 1)  || (duplicate.lastName.length < 1) || (duplicate.email.length < 7) || (duplicate.lastName.length > 30) || (duplicate.firstName.length > 30)) && submitted">
+				        <span class="glyphicon glyphicon-alert errorIcon"></span>
+				        <span class="col-md-11 errorTextBox">
+				            <p>
+				            Please enter required contact details below.
+				            </p>
+				            <p ng-show="!(duplicate.hasOwnProperty('email')) || duplicate.email.length < 7">
+				            Email address is not valid.
+				            </p>
+				            <p ng-show="duplicate.volName.$error.pattern">
+				            Volunteer name is not valid.
+				            </p>
+				            <p ng-show="duplicate.firstName.length < 1">
+				            Volunteer first name should be at least 1 characters.
+				            </p>
+				            <p ng-show="duplicate.lastName.length < 1">
+				            Volunteer last name should be at least 1 characters.
+				            </p>
+				            <!-- <p ng-show="(duplicate.hasOwnProperty('phone')) && duplicate.phone.length > 12">
+				            Please enter your 10-digit telephone number, including area code, with no spaces or special characters.
+				            </p> -->
+				            <p ng-show="(taskDetailsFrm.phone.$error.maxlength || taskDetailsFrm.phone.$error.length ||taskDetailsFrm.phone.$error.minlength )&&submitted">
+				            Please enter your 10-digit telephone number, including area code, with no spaces or special characters.
+				            </p>
+				            <p ng-show="duplicate.addContactErrors">
+				            {{addContactErrorsMsg}}.
+				            </p>
+				            <p ng-show="duplicate.addContactFirstNameError">
+				            First name is a required field.
+				            </p>
+				            <p ng-show="duplicate.firstName.length > 30">
+				            First name cannot be more than 30 characters.
+				            </p>
+				            <p ng-show="duplicate.addContactLastNameError">
+				            Last name is a required field.
+				            </p>
+				            <p ng-show="duplicate.lastName.length > 30">
+				            Last name cannot be more than 30 characters.
+				            </p>
+				            <p ng-show="duplicate.addContactEmailError">
+				            Email is a required field.
+				            </p>
+				        </span>
+			        </div>
+			        <div class="form-group">
+			            <label class="col-md-2 col-sm-2 col-xs-12 control-label">First Name:</label>
+			            <div class="col-md-4 col-sm-7 col-xs-12">
+			            <input type="text"
+			            ng-model="duplicate.firstName"
+			            ng-minlength="1"
+			            ng-maxlength="30"
+			            name="firstName"
+			            class="form-control"
+			            maxlength="30" />
+			            </div>
+			        </div>
+			        <div class="form-group">
+			            <label class="col-md-2 col-sm-2 col-xs-12 control-label">Last Name:</label>
+			            <div class="col-md-4 col-sm-7 col-xs-12">
+			            <input type="text"
+			            ng-model="duplicate.lastName"
+			            ng-minlength="1"
+			            ng-maxlength="30"
+			            name="lastName"
+			            class="form-control"
+			            maxlength="30" />
+			            </div>
+			        </div>
+			        <div class="form-group">
+			            <label class="col-md-2 col-sm-2 col-xs-12 control-label">Email:</label>
+			            <div class="col-md-7 col-sm-7 col-xs-12">
+			            <input type="email" ng-model="duplicate.email" ng-minlength="6" name="email" class="form-control" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{1,}$/">
+			            </div>
+			        </div>
+			        <div class="form-group">
+			            <label class="col-md-2 col-sm-2 col-xs-12 control-label">Phone:</label>
+			            <div class="col-md-4 col-sm-7 col-xs-12">
+			            <input type="tel" ng-model="duplicate.phone" name="phone" class="form-control" maxlength="10" ng-maxlength="10"  ng-minlength="10" numbers-only format-phone>
+			            <span class="control-label-area-code">(Please include area code)</span>
+			            </div>
+			            <span class="control-label-optional">(optional)</span>
+			        </div>
+			    </div>
+			    <hr class="volunteerBottom">
+</div>

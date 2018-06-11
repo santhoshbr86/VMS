@@ -1,0 +1,81 @@
+
+<style type="text/css">
+.forgot_left {
+    float: left;
+    width: 420px;
+    margin-right: 20px;
+    padding-right: 26px;
+    border-right: 0px;
+}
+#forgotAccountCancel {
+    margin-left: 36px;
+}
+.icon_close {
+	float: right;
+    margin-right: 15px;
+}
+.Footer
+{
+visibility: hidden;
+}
+@media screen and (max-width: 480px){
+.mobile_all_frame{
+position:absolute;
+}	
+} 
+</style>
+
+<div class="mobile_all_frame">
+<div id="login_frame" class="mobile_login_frame"> 
+ <div id="login_area" class="mobile_login_area">
+  <div id="login_area-content" class="mobile_login_area-content">
+
+	<!-- Begin Password Reminder -->
+	<div id="login_area-pword" style="display: block;">
+	    <a href="" ng-click="redirectToLoginPage()" class="icon_close">
+	        <img src="../images/icon_close.png" width="16" height="16" />
+	    </a>
+		<h3>Forgot your account information?</h3>
+			
+		<p class="forgot_top">Enter the email address associated with your 
+			Scholastic.com account, then click Submit. We'll email you a link to a 
+			page where you can easily create a new password.</p>
+
+		<form  name="forgot_form" novalidate ng-submit="forgot()">
+			<div class="forgot_left">
+                <!-- <div class="errorLbl">{{error}}</div>  -->
+
+                <div class="errorLbl" ng-show="looksLikeBadEmail(error)">The e-mail information you entered is not in the proper format for an e-mail address.  Please update your information using the following format: name@companyname.com</div>
+				<div class="errorLbl" ng-show="looksLikeMissingEmail(error)">We couldn't find an account with the information you provided. Please try again or contact <a href='https://scholastic-bookfairs.custhelp.com/' target='_blank'>customer service</a>.</div>
+				<div class="errorLbl" ng-show="!looksLikeMissingEmail(error) && !looksLikeBadEmail(error)">{{error}}</div>
+				
+				
+				<div class="forgot_leftform-row">
+					<label for="email">Email:</label>
+					<input class="gwt-TextBox" maxlength="75" tabindex="1" name="email" ng-model="email" required></input>
+					<br class="clearfloat"></br>
+				</div>
+
+				<a href=""  id="forgotAccountCancel" ng-click="redirectToLoginPage()">Cancel</a>
+				<a href="javascript:void(0)" id="forgotAccountSubmit" ng-click="forgot()">Submit</a>
+				<br class="clearfloat"></br>
+			</div>
+			
+   				   					
+		</form>
+<!--
+		<div class="forgot_right">
+			<h4>Hey Kids!</h4>
+				<p>
+				Please don't submit your e-mail address. This reminder is only for grown-ups.
+				</p>
+		</div> -->
+		<p class="forgot_btm">
+		If you can no longer access the email address you registered with, <a href="mailto:lookup@scholastic.com?subject=Email%20Address%20Update" title="Email Address Update">please contact Customer Service</a> and be sure to include your first and last name and your old email address. </p>
+	</div>
+   </div>
+ </div>
+</div>
+</div>
+<p class="forget_footer">&nbsp;<p>
+<!-- End Password Reminder -->

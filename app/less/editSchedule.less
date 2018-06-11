@@ -1,0 +1,92 @@
+@labelColor: #666;
+@borderColor: #1a72b0;
+.volSchedule {
+    margin-top: 20px;
+    font: 14px verdana, Arial, sans-sarif;
+    p {
+        color: #666;
+        margin-top: 10px;
+    }
+    .row {
+        margin: 0;
+    }
+    .pageHeader {
+        padding-bottom: 30px;
+    }
+    .breadCrumb {
+        a {
+            color: #1a72b0;
+            &:hover {
+                text-decoration: none;
+            }
+        }
+        .disabled {
+            cursor: auto;
+            color: #888;
+        }
+    }
+    .title {
+        color: @labelColor;
+        font: 24px verdana, Arial, sans-sarif;
+        padding: 10px 0;
+    }
+    .nav-tabs {
+        border-bottom: 1px solid #1a72b0;
+        .uib-tab {
+            div {
+                cursor: pointer;
+                color: #fff;
+                border-radius: 0px;
+                padding: 0px 10px;
+                margin-right: 14px;
+                background: @borderColor;
+                border-color: @borderColor @borderColor transparent @borderColor;
+                &:hover {
+                    background: @borderColor;
+                    color: #fff;
+                    border-color: @borderColor @borderColor transparent @borderColor;
+                }
+            }
+        }
+        .uib-tab.active {
+            div {
+                background: #fff;
+                color: #666;
+            }
+        }
+    }
+    .listPopup {
+        width: 412px;
+        height: auto;
+        top: 248px;
+        position: fixed;
+        padding: 15px;
+        box-shadow: 0 0 2px 2px #D5D5D5;
+        z-index: 99;
+        left: 52%;
+        margin-left: -200px;
+        margin-top: -100px;
+        background: #fff;
+        font-size: 16px;
+        footer {
+            left: 15px;
+            position: absolute;
+            bottom: 10px;
+            .btn {
+                text-transform: uppercase;
+                padding: 2px 10px;
+                margin-right: 10px;
+            }
+            .btn-custom {
+                border-radius: 0;
+                background: #FFFFFF;
+                color: #007FC5;
+                border: 1px solid #007FC5;
+            }
+        }
+    }
+}
+
+.schedulerWrap {
+    position: relative;
+}
